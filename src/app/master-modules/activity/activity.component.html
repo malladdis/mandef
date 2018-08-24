@@ -1,0 +1,28 @@
+<div class="container">
+  <br><br>
+  <div class="row" *ngIf="activities.length > 0">
+      <div class="col-md-12">
+        <div class="alert alert-info">List of activities</div>
+        <button class="btn btn-primary pull-right" routerLink="/auth/master-modules/add-activity"><i class="fa fa-plus" ></i>&nbsp;Add</button>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>No.</th>
+              <th>Name</th>
+              <th>Descritpion</th>
+              <th>output</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let activity of activities">
+              <td>1</td>
+              <td>{{activity.name}}</td>
+              <td>{{activity.description}}</td>
+              <td>{{activity.output.name}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+  </div>
+</div>
+

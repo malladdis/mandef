@@ -1,0 +1,23 @@
+<mat-accordion class="example-headers-align" *ngIf="outcome">
+  <mat-expansion-panel #matExpansionPanel  hideToggle>
+    <mat-expansion-panel-header (click)="toggleIcon()">
+      <mat-panel-title>
+        <mat-icon>{{icon}}</mat-icon>
+        <span class="my-badge outcome">Outcome</span>
+        <span class="my-title">{{outcome['name']}}</span>
+        <button mat-button (click)="disable(matExpansionPanel, outcome['id'])">
+          <mat-icon >add</mat-icon>
+        </button>
+      </mat-panel-title>
+      <mat-panel-description>
+        <span class="spacer"></span>
+
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <ng-template matExpansionPanelContent>
+      <app-indicator-tree *ngFor="let indicator of outcome['indicators']" [indicator]="indicator"></app-indicator-tree>
+      <app-output-tree *ngFor="let output of outcome['outputs']" [id]="output['id']" [outcome_id]="outcome['id']"></app-output-tree>
+      <app-outcome-tree *ngFor="let out of outcome['outcomes']" [id]="out['id']" ></app-outcome-tree>
+    </ng-template>
+  </mat-expansion-panel>
+</mat-accordion>

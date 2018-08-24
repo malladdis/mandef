@@ -1,0 +1,181 @@
+<div fxLayout="row">
+  <div fxFlexFill>
+    <mat-toolbar style="background-color: white;">
+      <span class="spacer"></span>
+      <button mat-button mat-dialog-close class="close-button" style="float: right">
+        <mat-icon> close</mat-icon>
+      </button>
+    </mat-toolbar>
+    <mat-tab-group>
+      <mat-tab [label]="'Activity'">
+        <ng-template matTabContent>
+          <form #activityForm="ngForm" novalidate (ngSubmit)="submitActivity(activityForm)">
+            <p>
+              <mat-form-field class="full-width">
+                <input type="text" name="name" ngModel matInput placeholder="Activity title" required>
+              </mat-form-field>
+            </p>
+            <p>
+              <mat-form-field class="full-width">
+                <mat-select name="category" ngModel placeholder="Activity Category" required>
+                  <mat-option *ngFor="let category of activityCategories" [value]="category['id']">
+                    {{category['name']}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </p>
+            <p>
+              <mat-form-field class="half-width">
+                <mat-select name="kebele" ngModel placeholder="kebele" required>
+                  <mat-option *ngFor="let kebele of kebeles" [value]="kebele['id']">{{kebele['name']}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field class="half-width">
+                <mat-select name="status" ngModel placeholder="status" required>
+                  <mat-option *ngFor="let status of statuses" [value]="status['id']">{{status['name']}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </p>
+            <p>
+              <mat-form-field class="full-width">
+                <mat-select name="partners" ngModel placeholder="Implementing Partners" [multiple]="true" required>
+                  <mat-option *ngFor="let implementer of implementers"
+                              [value]="implementer['id'] + '_' + implementer['name']">{{implementer['name']}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </p>
+            <p>
+              <mat-form-field class="half-width">
+                <input name="start" ngModel matInput [matDatepicker]="starting" placeholder="Baseline Date" required>
+                <mat-datepicker-toggle matSuffix [for]="starting"></mat-datepicker-toggle>
+                <mat-datepicker #starting></mat-datepicker>
+              </mat-form-field>
+              <mat-form-field class="half-width">
+                <input name="end" ngModel matInput [matDatepicker]="ending" placeholder="Target Date" required>
+                <mat-datepicker-toggle matSuffix [for]="ending"></mat-datepicker-toggle>
+                <mat-datepicker #ending></mat-datepicker>
+              </mat-form-field>
+            </p>
+            <p>
+              &nbsp;&nbsp;&nbsp;
+              <mat-checkbox name="onbudget" ngModel [(ngModel)]="onbudget" color="primary">Add Activity Budget
+              </mat-checkbox>
+            </p>
+            <p *ngIf="onbudget">
+              <mat-form-field class="full-width">
+                <input type="number" name="budget" ngModel matInput placeholder="Activity Budget">
+              </mat-form-field>
+            </p>
+            <button mat-raised-button color="primary" type="submit" mat-button
+                    class="background-primary text-floral-white" [disabled]="activityForm.form.invalid">
+              <mat-icon iconsmall>save</mat-icon>
+              Save
+            </button>
+          </form>
+        </ng-template>
+      </mat-tab>
+      <!-- end of output tab -->
+      <!-- start of indicator tab -->
+      <mat-tab [label]="'Indicator'">
+        <perfect-scrollbar>
+          <ng-template matTabContent>
+            <form #indicatorForm="ngForm" novalidate (ngSubmit)="submitIndicator(indicatorForm)">
+              <p>
+                <mat-form-field class="full-width">
+                  <input type="text" name="name" ngModel matInput placeholder="Indicator title" required>
+                </mat-form-field>
+              </p>
+              <p>
+                <mat-form-field class="full-width" *ngIf="dataTypes">
+                  <mat-select name="type" ngModel placeholder="Type" required>
+                    <mat-option *ngFor="let type of dataTypes" [value]="type['id']">{{type['name']}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </p>
+              <p>
+                <mat-form-field class="half-width">
+                  <input name="baseline" type="number" ngModel matInput placeholder="Baseline Value" required>
+                </mat-form-field>
+                <mat-form-field class="half-width">
+                  <input name="start" ngModel matInput [matDatepicker]="starting" placeholder="Baseline Date" required>
+                  <mat-datepicker-toggle matSuffix [for]="starting"></mat-datepicker-toggle>
+                  <mat-datepicker #starting></mat-datepicker>
+                </mat-form-field>
+              </p>
+              <p>
+                <mat-form-field class="half-width">
+                  <input name="target" type="number" ngModel matInput placeholder="Target Value" required>
+                </mat-form-field>
+                <mat-form-field class="half-width">
+                  <input name="end" ngModel matInput [matDatepicker]="ending" placeholder="Target Date" required>
+                  <mat-datepicker-toggle matSuffix [for]="ending"></mat-datepicker-toggle>
+                  <mat-datepicker #ending></mat-datepicker>
+                </mat-form-field>
+              </p>
+              <p>
+                <mat-form-field class="half-width">
+                  <mat-select name="unit" ngModel placeholder="Measuring Unit" required>
+                    <mat-option *ngFor="let unit of measuringUnits" [value]="unit['id']">{{unit['name']}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <mat-form-field class="half-width">
+                  <mat-select name="frequency" ngModel placeholder="Frequency" required>
+                    <mat-option *ngFor="let frequency of frequencies" [value]="frequency['id']">{{frequency['name']}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </p>
+              <p>
+                <mat-form-field class="full-width">
+                  <input name="source" ngModel type="text" matInput placeholder="Primary Source Of Data" required>
+                </mat-form-field>
+              </p>
+              <p>
+                &nbsp;&nbsp;&nbsp;
+                <mat-checkbox name="disaggregation" ngModel [(ngModel)]="disaggregate" color="primary">Desegregate data
+                  by
+                </mat-checkbox>
+              </p>
+              <p *ngIf="disaggregate">
+                <mat-form-field class="half-width">
+                  <mat-select name="disgby" ngModel placeholder="disaggregate method" [multiple]="true">
+                    <mat-option *ngFor="let method of disaggregationMethods" [value]="method['id']">{{method['name']}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <button type="button" mat-raised-button color="primary">
+                  <mat-icon>add</mat-icon>&nbsp;
+                  Disaggregation Method
+                </button>
+              </p>
+              <p>
+                &nbsp;&nbsp;&nbsp;
+                <mat-checkbox [checked]="true" name="totalauto" ngModel color="primary">Total Automatically Calculated
+                </mat-checkbox>
+              </p>
+              <p>
+                &nbsp;&nbsp;&nbsp;
+                <mat-checkbox name="customformneeded" ngModel [(ngModel)]="customform" color="primary">Connect To Custom
+                  Form
+                </mat-checkbox>
+              </p>
+              <p *ngIf="customform">
+                <mat-form-field class="full-width">
+                  <mat-select name="customform" ngModel placeholder="custom forms">
+                    <mat-option>form 1</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </p>
+              <button mat-raised-button color="primary" type="submit" mat-button
+                      class="background-primary text-floral-white" [disabled]="indicatorForm.form.invalid">
+                <mat-icon iconsmall>save</mat-icon>
+                Save
+              </button>
+            </form>
+          </ng-template>
+        </perfect-scrollbar>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>

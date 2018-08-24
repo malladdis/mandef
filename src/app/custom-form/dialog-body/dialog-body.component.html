@@ -1,0 +1,19 @@
+<div>
+  <h2 mat-dialog-title color="primary">Create a new custom form</h2>
+<mat-dialog-content [formGroup]="createForm" style="height:100%" style="overflow-y: hidden;">
+  <mat-form-field class="example-container">
+    <input type="text" matInput placeholder="title" name="title" formControlName="title" required>
+  </mat-form-field>
+
+  <mat-form-field class="example-container">
+    <textarea name="" id="" cols="10" rows="5" matInput placeholder="description" name="description" formControlName="description"></textarea>
+  </mat-form-field>
+  <span>Visbility</span><br>
+  <span style="padding: 10px;"></span><br>
+  <mat-checkbox [checked]="true">Public</mat-checkbox>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-raised-button  (click)="close()" color="accent">Close</button>
+  <button mat-raised-button mat-primary (click)="save()" color="primary">Save</button>
+</mat-dialog-actions>
+</div>

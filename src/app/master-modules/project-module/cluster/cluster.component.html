@@ -1,0 +1,40 @@
+<div fxLayout="column" >
+  <div fxFlex>
+    <mat-toolbar class="program-header">
+      Add New Cluster
+      <span class="spacer"></span>
+      <button mat-mini-fab mat-dialog-close class="close-button" color="primary">&times;</button>
+    </mat-toolbar>
+    <perfect-scrollbar>
+      <form novalidate #addCluster="ngForm" [formGroup]="addClusterForm" (ngSubmit) = "submit(addCluster)">
+        <p>
+          <mat-form-field class="full-width">
+            <input type="text" matInput formControlName="name" placeholder="Cluster title" required>
+          </mat-form-field>
+        </p>
+        <p>
+            <mat-form-field class="full-width">
+                <mat-select formControlName="zone" required placeholder="Select zone" *ngIf='zones'>
+                  <mat-option *ngFor='let zone of zones' [value]="zone.id">{{zone.name}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </p>
+        <p>
+          <mat-form-field class="full-width">
+            <mat-select formControlName="kebele" placeholder="select kebeles" multiple required>
+              <mat-optgroup *ngFor="let woreda of woredas" [label]="woreda.name">
+                <mat-option *ngFor="let kebele of woreda.kebeles" [value]="kebele.id">
+                  {{kebele.name}}
+                </mat-option>
+              </mat-optgroup>
+            </mat-select>
+          </mat-form-field>
+        </p>
+        <button mat-raised-button color="primary" type="submit" mat-button class="background-primary text-floral-white" [disabled]="addCluster.form.invalid">
+            <mat-icon iconsmall>save</mat-icon>
+            Save
+          </button>
+      </form>
+    </perfect-scrollbar>
+  </div>
+</div>

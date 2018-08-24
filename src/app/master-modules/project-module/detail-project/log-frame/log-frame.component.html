@@ -1,0 +1,24 @@
+<div fxLayout="row" fxLayout.xs="column" class="components-container-gt-xs" [ngClass.xs]="'components-container-xs'" fxLayoutGap="20px">
+    <div fxFlexFill style="background-color: #fff;" class="my-container">
+      <mat-accordion class="example-headers-align" *ngIf="project" multi="true" displayMode="'flat'">
+        <mat-expansion-panel [expanded]="step === 0"  #matExpansionPanel  hideToggle>
+          <mat-expansion-panel-header (click)="toggleIcon()">
+            <mat-panel-title>
+              <mat-icon>{{icon}}</mat-icon>
+              <span class="my-badge project">Project</span>
+              <span class="my-title">{{project['name']}}</span>
+              <button mat-button (click)="disable(matExpansionPanel, project['id'])">
+                <mat-icon >add</mat-icon>
+              </button>
+            </mat-panel-title>
+            <mat-panel-description>
+              <span class="spacer"></span>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <ng-template matExpansionPanelContent>
+            <app-outcome-tree *ngFor="let outcome of project.outcomes" [id]="outcome.id" [project_id]="project['id']">{{outcome['name']}}</app-outcome-tree>
+          </ng-template>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+</div>

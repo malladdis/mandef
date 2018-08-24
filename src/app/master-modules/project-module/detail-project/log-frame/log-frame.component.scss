@@ -1,0 +1,77 @@
+.mat-expansion-panel:not([class*=mat-elevation-z]) {
+  box-shadow: 0 0px 0px 0px rgba(0,0,0,.2), 0 0px 0px 0 rgba(0,0,0,.14), 0 0px 0px 0 rgba(0,0,0,.12);
+}
+.mat-expansion-panel-body{padding:0 0 0}
+.mat-expansion-panel-header{
+  padding-right: 0px;
+  padding-left: 24px;
+}
+::ng-deep .mat-expansion-panel-body {
+  padding-right: 0 !important;
+  margin: 0 !important;
+}
+.mat-expansion-panel{
+  margin-right: 0;
+}
+.mat-expansion-panel-content{
+  padding-right: 0 !important;
+  width: 100%;
+}
+::ng-deep .mat-expansion-panel-content {
+  padding: 0;
+}
+.mat-expansion-panel-content > .mat-expansion-panel-body {
+  padding: 0 !important;
+}
+#cdk-accordion-child-0{
+  padding-right: 0 !important;
+}
+.example-headers-align .mat-expansion-panel-header-title {
+  position: relative;
+}
+
+.example-headers-align .mat-expansion-panel-header-description {
+
+}
+.my-badge{
+  padding: 4px 8px;
+  color: white;
+  position: relative;
+  max-height: 20px;
+}
+.my-title{
+  position: relative;
+  bottom: -4px;
+  margin-left: 4px;
+  vertical-align: center;
+}
+.ng-container{
+  margin-bottom: 2em;
+}
+.my-button{
+  z-index: 9999999999999999999999;
+}
+.project {
+  background-color: red;
+}
+
+.my-container{
+  margin-bottom: 10em;
+}
+.myadd{float: right;}
+// .expandingicon { position: relative;top: 8px;}
+.my-expanding-panel-header{
+  padding: 4px;
+  background-color: #f5f5f5;
+}
+.expanding-title{
+  position: relative;
+  top: -5px !important;
+  cursor: pointer;
+}
+.my-expanding-panel-body{
+  padding-left: 24px;
+}
+.expanded {
+  display: none;
+}

@@ -1,0 +1,14 @@
+<div  fxLayout="column" class="components-container-gt-xs" [ngClass.xs]="'components-container-xs'" >
+  <mat-toolbar color="primary">
+    <h1 class="mat-headline center-align" *ngIf="pro">{{pro['name']}}</h1>
+    <span class="spacer"></span>
+    <button mat-button routerLink="{{overviewLink}}">Overview</button>
+    <button mat-button routerLink="{{activityLink}}">Activities</button>
+    <button mat-button routerLink="{{logframLink}}">Logframe</button>
+    <button mat-button routerLink="{{expenditureLink}}">Expenditure</button>
+  </mat-toolbar>
+  <div fxFlexFill>
+
+  </div>
+</div>
+<router-outlet></router-outlet>

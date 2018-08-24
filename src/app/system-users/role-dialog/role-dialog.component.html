@@ -1,0 +1,20 @@
+<div>
+  <h2 mat-dialog-title>Add new Role for your users</h2>
+
+  <mat-dialog-content style="overflow-y: hidden;padding-bottom: 30px;" [formGroup]="registerRole">
+    <h4 style="color: #242424">Role name:</h4>
+  <mat-form-field style="width: 100%;">
+    <input type="text" placeholder="Full name" matInput formControlName="name" name="name" required>
+    </mat-form-field>
+
+    <h4 style="color: #242424">Description:</h4>
+    <mat-form-field style="width: 100%;">
+      <textarea matInput placeholder="Describe this role" formControlName="description"></textarea>
+    </mat-form-field>
+  </mat-dialog-content>
+
+  <mat-dialog-actions>
+    <button mat-raised-button  (click)="closeRoleDialog()" color="accent">Close</button>
+    <button mat-raised-button mat-primary (click)="addRole()" color="primary">Save</button>
+  </mat-dialog-actions>
+</div>

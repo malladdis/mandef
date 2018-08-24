@@ -1,0 +1,44 @@
+<div>
+  <h2 mat-dialog-title>Register new user</h2>
+  <mat-dialog-content style="overflow-y: hidden;padding-bottom: 30px;" [formGroup]="registerForm">
+      <h4 style="color: #242424">Full name:</h4>
+    <mat-form-field style="width: 100%;">
+      <input type="text" placeholder="Full name" matInput formControlName="name" name="name" required>
+    </mat-form-field>
+
+    <h4 style="color: #242424">Select role for this user:</h4>
+    <mat-form-field style="width: 100%;">
+      <mat-select placeholder="Select role" formControlName="role_id">
+        <mat-option *ngFor="let r of roles" [value]="r.id" (onSelectionChange)="roleSelected(r.id)">
+          {{r.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+
+    <h4 style="color: #242424">User Email:</h4>
+    <mat-form-field style="width: 100%;">
+      <input type="email" placeholder="Email" matInput formControlName="email" name="email" required>
+    </mat-form-field>
+ 
+    <h4 style="color: #242424">Password:</h4>
+    <div  fxLayout="row"
+    fxLayoutGap="10px"
+    fxLayoutGap.xs="0">
+      <div fxFlex="70%">
+          <mat-form-field style="width: 100%;">
+              <input type="text" placeholder="password" formControlName='password' name="password" matInput>
+            </mat-form-field>
+      </div>
+      <div fxFlex="30%">
+          <button mat-raised-button color="primary" (click)="generatePassword()">Generate password</button>
+      </div>
+    </div>
+    <mat-checkbox>Send link and password for this user now.</mat-checkbox>
+  
+  </mat-dialog-content>
+  <mat-dialog-actions>
+      <button mat-raised-button  (click)="closeDialog()" color="accent">Close</button>
+      <button mat-raised-button mat-primary (click)="registerUsers()" color="primary">Save</button>
+  </mat-dialog-actions>
+</div>

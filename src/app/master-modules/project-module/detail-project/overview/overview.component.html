@@ -1,0 +1,45 @@
+<div class="container">
+  <div *ngIf="project" fxLayout="row" fxLayout.xs="column" class="components-container-gt-xs" [ngClass.xs]="'components-container-xs'" style="padding-top: 0;" fxLayoutGap="5px">
+    <div fxFlex="30" >
+      <mat-card style="padding-right: 0; padding-left: 0px;" *ngIf="project['description']">
+        <div style="padding-right: 24px; padding-left: 24px;">
+          <mat-card-title>Description</mat-card-title>
+          <mat-card-content>{{project['description']}}</mat-card-content>
+        </div>
+        <br>
+        <mat-card-title style="padding-left: 16px;">Details</mat-card-title>
+        <mat-list>
+          <mat-list-item><span style="font-weight: bold;">Start Date:</span> <span style="padding-left: 1em;">{{project['details']['starting_date'] |date}}</span></mat-list-item>
+          <mat-list-item><span style="font-weight: bold;">End Date:</span> <span style="padding-left: 1em;">{{project['details']['ending_date'] |date}}</span></mat-list-item>
+          <mat-list-item><span style="font-weight: bold;">Cluster:</span> <span style="padding-left: 1em;">{{project['details']['cluster']['name']}}</span></mat-list-item>
+          <mat-list-item><span style="font-weight: bold;">Category:</span> <span style="padding-left: 1em;">{{project['category']['name']}}</span></mat-list-item>
+          <mat-list-item><span style="font-weight: bold;">Target Group:&nbsp;</span>&nbsp;
+            <span *ngFor="let b of project['beneficiary']">{{b['groups']['name']}},&nbsp;</span>
+          </mat-list-item>
+          <mat-list-item><span style="font-weight: bold;">Implementers:&nbsp;&nbsp;</span>
+            <span *ngFor="let i of project['implementer']">{{i['groups']['name']}},&nbsp;</span>
+          </mat-list-item>
+          <mat-list-item><span style="font-weight: bold;">Total Budget (USD):</span> <span style="padding-left: 1em;">{{project['details']['budget'] |currency}}</span></mat-list-item>
+          <mat-list-item><span style="font-weight: bold;">Manager:</span>
+            <span style="padding-left: 1em;">{{project['details']['manager1']['name']}} <br>
+              {{project['details']['manager1']['email']}}
+            </span>
+          </mat-list-item>
+        </mat-list>
+      </mat-card>
+      <br>
+    </div>
+    <div fxFlex="70">
+      <mat-toolbar style="background-color: white;">
+        <h1 class="mat-headline center-align">Favourite Activities</h1>
+      </mat-toolbar>
+      <mat-card *ngIf="project['description']">
+        <mat-card-title>Description</mat-card-title>
+        <mat-card-content>{{project['description']}}</mat-card-content>
+      </mat-card>
+      <mat-toolbar style="background-color: white;">
+        <h1 class="mat-headline center-align">Files</h1>
+      </mat-toolbar>
+    </div>
+  </div>
+</div>

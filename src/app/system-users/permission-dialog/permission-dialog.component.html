@@ -1,0 +1,38 @@
+<div>
+  <h2 mat-dialog-title color="primary-color">{{data.name}}</h2>
+  <mat-dialog-content style="overflow-y: hidden;margin-bottom: 50px;">
+
+      <mat-tab-group>
+          <mat-tab>
+            <ng-template mat-tab-label>
+              <mat-icon style="padding-right: 10px;">bookmarks</mat-icon>
+                Permissions for this role
+            </ng-template>
+            Content 1
+          </mat-tab>
+        
+          <mat-tab>
+            <ng-template mat-tab-label>
+              <mat-icon style="padding-right: 10px;">add</mat-icon>
+              Add new permission
+            </ng-template>
+            <h2>List of permission</h2>
+            <mat-form-field style="width: 100%;">
+              <mat-select placeholder="Permissions" multiple>
+                <mat-optgroup *ngFor="let group of models" [label]="group.name"
+                [disabled]="group.disabled">
+                  <mat-option *ngFor="let permission of group.permission" [value]="permission.display_name" (onSelectionChange)="select(permission)">
+                    {{permission.display_name}}
+                  </mat-option>
+                </mat-optgroup>
+              </mat-select>
+            </mat-form-field>
+            <button mat-raised-button color="primary" (click)="save()">Save</button>
+          </mat-tab>
+        </mat-tab-group>
+  </mat-dialog-content>
+  <mat-divider></mat-divider>
+  <mat-dialog-actions>
+    <button mat-raised-button color="accent" (click)="closeDialog()">Close</button>
+  </mat-dialog-actions>
+</div>

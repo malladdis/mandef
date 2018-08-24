@@ -1,0 +1,30 @@
+<div>
+  <h2 mat-dialog-title color="primary-color">Share {{data.title}}</h2>
+  <mat-divider></mat-divider>
+  <mat-dialog-content style="height:100%" style="overflow-y: hidden;" [formGroup]="shareForm">
+    <h4 style="color: #242424">Users:</h4>
+    <p style="margin-top: -20px;color: gray;">Every selected users will have access to this custom form</p>
+    
+    <mat-form-field style="width: 100%;">
+        <mat-select placeholder="Users" formControlName="projects" multiple>
+            <mat-option *ngFor="let user of userData" [value]="user.name" (onSelectionChange)="userSelected(user.id)">{{user.name}}</mat-option>
+          </mat-select>
+    </mat-form-field>
+  
+
+    <h4 style="color: #242424">Projects:</h4>
+    <p style="margin-top: -20px;color: gray;">Every selected users who has the selected project will have access to this custom form</p>
+    <mat-form-field style="width: 100%;">
+      <mat-select placeholder="Projects" formControlName="projects" multiple>
+        <mat-option *ngFor="let pr of projectData" [value]="pr.name" (onSelectionChange)="projectSelected(pr.id)">{{pr.name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+ 
+  </mat-dialog-content>
+
+  <span style="color:red;">{{errorMessage}}</span>
+  <mat-dialog-actions>
+    <button mat-raised-button  (click)="close()" color="accent">Close</button>
+    <button mat-raised-button mat-primary (click)="save()" color="primary">Save</button>
+  </mat-dialog-actions>
+</div>

@@ -1,0 +1,17 @@
+
+ <h2>All Roles</h2>
+<div fxLayout="row" fxLayout.xs="column" fxLayoutGap="20px" style="padding: 10px;" >
+  <div *ngFor="let r of roles">
+    <mat-card>
+      <mat-card-title>{{r.name}}</mat-card-title>
+      <mat-divider></mat-divider>
+      <mat-card-content>
+        {{r.description}}
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="permission(r)">Permission</button>
+        <button mat-raised-button color="primary" (click)="user(r)">Users</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

@@ -1,0 +1,19 @@
+
+<h4 color="primary" style="padding: 10px;">All Forms</h4>
+<div fxLayout="row" fxLayout.xs="column" fxLayoutGap="20px" style="padding: 10px;" >
+  <ng-container *ngFor="let fm of forms" >
+    <div fxFlex='25'>
+      <mat-card [routerLink]="['/auth/custom-forms/form-detail',fm.id]" style="cursor: pointer;">
+        <mat-card-title>{{fm.title}}</mat-card-title>
+          <mat-card-footer>
+            <mat-divider></mat-divider>
+            <div style="padding: 10px;">
+              <div *ngIf="fm.form_data.length>0;then content else other_content">here is ignored</div>    
+              <ng-template #content>{{fm.form_data.length}} Records Found</ng-template>
+              <ng-template #other_content>No Records Found</ng-template>
+            </div>
+          </mat-card-footer>
+      </mat-card>
+    </div>
+  </ng-container>
+</div>

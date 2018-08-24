@@ -1,0 +1,54 @@
+.program-header {
+  background-color: #f5f5f5;
+  color: #212121;
+  padding: 0 5px;
+}
+.program-button{
+  margin: 0 0.5em;
+}
+.spacer{
+  width: 70% !important;
+}
+.program-component-holder{
+  border: 1px solid #327ebd;
+  background-color: white;
+  margin: 20px;
+  height: 100%;
+}
+.program-container{
+  padding: 5px 15px 15px 15px;
+  background-color: white;
+}
+.other-toolbar{
+  background-color: white !important;
+  color: #327ebd;
+}
+.title{
+  display: block;
+  color: white;
+  align-self: center;
+  top: 4em;
+  position: relative;
+  cursor: pointer;
+}
+.mat-card{
+  padding-bottom: 8px;
+  padding-top: 0px;
+}
+.board{
+  background-color: #042f52 !important;
+  height: 10em;
+  text-align: center;
+}
+.title-black{
+  display: block;
+}
+.rating-button{
+  float: right !important;
+}
+.rating-button-white{
+  color: white;
+}
+.rating-button-gold{
+  color: #b29000;
+}

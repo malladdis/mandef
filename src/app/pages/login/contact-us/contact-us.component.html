@@ -1,0 +1,25 @@
+<div fxLayout="column" fxLayoutAlign="center">
+  <mat-toolbar color="primary"><span>Contact Us</span></mat-toolbar>
+  <div fxFlex="50%">
+    <mat-card style="margin-bottom: 50px;">
+      <mat-card-content>
+          <mat-form-field style="width: 100%;">
+              <input type="text" matInput placeholder="Full name">
+            </mat-form-field>
+
+            <mat-form-field style="width: 100%;">
+                <input type="email" matInput placeholder="email">
+              </mat-form-field>
+
+              <mat-form-field style="width: 100%;">
+                  <textarea type="text" matInput placeholder="message"></textarea>
+                </mat-form-field>
+                <button mat-raised-button color="primary">Send</button>
+      </mat-card-content>
+      <mat-card-actions>
+        
+      </mat-card-actions>
+    </mat-card>
+    <button mat-raised-button color="accent" (click)="closeDialog()">Close</button>
+  </div>
+</div>
