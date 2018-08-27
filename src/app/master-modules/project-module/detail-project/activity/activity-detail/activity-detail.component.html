@@ -1,0 +1,58 @@
+<div *ngIf="activity" fxLayout="row"   class="components-container-gt-xs">
+  <div fxFlexFill>
+    <mat-toolbar>
+      <h1 class="mat-headline center-align">{{activity['name']}}</h1>
+    </mat-toolbar>
+  </div>
+</div>
+<div *ngIf="activity" fxLayout="row" fxLayout.xs="column" class="components-container-gt-xs" [ngClass.xs]="'components-container-xs'" style="padding-top: 0;" fxLayoutGap="5px">
+  <div fxFlex="30" >
+    <mat-card>
+      <mat-card-title>status</mat-card-title>
+      <mat-card-content>
+        <span class="my-badge status-progress">{{activity['status'][0]['name']}}</span>
+      </mat-card-content>
+    </mat-card>
+    <br>
+    <mat-card>
+      <mat-card-title>Description
+        <button *ngIf="!activity['description']" type="button" color="primary" mat-button style="float: right;">
+          <mat-icon>edit</mat-icon>Description
+        </button>
+      </mat-card-title>
+      <mat-card-content *ngIf="activity['description']">{{activity['description']}}</mat-card-content>
+    </mat-card>
+    <br>
+    <mat-card>
+      <mat-card-title>Details</mat-card-title>
+      <mat-card-content>
+        <mat-list>
+          <mat-list-item><span style="font-weight: bold;">Start Date:</span> <span style="padding-left: 1em;">{{activity['start_date'] |date}}</span></mat-list-item>
+          <mat-list-item><span style="font-weight: bold;">End Date:</span> <span style="padding-left: 1em;">{{activity['end_date'] |date}}</span></mat-list-item>
+          <mat-list-item><span style="font-weight: bold;">Output</span> <span style="padding-left: 1em;">{{activity['output'][0]['name']}}</span></mat-list-item>
+          <mat-list-item><span style="font-weight: bold;">Location</span> <span style="padding-left: 1em;">{{activity['kebele'][0]['name']}}</span></mat-list-item>
+          <mat-list-item><span style="font-weight: bold;">Category</span> <span style="padding-left: 1em;">{{activity['category'][0]['name']}}</span></mat-list-item>
+        </mat-list>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div fxFlex="70">
+    <mat-card>
+      <mat-card-title>Files
+        <button mat-button type="button" color="primary" style="float: right;"><mat-icon>cloud_upload</mat-icon> upload</button>
+      </mat-card-title>
+      <mat-card-content>
+      </mat-card-content>
+    </mat-card>
+    <br>
+    <mat-card>
+      <mat-card-title>Work plan</mat-card-title>
+      <mat-card-content>{{activity['description']}}</mat-card-content>
+    </mat-card>
+    <br>
+    <mat-card>
+      <mat-card-title>Indicator Target</mat-card-title>
+      <mat-card-content>{{activity['description']}}</mat-card-content>
+    </mat-card>
+  </div>
+</div><br><br><br><br><br><br>

@@ -12,6 +12,8 @@ import {AfterLoginService} from './services/after-login.service';
 import {ErrorInterceptor} from './interceptors/error.interceptor';
 import {TokenInterceptor} from './interceptors/token.interceptor';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {ToasterModule, ToasterService} from 'angular5-toaster/dist';
+import {ToasterNotificationService} from './services/toaster-notification.service';
 
 
 
@@ -24,7 +26,8 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
     LazyLoadModule,
     CoreModule,
     BrowserAnimationsModule,
-    HttpClientModule
+    HttpClientModule,
+    ToasterModule
   ],
   providers: [
     AuthService,
@@ -32,6 +35,8 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
     TokenService,
     BeforeLoginService,
     AfterLoginService,
+    ToasterService,
+    ToasterNotificationService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,

@@ -5,6 +5,7 @@ import {ActivityComponent} from '../../activity/activity.component';
 import {LogFrameComponent} from '../../log-frame/log-frame.component';
 import {OverviewComponent} from '../../overview/overview.component';
 import {ExpenditureComponent} from '../../expenditure/expenditure.component';
+import {ActivityDetailComponent} from '../../activity/activity-detail/activity-detail.component';
 
 const detailRoutes: Routes = [{
   path: '', component: DetailProjectComponent, children: [
@@ -12,6 +13,7 @@ const detailRoutes: Routes = [{
     {path: 'activities/:id', component: ActivityComponent},
     {path: 'logframe/:id', component: LogFrameComponent},
     {path: 'expenditure/:id', component: ExpenditureComponent},
+    {path: 'activity-detail/:activity_id', component: ActivityDetailComponent},
   ]
 }];
 

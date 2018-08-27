@@ -12,7 +12,7 @@ export class SunburstChartComponent implements OnInit {
 	constructor() { }
 
 	ngOnInit() {
-		this.options = {
+		/*this.options = {
 			chart: {
 				type: 'sunburstChart',
 				height: 300,
@@ -399,7 +399,7 @@ export class SunburstChartComponent implements OnInit {
 					]
 				}
 			]
-		}];
+		}]; */
 	}
 
 }

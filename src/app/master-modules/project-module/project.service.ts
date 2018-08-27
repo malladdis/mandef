@@ -324,4 +324,10 @@ export class ProjectService {
   getActivity(id) {
     return this.appservice.show(apiRoutes.activities.show, id);
   }
+  getActivities() {
+    return this.appservice.get(apiRoutes.activities.index);
+  }
+  getExpenditureCategories() {
+    return this.appservice.get(apiRoutes.expenditure_categories.index);
+  }
 }

@@ -1,4 +1,4 @@
-<div fxLayout="row" fxLayout.xs="column" class="components-container-gt-xs" [ngClass.xs]="'components-container-xs'" fxLayoutGap="20px">
+<div fxLayout="row" fxLayout.xs="column" class="components-container-gt-xs" [ngClass.xs]="'components-container-xs'">
   <div fxFlexFill>
     <mat-toolbar>
       <span style="width: 67%;"></span>
@@ -11,5 +11,20 @@
         New Expenditure
       </button>
     </mat-toolbar>
+  </div>
+</div>
+<div fxLayout="row" fxLayout.xs="column" class="components-container-gt-xs" [ngClass.xs]="'components-container-xs'" fxLayoutGap="20px">
+  <div fxFlexFill *ngIf="categories">
+    <mat-accordion class="example-headers-align" *ngFor="let category of categories">
+      <mat-expansion-panel [expanded]="true" *ngIf="category['expenditures'].length > 0">
+        <mat-expansion-panel-header><mat-panel-title>{{category['name']}}</mat-panel-title></mat-expansion-panel-header>
+        <mat-list>
+          <mat-list-item *ngFor="let expenditure of category['expenditures']">
+            {{expenditure['name']}}
+            <span class="spacer"></span>{{expenditure['amount']}}
+          </mat-list-item>
+        </mat-list>
+      </mat-expansion-panel>
+    </mat-accordion>
   </div>
 </div>

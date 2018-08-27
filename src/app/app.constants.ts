@@ -1,6 +1,6 @@
 import {HttpHeaders} from '@angular/common/http';
 
-const API_URL = 'http://api.vitamande.org/api';
+const API_URL = 'http://localhost:8000/api';
 const programCategoryRoutes = {
   index: createUrl('/program_categories'),
   show: createUrl('/program_categories'),
@@ -230,6 +230,13 @@ const activity_indicators = {
   destroy: createUrl('/activity_indicators')
 };
 
+const expenditure_categories = {
+  index: createUrl('/expenditure_categories'),
+  show: createUrl('/expenditure_categories'),
+  store: createUrl('/expenditure_categories'),
+  update: createUrl('/expenditure_categories'),
+  destroy: createUrl('/expenditure_categories')
+};
 
 const status = {
   index: createUrl('/statuses'),
@@ -324,12 +331,15 @@ const userRoutes = {
   me: createAuthUrl('/me'),
   users: createAuthUrl('/users')
 };
-function createUrl (route: string) {
+
+function createUrl(route: string) {
   return `${API_URL}${route}`;
 }
-function createAuthUrl (route: string) {
-  return  `${API_URL}/auth${route}`;
+
+function createAuthUrl(route: string) {
+  return `${API_URL}/auth${route}`;
 }
+
 export const apiRoutes = {
   programCategory: programCategoryRoutes,
   program: programRoutes,
@@ -365,16 +375,17 @@ export const apiRoutes = {
   activities: activities,
   activity_budgets: activity_budgets,
   activity_indicators: activity_indicators,
-  customForms:createCustomForms,
-  formSections:createFormSections,
-  formColumn:createFormColumns,
-  generatedForm:createGeneratedForm,
-  formsData:createFormsData,
-  formsDataFile:createFormsDataFile,
-  users:createUsers,
-  roles:createRoles,
-  models:createModels,
-  outer:createOuter
+  expenditure_categories: expenditure_categories,
+  customForms: createCustomForms,
+  formSections: createFormSections,
+  formColumn: createFormColumns,
+  generatedForm: createGeneratedForm,
+  formsData: createFormsData,
+  formsDataFile: createFormsDataFile,
+  users: createUsers,
+  roles: createRoles,
+  models: createModels,
+  outer: createOuter
 };
 
 

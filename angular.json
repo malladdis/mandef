@@ -24,7 +24,8 @@
               "src/theme/theme.scss",
               "src/theme/my-style.css",
               "src/theme/typography.scss",
-              "src/assets/fonts/material-icons/material-icons.css"
+              "src/assets/fonts/material-icons/material-icons.css",
+              "./node_modules/angular5-toaster/src/toaster.css"
             ],
             "scripts": []
           },

@@ -9,6 +9,7 @@ import {ProjectService} from '../../project.service';
 })
 export class ExpenditureComponent implements OnInit {
   id;
+  categories: Array<Object>;
   constructor(private route: ActivatedRoute,
               private projectserivce: ProjectService) { }
 
@@ -16,6 +17,12 @@ export class ExpenditureComponent implements OnInit {
     this.route.params.subscribe(params => {
         this.id = +params['id'];
     });
+    this.getExpenditureCategories();
   }
-
+  getExpenditureCategories() {
+    this.projectserivce.getExpenditureCategories().subscribe(data => {
+      this.categories = data['data'];
+      console.log(data);
+    });
+  }
 }
