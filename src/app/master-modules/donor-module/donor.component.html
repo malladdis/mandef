@@ -1,0 +1,39 @@
+<div fxLayout="column" class="components-container-gt-xs" [ngClass.xs]="'components-container-xs'" fxLayoutGap="20px">
+  <mat-toolbar class="program-header">
+    <h1 class="mat-headline center-align">Donors</h1>
+    <span [ngClass]="'spacer'" [ngClass.xs]="''"></span>
+    <button mat-raised-button color="primary" class="program-button" (click)="addDonor()">
+      <mat-icon iconsmall>add</mat-icon>
+      Donor
+    </button>
+  </mat-toolbar>
+  <table fxFlexFill mat-table [dataSource]="donors">
+
+    <ng-container matColumnDef="no">
+      <th mat-header-cell *matHeaderCellDef> No </th>
+      <td mat-cell *matCellDef="let donor; let i = index"> {{i+1}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="donor name">
+      <th mat-header-cell *matHeaderCellDef> Donor Name </th>
+      <td mat-cell *matCellDef="let donor"> {{donor['name']}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef> Status </th>
+      <td mat-cell *matCellDef="let donor"> <span class="my-badge green" [ngClass]="{'red': donor['status'] !== 'active'}">{{donor['status']}}</span> </td>
+    </ng-container>
+
+    <ng-container matColumnDef="contact">
+      <th mat-header-cell *matHeaderCellDef> Contact </th>
+      <td mat-cell *matCellDef="let donor; let i = index">
+        <p *ngFor="let k of donorList[i]['keys']">
+          {{k}} - {{donorList[i]['contacts'][k]}}
+        </p>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columns"></tr>
+    <tr mat-row *matRowDef="let row; columns: columns;"></tr>
+  </table>
+</div>

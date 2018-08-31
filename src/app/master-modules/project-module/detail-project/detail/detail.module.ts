@@ -20,6 +20,7 @@ import {ChooserDialogComponent} from '../chooser-dialog/chooser-dialog.component
 import {PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarConfigInterface, PerfectScrollbarModule} from 'ngx-perfect-scrollbar';
 import {ExpenditureComponent} from '../expenditure/expenditure.component';
 import {ActivityDetailComponent} from '../activity/activity-detail/activity-detail.component';
+import {FinanceComponent} from '../finance/finance.component';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -33,13 +34,13 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   ],
   declarations: [DetailProjectComponent, OverviewComponent,
     ActivityComponent, LogFrameComponent, OutcomeTreeComponent,
-    IndicatorTreeComponent, ActivityTreeComponent, OutputTreeComponent, ExpenditureComponent,
+    IndicatorTreeComponent, ActivityTreeComponent, OutputTreeComponent, ExpenditureComponent, FinanceComponent,
   ActivityDialogComponent, IndicatorDialogComponent, OutcomeDialogComponent,
     OutputDialogComponent, InputDialogComponent, ChooserDialogComponent, ActivityDetailComponent],
   exports: [DetailProjectComponent, OverviewComponent,
     ActivityComponent, LogFrameComponent, OutcomeTreeComponent,
     IndicatorTreeComponent, ActivityTreeComponent, OutputTreeComponent,
-    ActivityDialogComponent, IndicatorDialogComponent, OutcomeDialogComponent,
+    ActivityDialogComponent, IndicatorDialogComponent, OutcomeDialogComponent, FinanceComponent,
     OutputDialogComponent, InputDialogComponent, ChooserDialogComponent, ActivityDetailComponent],
   entryComponents: [
     ActivityDialogComponent,

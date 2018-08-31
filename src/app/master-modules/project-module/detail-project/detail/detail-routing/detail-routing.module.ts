@@ -6,13 +6,14 @@ import {LogFrameComponent} from '../../log-frame/log-frame.component';
 import {OverviewComponent} from '../../overview/overview.component';
 import {ExpenditureComponent} from '../../expenditure/expenditure.component';
 import {ActivityDetailComponent} from '../../activity/activity-detail/activity-detail.component';
+import {FinanceComponent} from '../../finance/finance.component';
 
 const detailRoutes: Routes = [{
   path: '', component: DetailProjectComponent, children: [
     {path: 'overview/:id', component: OverviewComponent},
     {path: 'activities/:id', component: ActivityComponent},
     {path: 'logframe/:id', component: LogFrameComponent},
-    {path: 'expenditure/:id', component: ExpenditureComponent},
+    {path: 'finance/:id', component: FinanceComponent},
     {path: 'activity-detail/:activity_id', component: ActivityDetailComponent},
   ]
 }];

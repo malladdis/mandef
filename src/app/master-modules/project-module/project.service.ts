@@ -330,4 +330,7 @@ export class ProjectService {
   getExpenditureCategories() {
     return this.appservice.get(apiRoutes.expenditure_categories.index);
   }
+  getFinanceByProject(project_id) {
+    return this.appservice.show(apiRoutes.finance.project_finance, project_id);
+  }
 }

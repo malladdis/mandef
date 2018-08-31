@@ -8,12 +8,21 @@ import {AuthService} from '../services/auth.service';
 export class TokenInterceptor implements HttpInterceptor {
   constructor(private token: TokenService, private authservice: AuthService) {}
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    req = req.clone({
-      setHeaders: {
-        'Content-Type':  'application/json',
-        Authorization: `Bearer ${this.token.get()}`
-      }
-    });
+    if (req.url.startsWith('https://free.currencyconverterapi.com/api/v5/convert/')) {
+      req = req.clone({
+        setHeaders: {
+          'Content-Type':  'application/json'
+        }
+      });
+    } else {
+      req = req.clone({
+        setHeaders: {
+          'Content-Type':  'application/json',
+          Authorization: `Bearer ${this.token.get()}`
+        }
+      });
+    }
+
     return next.handle(req);
   }
 }

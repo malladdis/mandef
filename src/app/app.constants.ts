@@ -246,6 +246,15 @@ const status = {
   destroy: createUrl('/statuses'),
 };
 
+
+const donors = {
+  index: createUrl('/donors'),
+  show: createUrl('/donors'),
+  store: createUrl('/donors'),
+  update: createUrl('/donors'),
+  destroy: createUrl('/donors'),
+};
+
 const createCustomForms = {
   index: createUrl('/forms'),
   show: createUrl('/forms'),
@@ -284,6 +293,31 @@ const createFormsData = {
   store: createUrl('/form-datas'),
   update: createUrl('/form-datas'),
   destroy: createUrl('/form-datas')
+};
+
+const currencies = {
+  index: createUrl('/currencies'),
+  show: createUrl('/currencies'),
+  store: createUrl('/currencies'),
+  update: createUrl('/currencies'),
+  destroy: createUrl('/currencies')
+};
+
+const budgets = {
+  index: createUrl('/budgets'),
+  show: createUrl('/budgets'),
+  store: createUrl('/budgets'),
+  update: createUrl('/budgets'),
+  destroy: createUrl('/budgets')
+};
+
+const finances = {
+  index: createUrl('/finances'),
+  show: createUrl('/finances'),
+  store: createUrl('/finances'),
+  update: createUrl('/finances'),
+  destroy: createUrl('/finances'),
+  project_finance: createUrl('/project-finance')
 };
 
 const createFormsDataFile = {
@@ -385,7 +419,11 @@ export const apiRoutes = {
   users: createUsers,
   roles: createRoles,
   models: createModels,
-  outer: createOuter
+  outer: createOuter,
+  donors: donors,
+  currencies: currencies,
+  budgets: budgets,
+  finance: finances,
 };
 
 
