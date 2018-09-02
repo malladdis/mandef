@@ -110,7 +110,8 @@ table {
   .table {
     width: 100%;
     max-width: 100%;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
+    border-collapse: collapse;
   }
   .table > thead > tr > th,
   .table > tbody > tr > th,
@@ -125,7 +126,7 @@ table {
   }
   .table > thead > tr > th {
     vertical-align: bottom;
-    border-bottom: 2px solid #ddd;
+    border-bottom: 1px solid rgb(231, 225, 225);
   }
   .table > caption + thead > tr:first-child > th,
   .table > colgroup + thead > tr:first-child > th,
@@ -136,7 +137,7 @@ table {
     border-top: 0;
   }
   .table > tbody + tbody {
-    border-top: 2px solid #ddd;
+    border-top: 1px solid #ddd;
   }
   .table .table {
     background-color: #fff;
@@ -523,6 +524,13 @@ table {
     .input-group-lg input[type="month"] {
       line-height: 46px;
     }
+  }
+
+  .full-width{
+    width: 100%;
+  }
+  .half-width{
+    width: 60%;
   }
 
   

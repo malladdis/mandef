@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import $ from "jquery";
-import { OuterService } from '../outer.service';
 import { Outer } from '../OuterModel';
 import { AboutComponent } from '../../about/about.component';
 import { ContactComponent } from '../../contact/contact.component';
@@ -16,7 +15,7 @@ import { MatDialog } from '@angular/material';
 })
 export class HomeSliderComponent implements OnInit {
   private outer:Array<Outer>=[];
-  constructor(private outerHttp:OuterService,private aboutDialog:MatDialog,private contactDialog:MatDialog) { }
+  constructor(private aboutDialog:MatDialog,private contactDialog:MatDialog) { }
 
   ngOnInit() {
 
@@ -28,15 +27,11 @@ export class HomeSliderComponent implements OnInit {
       var mainPanel=$('.mainPanel');
       
       container.css('background-image', "url("+images[0]+")");
-      this.outerHttp.index()
-    .subscribe((data:Array<Outer>)=>{
-      this.outer=data;
-      mainPanel.html(this.outer[count].html);
-    });
+     
       setInterval(()=>{
         container.fadeOut(500,()=>{
           container.css('background-image', "url("+images[count]+")");
-          mainPanel.html(this.outer[count].html);
+          
           count++;
           container.fadeIn(500);
         });

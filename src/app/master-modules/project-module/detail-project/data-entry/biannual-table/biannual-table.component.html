@@ -1,0 +1,40 @@
+<table class="table" *ngFor="let indi of indicator">
+    <colgroup>
+      <col>
+      <col>
+      <col span="2" style="background-color:#E3E9D7;width: 8%;">
+      <col [span]="getSpan()"style="background-color:burlywood;">
+      <col style="width:10%;">
+      <col style="background-color:lightslategray;width:10%;">
+      <col style="width:5%;">
+    </colgroup>
+  <tr>
+    <th rowspan="2">Id no</th>
+    <th rowspan="2">Indicators</th>
+    <th colspan="2">Baseline</th>
+    <th [colSpan]="getSpan()" *ngIf="dataEntry.length>0">Past</th>
+    <th >Current</th>
+    <th style="color:white;">Final</th>
+    <th>All data</th> 
+  </tr>
+  <tr>
+    <th>Date</th>
+    <th>Value</th>
+    <th *ngFor="let data of dataEntry">{{data.frequency_symbol}}</th>
+    <th>{{current}}</th>
+    <th style="color:white">Target Value</th>
+  </tr>
+
+  <tbody >
+    <tr>
+      <td>{{indi.id}}</td>
+      <td>{{indi.name}}</td>
+      <td>{{getPeriod(indi.created_at)}}</td>
+      <td>{{indi.baseline_value}}</td>
+      <td  *ngFor="let data of dataEntry" >{{data.actual_value}}</td>
+      <td ><button (click)="addCurrentValue(indi.id)" mat-button>Add new value</button></td>
+      <td style="color:white">{{indi.target_value}}</td>
+      <td><button mat-button>Show all data</button></td>
+    </tr>
+  </tbody>
+</table>

@@ -19,6 +19,11 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ChooserDialogComponent} from '../chooser-dialog/chooser-dialog.component';
 import {PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarConfigInterface, PerfectScrollbarModule} from 'ngx-perfect-scrollbar';
 import {ExpenditureComponent} from '../expenditure/expenditure.component';
+import { DataEntryComponent } from '../data-entry/data-entry.component';
+import { BiannualTableComponent } from '../data-entry/biannual-table/biannual-table.component';
+import { QuarterTableComponent } from '../data-entry/quarter-table/quarter-table.component';
+import { AnnualTableComponent } from '../data-entry/annual-table/annual-table.component';
+import { DataEntryDialogComponent } from '../data-entry/data-entry-dialog/data-entry-dialog.component';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -31,7 +36,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     PerfectScrollbarModule
   ],
   declarations: [DetailProjectComponent, OverviewComponent,
-    ActivityComponent, LogFrameComponent, OutcomeTreeComponent,
+    ActivityComponent, LogFrameComponent, OutcomeTreeComponent,DataEntryComponent,BiannualTableComponent,QuarterTableComponent,AnnualTableComponent,
+    DataEntryDialogComponent,
     IndicatorTreeComponent, ActivityTreeComponent, OutputTreeComponent, ExpenditureComponent,
   ActivityDialogComponent, IndicatorDialogComponent, OutcomeDialogComponent,
     OutputDialogComponent, InputDialogComponent, ChooserDialogComponent],
@@ -46,7 +52,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     OutcomeDialogComponent,
     OutputDialogComponent,
     InputDialogComponent,
-    ChooserDialogComponent
+    ChooserDialogComponent,
+    DataEntryDialogComponent
   ],
   providers: [
     {

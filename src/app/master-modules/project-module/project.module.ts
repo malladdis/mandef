@@ -14,6 +14,11 @@ import {ProjectService} from './project.service';
 import { ClusterComponent } from './cluster/cluster.component';
 import { PerfectScrollbarModule, PerfectScrollbarConfigInterface, PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import {DetailModule} from './detail-project/detail/detail.module';
+import { EditIndicatorDialogComponent } from './detail-project/log-frame/indicator-tree/edit-indicator-dialog/edit-indicator-dialog.component';
+import { CustomFormsService } from '../../custom-form/custom-forms.service';
+import { FormColumnsService } from '../../custom-form/services/form-columns.service';
+import { AnnualTableComponent } from './detail-project/data-entry/annual-table/annual-table.component';
+import { DataEntryDialogComponent } from './detail-project/data-entry/data-entry-dialog/data-entry-dialog.component';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -34,9 +39,10 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ProjectComponent,
     ProjectCategoryComponent,
     AddProjectComponent,
-    ClusterComponent
+    ClusterComponent,
+    EditIndicatorDialogComponent,
   ],
-  exports: [ProjectComponent,  AddProjectComponent,  ProjectCategoryComponent, ClusterComponent],
+  exports: [ProjectComponent,  AddProjectComponent,  ProjectCategoryComponent, ClusterComponent,EditIndicatorDialogComponent],
   providers: [
     {
       provide: MAT_CHIPS_DEFAULT_OPTIONS,
@@ -47,10 +53,12 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
-    }
+    },
+    CustomFormsService,FormColumnsService
   ],
   entryComponents: [
-    ClusterComponent
+    ClusterComponent,
+    EditIndicatorDialogComponent
   ],
 })
 export class ProjectModule { }

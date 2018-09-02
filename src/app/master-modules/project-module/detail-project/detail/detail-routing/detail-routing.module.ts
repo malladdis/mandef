@@ -5,12 +5,14 @@ import {ActivityComponent} from '../../activity/activity.component';
 import {LogFrameComponent} from '../../log-frame/log-frame.component';
 import {OverviewComponent} from '../../overview/overview.component';
 import {ExpenditureComponent} from '../../expenditure/expenditure.component';
+import { DataEntryComponent } from '../../data-entry/data-entry.component';
 
 const detailRoutes: Routes = [{
   path: '', component: DetailProjectComponent, children: [
     {path: 'overview/:id', component: OverviewComponent},
     {path: 'activities/:id', component: ActivityComponent},
     {path: 'logframe/:id', component: LogFrameComponent},
+    {path:'data-entry/:id',component:DataEntryComponent},
     {path: 'expenditure/:id', component: ExpenditureComponent},
   ]
 }];

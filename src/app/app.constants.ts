@@ -1,6 +1,6 @@
 import {HttpHeaders} from '@angular/common/http';
 
-const API_URL = 'http://api.vitamande.org/api';
+const API_URL = 'http://localhost:8000/api';
 const programCategoryRoutes = {
   index: createUrl('/program_categories'),
   show: createUrl('/program_categories'),
@@ -256,35 +256,35 @@ const createFormSections = {
 };
 
 const createFormColumns = {
-  index: createUrl('/form-columns'),
-  show: createUrl('/form-columns'),
-  store: createUrl('/form-columns'),
-  update: createUrl('/form-columns'),
-  destroy: createUrl('/form-columns')
+  index: createUrl('/form_columns'),
+  show: createUrl('/form_columns'),
+  store: createUrl('/form_columns'),
+  update: createUrl('/form_columns'),
+  destroy: createUrl('/form_columns')
 };
 
 const createGeneratedForm = {
-  index: createUrl('/generated-forms'),
-  show: createUrl('/generated-forms'),
-  store: createUrl('/generated-forms'),
-  update: createUrl('/generated-forms'),
-  destroy: createUrl('/generated-forms')
+  index: createUrl('/generated_forms'),
+  show: createUrl('/generated_forms'),
+  store: createUrl('/generated_forms'),
+  update: createUrl('/generated_forms'),
+  destroy: createUrl('/generated_forms')
 };
 
 const createFormsData = {
-  index: createUrl('/form-datas'),
-  show: createUrl('/form-datas'),
-  store: createUrl('/form-datas'),
-  update: createUrl('/form-datas'),
-  destroy: createUrl('/form-datas')
+  index: createUrl('/form_datas'),
+  show: createUrl('/form_datas'),
+  store: createUrl('/form_datas'),
+  update: createUrl('/form_datas'),
+  destroy: createUrl('/form_datas')
 };
 
 const createFormsDataFile = {
-  index: createUrl('/form-data-files'),
-  show: createUrl('/form-data-files'),
-  store: createUrl('/form-data-files'),
-  update: createUrl('/form-data-files'),
-  destroy: createUrl('/form-data-files')
+  index: createUrl('/form_data_files'),
+  show: createUrl('/form_data_files'),
+  store: createUrl('/form_data_files'),
+  update: createUrl('/form_data_files'),
+  destroy: createUrl('/form_data_files')
 };
 
 const createUsers = {
@@ -318,7 +318,52 @@ const createOuter = {
   update: createUrl('/outer'),
   destroy: createUrl('/outer')
 };
+const createDisaggreagtion = {
+  index: createUrl('/disaggregation_methods'),
+  show: createUrl('/disaggregation_methods'),
+  store: createUrl('/disaggregation_methods'),
+  update: createUrl('/disaggregation_methods'),
+  destroy: createUrl('/disaggregation_methods')
+};
 
+const createCalculationMethod = {
+  index: createUrl('/calculation_methods'),
+  show: createUrl('/calculation_methods'),
+  store: createUrl('/calculation_methods'),
+  update: createUrl('/calculation_methods'),
+  destroy: createUrl('/calculation_methods')
+};
+const createIndicatorCalculationMethod = {
+  index: createUrl('/indicator_calculation_methods'),
+  show: createUrl('/indicator_calculation_methods'),
+  store: createUrl('/indicator_calculation_methods'),
+  update: createUrl('/indicator_calculation_methods'),
+  destroy: createUrl('/indicator_calculation_methods')
+};
+
+const createIndicatorForm = {
+  index: createUrl('/indicator_forms'),
+  show: createUrl('/indicator_forms'),
+  store: createUrl('/indicator_forms'),
+  update: createUrl('/indicator_forms'),
+  destroy: createUrl('/indicator_forms')
+};
+
+const createDataEntry = {
+  index: createUrl('/data_entries'),
+  show: createUrl('/data_entries'),
+  store: createUrl('/data_entries'),
+  update: createUrl('/data_entries'),
+  destroy: createUrl('/data_entries')
+};
+
+const createPeriods={
+  index: createUrl('/current'),
+  show: createUrl('/current'),
+  store: createUrl('/current'),
+  update: createUrl('/current'),
+  destroy: createUrl('/current')
+};
 
 const userRoutes = {
   me: createAuthUrl('/me'),
@@ -374,7 +419,13 @@ export const apiRoutes = {
   users:createUsers,
   roles:createRoles,
   models:createModels,
-  outer:createOuter
+  outer:createOuter,
+  disaggregation:createDisaggreagtion,
+  calculationMethod:createCalculationMethod,
+  indicatorCalculationMethod:createIndicatorCalculationMethod,
+  indicatorForm:createIndicatorForm,
+  dataEntry:createDataEntry,
+  periods:createPeriods
 };
 
 
