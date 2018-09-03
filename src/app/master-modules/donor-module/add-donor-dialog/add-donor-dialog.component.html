@@ -1,0 +1,45 @@
+<div fxLayout="column" class="components-container-gt-xs" [ngClass.xs]="'components-container-xs'">
+  <div fxFlexFill>
+    <mat-toolbar class="program-header">
+      <h1 class="mat-headline center-align">Add new Donor</h1>
+      <span class="spacer"></span>
+      <button mat-button mat-dialog-close class="close-button" style="float: right">
+        <mat-icon> close</mat-icon>
+      </button>
+    </mat-toolbar>
+    <form novalidate #donorForm="ngForm" (ngSubmit)="addDonor(donorForm)">
+      <p>
+        <mat-form-field class="full-width">
+          <input type="text" name="name" ngModel matInput placeholder="donor name" required>
+        </mat-form-field>
+      </p>
+      <p>
+        <button type="button" mat-raised-button color="primary" (click)="addRow()" style="float: right;">
+          <mat-icon>add</mat-icon>
+          contact
+        </button>
+      </p>
+      <br><br><br>
+      <ng-container *ngIf="inputList">
+        <p *ngFor="let ins of inputList; let i = index;">
+          <mat-form-field class="one-third-width">
+            <input type="text" name="{{'name' + i}}" ngModel [(ngModel)] = "ins['name']" matInput placeholder="contact-type">
+          </mat-form-field>
+          <mat-form-field class="one-third-width">
+            <input type="text" name="{{'value' + i}}" ngModel [(ngModel)] = "ins['value']" matInput placeholder="contact-value">
+          </mat-form-field>
+          <button type="button" mat-icon-button class="hover-red" (click)="removerRow(i)">
+            <mat-icon>clear</mat-icon>
+          </button>
+        </p>
+      </ng-container>
+      <br><br><br>
+      <p>
+        <button type="submit" mat-raised-button color="primary" style="float: right;" [disabled]="donorForm.form.invalid">
+          <mat-icon>save</mat-icon>
+          save
+        </button>
+      </p>
+    </form>
+  </div>
+</div>

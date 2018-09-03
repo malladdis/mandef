@@ -55,45 +55,15 @@ export const menus = [
                 'open': false,
             },
             {
-                'name': 'Outcome',
+                'name': 'Budget',
                 'icon': false,
-                'link': 'master-modules/outcome',
+                'link': 'master-modules/budget',
                 'open': false,
             },
             {
-              'name': 'Output',
+              'name': 'Donor',
               'icon': false,
-              'link': 'master-modules/output',
-              'open': false,
-            },
-            {
-              'name': 'Activity',
-              'icon': false,
-              'link': 'master-modules/activity',
-              'open': false,
-            },
-            {
-              'name': 'Input',
-              'icon': false,
-              'link': 'master-modules/input',
-              'open': false,
-            },
-            {
-              'name': 'Beneficiaries',
-              'icon': false,
-              'link': 'master-modules/program',
-              'open': false,
-            },
-            {
-              'name': 'Financial',
-              'icon': false,
-              'link': 'master-modules/program',
-              'open': false,
-            },
-            {
-              'name': 'Donors',
-              'icon': false,
-              'link': 'master-modules/program',
+              'link': 'master-modules/donors',
               'open': false,
             }
         ]
@@ -110,8 +80,8 @@ export const menus = [
         'icon': 'supervisor_account',
         'link': false,
         'open': false,
-        'sub':[
-            {
+        'sub': [
+              {
                 'name': 'Users',
                 'icon': false,
                 'link': '/auth/system-users',

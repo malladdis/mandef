@@ -22,8 +22,12 @@ export class DetailProjectComponent implements OnInit {
   overviewLink: string;
   activityLink: string;
   logframLink: string;
+<<<<<<< HEAD
   dataEntery:string;
   expenditureLink: string;
+=======
+  financeLink: string;
+>>>>>>> 7b42172a302a950d0b22ba2669fc4fa4018ffe44
   constructor(private route: ActivatedRoute,
               private projectserivce: ProjectService,
               private dialog: MatDialog) {
@@ -40,8 +44,12 @@ export class DetailProjectComponent implements OnInit {
         this.overviewLink = `/auth/master-modules/project/detail/${data['data']['id']}/overview/${data['data']['id']}`;
         this.activityLink = `/auth/master-modules/project/detail/${data['data']['id']}/activities/${data['data']['id']}`;
         this.logframLink = `/auth/master-modules/project/detail/${data['data']['id']}/logframe/${data['data']['id']}`;
+<<<<<<< HEAD
         this.dataEntery=`/auth/master-modules/project/detail/${data['data']['id']}/data-entry/${data['data']['id']}`;
         this.expenditureLink = `/auth/master-modules/project/detail/${data['data']['id']}/expenditure/${data['data']['id']}`;
+=======
+        this.financeLink = `/auth/master-modules/project/detail/${data['data']['id']}/finance/${data['data']['id']}`;
+>>>>>>> 7b42172a302a950d0b22ba2669fc4fa4018ffe44
       });
     });
   }

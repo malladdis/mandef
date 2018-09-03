@@ -1,0 +1,46 @@
+<div fxLayout="column" class="components-container-gt-xs" [ngClass.xs]="'components-container-xs'">
+  <mat-toolbar class="program-header">
+    <h1 class="mat-headline center-align">Add new Budget</h1>
+    <span class="spacer"></span>
+    <button mat-button mat-dialog-close class="close-button" style="float: right">
+      <mat-icon> close</mat-icon>
+    </button>
+  </mat-toolbar>
+  <div fxFlexFill>
+    <form novalidate [formGroup]="budgetForm" #bForm="ngForm" (ngSubmit)="addBudget()">
+      <p>
+        <mat-form-field class="half-width">
+          <input type="text" matInput formControlName="name" placeholder="budget title" required>
+        </mat-form-field>
+        <mat-form-field class="half-width">
+          <mat-select formControlName="donor_id"  placeholder="select donor" required>
+            <mat-option *ngFor= "let donor of donors" [value]="donor['id']">
+              {{donor['name']}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field class="half-width">
+          <input type="number" matInput formControlName="amount" placeholder="budget amount" required>
+        </mat-form-field>
+        <mat-form-field class="half-width">
+          <mat-select formControlName="currency_id" placeholder="select currency" required>
+            <mat-option *ngFor= "let currency of currencies" [value]="currency['abr']">
+              {{currency['name']}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </p>
+      <mat-toolbar class="program-header" *ngIf="inEth !== 0">
+        <h3 class="mat-headline center-align">{{inEth}} in Ethiopian birr</h3>
+      </mat-toolbar>
+      <p>
+        <button type="submit" mat-raised-button color="primary" style="float: right;" [disabled]="bForm.form.invalid">
+          <mat-icon>save</mat-icon>
+          save
+        </button>
+      </p>
+    </form>
+  </div>
+</div>

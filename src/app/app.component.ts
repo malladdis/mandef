@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {ToasterConfig} from 'angular5-toaster/dist';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'app';
+  public toasterConfig: ToasterConfig = new ToasterConfig({
+    animation: 'flyLeft',
+    showCloseButton: true,
+    timeout: 2000,
+    mouseoverTimerStop: false,
+    positionClass: 'toast-top-center'
+  });
 }

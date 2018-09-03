@@ -9,8 +9,6 @@ import {Router} from '@angular/router';
 })
 export class UserMenuComponent implements OnInit {
   isOpen: boolean = false;
-
-  //currentUser = null;
   Hari;
 
 
@@ -34,7 +32,7 @@ export class UserMenuComponent implements OnInit {
 
   logout() {
     this.token.remove();
-    this.router.navigate(['/login']);
+    this.router.navigate(['/home']);
   }
 
   ngOnInit() {

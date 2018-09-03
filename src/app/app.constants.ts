@@ -230,6 +230,13 @@ const activity_indicators = {
   destroy: createUrl('/activity_indicators')
 };
 
+const expenditure_categories = {
+  index: createUrl('/expenditure_categories'),
+  show: createUrl('/expenditure_categories'),
+  store: createUrl('/expenditure_categories'),
+  update: createUrl('/expenditure_categories'),
+  destroy: createUrl('/expenditure_categories')
+};
 
 const status = {
   index: createUrl('/statuses'),
@@ -237,6 +244,15 @@ const status = {
   store: createUrl('/statuses'),
   update: createUrl('/statuses'),
   destroy: createUrl('/statuses'),
+};
+
+
+const donors = {
+  index: createUrl('/donors'),
+  show: createUrl('/donors'),
+  store: createUrl('/donors'),
+  update: createUrl('/donors'),
+  destroy: createUrl('/donors'),
 };
 
 const createCustomForms = {
@@ -277,6 +293,31 @@ const createFormsData = {
   store: createUrl('/form_datas'),
   update: createUrl('/form_datas'),
   destroy: createUrl('/form_datas')
+};
+
+const currencies = {
+  index: createUrl('/currencies'),
+  show: createUrl('/currencies'),
+  store: createUrl('/currencies'),
+  update: createUrl('/currencies'),
+  destroy: createUrl('/currencies')
+};
+
+const budgets = {
+  index: createUrl('/budgets'),
+  show: createUrl('/budgets'),
+  store: createUrl('/budgets'),
+  update: createUrl('/budgets'),
+  destroy: createUrl('/budgets')
+};
+
+const finances = {
+  index: createUrl('/finances'),
+  show: createUrl('/finances'),
+  store: createUrl('/finances'),
+  update: createUrl('/finances'),
+  destroy: createUrl('/finances'),
+  project_finance: createUrl('/project-finance')
 };
 
 const createFormsDataFile = {
@@ -384,12 +425,15 @@ const userRoutes = {
   me: createAuthUrl('/me'),
   users: createAuthUrl('/users')
 };
-function createUrl (route: string) {
+
+function createUrl(route: string) {
   return `${API_URL}${route}`;
 }
-function createAuthUrl (route: string) {
-  return  `${API_URL}/auth${route}`;
+
+function createAuthUrl(route: string) {
+  return `${API_URL}/auth${route}`;
 }
+
 export const apiRoutes = {
   programCategory: programCategoryRoutes,
   program: programRoutes,
@@ -425,6 +469,7 @@ export const apiRoutes = {
   activities: activities,
   activity_budgets: activity_budgets,
   activity_indicators: activity_indicators,
+<<<<<<< HEAD
   customForms:createCustomForms,
   formSections:createFormSections,
   formColumn:createFormColumns,
@@ -443,6 +488,23 @@ export const apiRoutes = {
   periods:createPeriods,
   indicatorDisaggregation:createIndicatorDisaggregationMethods,
   indicatoCalculationMethod:createIndicatorCalculationMethod
+=======
+  expenditure_categories: expenditure_categories,
+  customForms: createCustomForms,
+  formSections: createFormSections,
+  formColumn: createFormColumns,
+  generatedForm: createGeneratedForm,
+  formsData: createFormsData,
+  formsDataFile: createFormsDataFile,
+  users: createUsers,
+  roles: createRoles,
+  models: createModels,
+  outer: createOuter,
+  donors: donors,
+  currencies: currencies,
+  budgets: budgets,
+  finance: finances,
+>>>>>>> 7b42172a302a950d0b22ba2669fc4fa4018ffe44
 };
 
 
