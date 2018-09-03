@@ -364,6 +364,21 @@ const createPeriods={
   update: createUrl('/current'),
   destroy: createUrl('/current')
 };
+const createIndicatorDisaggregationMethods={
+  index: createUrl('/indicator_disaggregation_methods'),
+  show: createUrl('/indicator_disaggregation_methods'),
+  store: createUrl('/indicator_disaggregation_methods'),
+  update: createUrl('/indicator_disaggregation_methods'),
+  destroy: createUrl('/indicator_disaggregation_methods')
+};
+
+const createIndicatorCalculationrMethod={
+  index: createUrl('/indicator_calculation_methods'),
+  show: createUrl('/indicator_calculation_methods'),
+  store: createUrl('/indicator_calculation_methods'),
+  update: createUrl('/indicator_calculation_methods'),
+  destroy: createUrl('/indicator_calculation_methods')
+};
 
 const userRoutes = {
   me: createAuthUrl('/me'),
@@ -425,7 +440,9 @@ export const apiRoutes = {
   indicatorCalculationMethod:createIndicatorCalculationMethod,
   indicatorForm:createIndicatorForm,
   dataEntry:createDataEntry,
-  periods:createPeriods
+  periods:createPeriods,
+  indicatorDisaggregation:createIndicatorDisaggregationMethods,
+  indicatoCalculationMethod:createIndicatorCalculationMethod
 };
 
 

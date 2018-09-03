@@ -69,10 +69,11 @@ export class BiannualTableComponent implements OnInit {
       'right':'0'
     }
     dialogConfig.data={
-      'indicator_id':indicatorId
+      'indicator_id':indicatorId,
+      'frequency':this.current
     }
     dialogConfig.height="100%";
-    dialogConfig.width="40%";
+    dialogConfig.width="30%";
 
     this.dialog.open(DataEntryDialogComponent,dialogConfig);
    }

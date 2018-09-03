@@ -42,6 +42,7 @@ export class EditIndicatorDialogComponent implements OnInit {
   myColumn:Array<Columns>=[];
    columnName:Array<string>=[];
    loading=false;
+   customFormName:string
   
   constructor(@Inject(MAT_DIALOG_DATA) public data: string,private dialogRef:MatDialogRef<EditIndicatorDialogComponent>,
               private indicatorHttp:IndicatorService,private builder:FormBuilder,private projectServie:ProjectService,
@@ -133,6 +134,7 @@ export class EditIndicatorDialogComponent implements OnInit {
   }
 
   customFormSelected(form){
+    this.customFormName=form.title;
    this.formFieldsHttp.show(form.id)
    .subscribe(data=>{
     this.myColumn=data['data'];
