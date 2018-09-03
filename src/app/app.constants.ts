@@ -469,7 +469,6 @@ export const apiRoutes = {
   activities: activities,
   activity_budgets: activity_budgets,
   activity_indicators: activity_indicators,
-<<<<<<< HEAD
   customForms:createCustomForms,
   formSections:createFormSections,
   formColumn:createFormColumns,
@@ -487,8 +486,7 @@ export const apiRoutes = {
   dataEntry:createDataEntry,
   periods:createPeriods,
   indicatorDisaggregation:createIndicatorDisaggregationMethods,
-  indicatoCalculationMethod:createIndicatorCalculationMethod
-=======
+  indicatoCalculationMethod:createIndicatorCalculationMethod,
   expenditure_categories: expenditure_categories,
   customForms: createCustomForms,
   formSections: createFormSections,
@@ -504,7 +502,6 @@ export const apiRoutes = {
   currencies: currencies,
   budgets: budgets,
   finance: finances,
->>>>>>> 7b42172a302a950d0b22ba2669fc4fa4018ffe44
 };
 
 
