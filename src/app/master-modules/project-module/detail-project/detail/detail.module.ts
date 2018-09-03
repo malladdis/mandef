@@ -19,16 +19,13 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ChooserDialogComponent} from '../chooser-dialog/chooser-dialog.component';
 import {PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarConfigInterface, PerfectScrollbarModule} from 'ngx-perfect-scrollbar';
 import {ExpenditureComponent} from '../expenditure/expenditure.component';
-<<<<<<< HEAD
 import { DataEntryComponent } from '../data-entry/data-entry.component';
 import { BiannualTableComponent } from '../data-entry/biannual-table/biannual-table.component';
 import { QuarterTableComponent } from '../data-entry/quarter-table/quarter-table.component';
 import { AnnualTableComponent } from '../data-entry/annual-table/annual-table.component';
 import { DataEntryDialogComponent } from '../data-entry/data-entry-dialog/data-entry-dialog.component';
-=======
-import {ActivityDetailComponent} from '../activity/activity-detail/activity-detail.component';
-import {FinanceComponent} from '../finance/finance.component';
->>>>>>> 7b42172a302a950d0b22ba2669fc4fa4018ffe44
+import { ActivityDetailComponent } from '../activity/activity-detail/activity-detail.component';
+import { FinanceComponent } from '../finance/finance.component';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -41,14 +38,9 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     PerfectScrollbarModule
   ],
   declarations: [DetailProjectComponent, OverviewComponent,
-<<<<<<< HEAD
     ActivityComponent, LogFrameComponent, OutcomeTreeComponent,DataEntryComponent,BiannualTableComponent,QuarterTableComponent,AnnualTableComponent,
     DataEntryDialogComponent,
     IndicatorTreeComponent, ActivityTreeComponent, OutputTreeComponent, ExpenditureComponent,
-=======
-    ActivityComponent, LogFrameComponent, OutcomeTreeComponent,
-    IndicatorTreeComponent, ActivityTreeComponent, OutputTreeComponent, ExpenditureComponent, FinanceComponent,
->>>>>>> 7b42172a302a950d0b22ba2669fc4fa4018ffe44
   ActivityDialogComponent, IndicatorDialogComponent, OutcomeDialogComponent,
     OutputDialogComponent, InputDialogComponent, ChooserDialogComponent, ActivityDetailComponent],
   exports: [DetailProjectComponent, OverviewComponent,

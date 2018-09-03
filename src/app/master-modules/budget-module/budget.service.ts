@@ -10,12 +10,12 @@ export class BudgetService {
   constructor(private appservice: AppService) { }
 
   getCurrencies() {
-    return this.appservice.get(apiRoutes.currencies.index);
+   // return this.appservice.get(apiRoutes.cur.index);
   }
   addBudget(value) {
-    return this.appservice.post(apiRoutes.budgets.store, JSON.stringify(value));
+    //return this.appservice.post(apiRoutes.budgets.store, JSON.stringify(value));
   }
   getBudgets() {
-    return this.appservice.get(apiRoutes.budgets.index);
+    //return this.appservice.get(apiRoutes.budgets.index);
   }
 }
