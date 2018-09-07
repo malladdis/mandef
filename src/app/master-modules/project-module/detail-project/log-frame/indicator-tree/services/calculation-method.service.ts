@@ -12,4 +12,8 @@ export class CalculationMethodService {
   index(){
     return this.app.get(apiRoutes.calculationMethod.index);
   }
+
+  show(id){
+    return this.app.show(apiRoutes.calculationMethod.show,id);
+  }
 }

@@ -4,6 +4,7 @@ import { DataEntry } from '../models/dataentryindicator';
 import { PeriodsService } from '../services/periods.service';
 import { DataEntryDialogComponent } from '../data-entry-dialog/data-entry-dialog.component';
 import { MatDialog, MatDialogConfig } from '@angular/material';
+import { ShowAllComponent } from '../show-all/show-all.component';
 
 
 @Component({
@@ -70,12 +71,22 @@ export class BiannualTableComponent implements OnInit {
     }
     dialogConfig.data={
       'indicator_id':indicatorId,
-      'frequency':this.current
+      'frequency_symbol':this.current[0]
     }
     dialogConfig.height="100%";
     dialogConfig.width="30%";
 
     this.dialog.open(DataEntryDialogComponent,dialogConfig);
+   }
+
+   showAll(id){
+     const showAllDialogConf=new MatDialogConfig();
+     showAllDialogConf.data={
+       'indicator_id':id
+     }
+     showAllDialogConf.width="60%";
+     showAllDialogConf.height="60%";
+     this.dialog.open(ShowAllComponent,showAllDialogConf);
    }
   
 

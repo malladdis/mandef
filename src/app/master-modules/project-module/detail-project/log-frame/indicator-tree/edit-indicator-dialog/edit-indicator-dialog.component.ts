@@ -33,6 +33,7 @@ export class EditIndicatorDialogComponent implements OnInit {
   selectedIndicatorDisaggregations:Array<any>=[];
   selectedindicatorCalculationMethod:Array<any>=[];
   indicatorDisagregations:Array<any>=[];
+  customForm:Array<any>=[];
   private editForm:FormGroup;
   isChecked:boolean=false;
   disaggregationMethod:Array<any>=[];
@@ -43,9 +44,12 @@ export class EditIndicatorDialogComponent implements OnInit {
    columnName:Array<string>=[];
    loading=false;
    customFormName:string
+   isConnected:boolean=false;
+   
+   indicatorFormData:Array<any>=[];
   
   constructor(@Inject(MAT_DIALOG_DATA) public data: string,private dialogRef:MatDialogRef<EditIndicatorDialogComponent>,
-              private indicatorHttp:IndicatorService,private builder:FormBuilder,private projectServie:ProjectService,
+              private indicatorHttp:IndicatorService,private builder:FormBuilder,private projectServie:ProjectService,private formHttp:CustomFormsService,
               private customFormHttp:CustomFormsService,private disaggregationHttp:DisaggreagtionService,private calculationHttp:CalculationMethodService,
               private formFieldsHttp:FormColumnsService,private indicatorCalculationMethodHttp:IndicatorCalculationMethodService,private indicatorFormHttp:IndicatorFormService) { }
 
@@ -66,6 +70,19 @@ export class EditIndicatorDialogComponent implements OnInit {
       indicatorCalcualtionMethod:[''],
       calculationMethod:['']
     })
+
+    //finding previus inserted indicator form data if it exists
+    this.indicatorFormHttp.show(this.data['indicator_id'])
+    .subscribe(data=>{
+      this.indicatorFormData=data['data'];
+      this.formHttp.show(this.indicatorFormData[0]['form_id'])
+      .subscribe(data=>{
+        this.customForm=data['data'][0];
+        console.log(this.customForm);
+      })
+    })
+    //end of finding previus inserted indicator form data
+
    this.indicatorHttp.show(this.data['indicator_id'])
     .subscribe(data=>{
       this.indicator=data['data'][0];
@@ -115,9 +132,14 @@ export class EditIndicatorDialogComponent implements OnInit {
 
   }
 
+  customFormDissagregationMethod(fields){
+    console.log(fields);
+  }
+
   showCustoForms(event){
     
-    this.indicatorFormHttp.show(this.data['indicator_id'])
+    if(this.indicatorFormData.length<=0){
+      this.indicatorFormHttp.show(this.data['indicator_id'])
     .subscribe(data=>{
       if(data['data'].length>0){
         console.log('true');
@@ -130,15 +152,20 @@ export class EditIndicatorDialogComponent implements OnInit {
 
       }
     });
+    }else{
+      this.isConnected=true;
+    }
 
   }
 
   customFormSelected(form){
+    this.columnName.splice(0,this.columnName.length);
     this.customFormName=form.title;
    this.formFieldsHttp.show(form.id)
    .subscribe(data=>{
     this.myColumn=data['data'];
     this.columnName= this.myColumn[0].columns.split(',');
+    
    })
   }
 

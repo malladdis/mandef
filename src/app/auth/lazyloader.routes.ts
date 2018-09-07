@@ -18,7 +18,8 @@ export const appRoutes: Routes = [{
         { path: 'editor', loadChildren: '../editor/editor.module#EditorModule' },
         { path: 'scrumboard', loadChildren: '../scrumboard/scrumboard.module#ScrumboardModule' },
         {path:'custom-forms',loadChildren:'../custom-form/custom-form.module#CustomFormModule'},
-        {path:'system-users',loadChildren:'../system-users/system-users.module#SystemUsersModule'}
+        {path:'system-users',loadChildren:'../system-users/system-users.module#SystemUsersModule'},
+        {path:'reports',loadChildren:'../reports/reports.module#ReportsModule'}
         
     ]
 }];

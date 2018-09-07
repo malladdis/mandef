@@ -34,7 +34,7 @@
       <td  *ngFor="let data of dataEntry" >{{data.actual_value}}</td>
       <td ><button (click)="addCurrentValue(indi.id)" mat-button>Add new value</button></td>
       <td style="color:white">{{indi.target_value}}</td>
-      <td><button mat-button>Show all data</button></td>
+      <td><button mat-button (click)="showAll(indi.id)">Show all data</button></td>
     </tr>
   </tbody>
 </table>

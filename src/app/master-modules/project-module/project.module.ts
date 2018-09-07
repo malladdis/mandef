@@ -19,6 +19,8 @@ import { CustomFormsService } from '../../custom-form/custom-forms.service';
 import { FormColumnsService } from '../../custom-form/services/form-columns.service';
 import { AnnualTableComponent } from './detail-project/data-entry/annual-table/annual-table.component';
 import { DataEntryDialogComponent } from './detail-project/data-entry/data-entry-dialog/data-entry-dialog.component';
+import { FilterPipePipe } from './detail-project/data-entry/pipe/filter-pipe.pipe';
+import { ShowAllComponent } from './detail-project/data-entry/show-all/show-all.component';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };

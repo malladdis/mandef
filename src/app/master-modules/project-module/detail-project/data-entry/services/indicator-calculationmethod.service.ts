@@ -10,6 +10,6 @@ export class IndicatorCalculationmethodService {
   constructor(private app:AppService) { }
 
   show(id){
-    return this.app.show(apiRoutes.indicatoCalculationMethod.show,id);
+    return this.app.show(apiRoutes.indicatorCalculationMethod.show,id);
   }
 }

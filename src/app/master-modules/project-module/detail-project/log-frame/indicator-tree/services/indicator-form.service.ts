@@ -14,7 +14,7 @@ export class IndicatorFormService {
       indicator_id:indicatorId,
       form_id:formId,
       calculation_method_id:calculationMethod,
-      value_field_tobe_calculated:valueField
+      disaggregation:valueField
     });
    return this.app.post(apiRoutes.indicatorForm.store,datas);
   }

@@ -81,7 +81,7 @@
             <mat-checkbox  [checked]="true">Total is automatically calculated</mat-checkbox>
 
             <h4 style="color: #242424">Link to custom form:</h4>
-            <mat-checkbox (change)="showCustoForms($event)">link custom form</mat-checkbox>
+            <mat-checkbox (change)="showCustoForms($event)" >link custom form</mat-checkbox>
             <div *ngIf="customForms.length>0" style="padding:20px;">
 
                 <h4 style="color: #242424">Select Custom Form:</h4>
@@ -98,13 +98,17 @@
                     </mat-select>
                   </mat-form-field>
 
-                  <h4 style="color: #242424">Value field to be calculated:</h4>
+                  <h4 style="color: #242424">Select custom form disaggregation method that matches with the above indicator:</h4>
                   <mat-form-field style="width: 100%;">
-                      <mat-select  formControlName="customFormValueField" name="calculationMethod" >
-                        <mat-option *ngFor="let fields of columnName" [value]="fields" (onSelectionChange)="typeSelected(fields)">{{fields}}</mat-option>
+                      <mat-select placeholder="select custom form calculation method"  formControlName="customFormValueField" name="calculationMethod"  [disabled]="columnName.length==0" >
+                        <mat-option *ngFor="let fields of columnName" [value]="fields" (onSelectionChange)="customFormDissagregationMethod(fields)"> {{customFormName}}---of---{{fields}}</mat-option>
                       </mat-select>
                     </mat-form-field>
 
+            </div>
+
+            <div *ngIf="isConnected" style="padding:10px;">
+              <p style="color:#3c763d;font-size:18px;">This indicator is Allready connected with custom form named <span style="color:royalblue;">{{customForm.title}}</span></p>
             </div>
       </mat-card-content>
       <mat-card-actions fxLayoutAlign="center">
