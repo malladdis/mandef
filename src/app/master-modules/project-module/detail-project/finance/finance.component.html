@@ -2,9 +2,19 @@
   <mat-toolbar>
     <h1 class="mat-headline center-align">Finance</h1>
     <span style="width: 70%;"></span>
-    <button mat-button *ngIf="len === 0">
+    <button mat-button *ngIf="len === 0" (click)="addFinancePlan()">
       <mat-icon>add</mat-icon>
       Finance plan
     </button>
   </mat-toolbar>
+  <div fxFlexFill>
+    <mat-card>
+      <mat-card-content>
+        <mat-list>
+          <mat-list-item>Plans <span style="width: 82%"></span> Budget</mat-list-item>
+          <mat-list-item *ngFor="let plan of financePlans" (click)="navigateToExpenditure(plan['id'])">{{plan['name']}}<span style="width: 80%"></span>{{plan['value']}}</mat-list-item>
+        </mat-list>
+      </mat-card-content>
+    </mat-card>
+  </div>
 </div>

@@ -8,7 +8,6 @@ import {OutputDialogComponent} from './output-dialog/output-dialog.component';
 import {IndicatorDialogComponent} from './indicator-dialog/indicator-dialog.component';
 import {ActivityDialogComponent} from './activity-dialog/activity-dialog.component';
 import {InputDialogComponent} from './input-dialog/input-dialog.component';
-import {ChooserDialogComponent} from './chooser-dialog/chooser-dialog.component';
 
 @Component({
   selector: 'app-detail-project',
@@ -42,9 +41,6 @@ export class DetailProjectComponent implements OnInit {
         this.financeLink = `/auth/master-modules/project/detail/${data['data']['id']}/finance/${data['data']['id']}`;
       });
     });
-  }
-  openOutcomeForm() {
-    this.dialog.open(ChooserDialogComponent, {data: {'id': 1}, width: '500px', height: '450px', disableClose: false});
   }
   openOutputForm() {
     this.dialog.open(OutputDialogComponent, {width: '500px', height: '450px', disableClose: false});

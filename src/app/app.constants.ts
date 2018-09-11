@@ -237,6 +237,13 @@ const expenditure_categories = {
   update: createUrl('/expenditure_categories'),
   destroy: createUrl('/expenditure_categories')
 };
+const expenditures = {
+  index: createUrl('/expenditures'),
+  show: createUrl('/expenditures'),
+  store: createUrl('/expenditures'),
+  update: createUrl('/expenditures'),
+  destroy: createUrl('/expenditures')
+};
 
 const status = {
   index: createUrl('/statuses'),
@@ -319,6 +326,23 @@ const finances = {
   destroy: createUrl('/finances'),
   project_finance: createUrl('/project-finance')
 };
+
+const finance_plans = {
+  index: createUrl('/finance_plans'),
+  show: createUrl('/finance_plans'),
+  store: createUrl('/finance_plans'),
+  update: createUrl('/finance_plans'),
+  destroy: createUrl('/finance_plans')
+};
+const monthly_expenditures = {
+  index: createUrl('/monthly_expenditures'),
+  show: createUrl('/monthly_expenditures'),
+  store: createUrl('/monthly_expenditures'),
+  update: createUrl('/monthly_expenditures'),
+  destroy: createUrl('/monthly_expenditures'),
+  get_monthly_expenditures_by_finance_plan: createUrl('/get_monthly_expenditures_by_finance_plan')
+};
+
 
 const createFormsDataFile = {
   index: createUrl('/form-data-files'),
@@ -410,6 +434,7 @@ export const apiRoutes = {
   activity_budgets: activity_budgets,
   activity_indicators: activity_indicators,
   expenditure_categories: expenditure_categories,
+  expenditures: expenditures,
   customForms: createCustomForms,
   formSections: createFormSections,
   formColumn: createFormColumns,
@@ -424,6 +449,8 @@ export const apiRoutes = {
   currencies: currencies,
   budgets: budgets,
   finance: finances,
+  finance_plans: finance_plans,
+  monthly_expenditures: monthly_expenditures,
 };
 
 

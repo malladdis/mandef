@@ -1,0 +1,32 @@
+.normal-column {
+  width: 6%;
+  max-width: 6.5%;
+  font-size: 13px;
+  font-weight: 700;
+  position: relative;
+}
+.normal-header-column {
+  width: 6.26%;
+  max-width: 6.5%;
+  font-size: 13px;
+  font-weight: 700;
+  position: relative;
+  top: 10px;
+  border-bottom-width: 0;
+  margin-left: 0;
+}
+.large-column {
+  width: 20%;
+}
+.inputs-gen{
+  position: relative;
+  width: 80%;
+  top: 15px;
+}
+::ng-deep .mat-expansion-panel-body {
+  padding-right: 0 !important;
+  margin: 0 !important;
+}
+.moveup{
+  padding: 0 24px;
+}

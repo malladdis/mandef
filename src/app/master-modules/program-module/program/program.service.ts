@@ -23,8 +23,8 @@ export class ProgramService {
       program_id: id,
       country: 'Ethiopia',
       budget: form.value.budget,
-      starting_date: form.value.start,
-      ending_date: form.value.end
+      starting_date: form.value.start.format('YYYY-MM-DD HH:mm:ss'),
+      ending_date: form.value.end.format('YYYY-MM-DD HH:mm:ss')
     });
     return this.app.post(apiRoutes.program_detail.store, detail);
   }

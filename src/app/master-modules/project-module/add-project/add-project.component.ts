@@ -6,6 +6,7 @@ import {FormControl} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import {MatAutocompleteSelectedEvent, MatChipInputEvent, MatDialog} from '@angular/material';
+import * as moment from 'moment';
 import {ProjectService} from '../project.service';
 import {ProgramService} from '../../program-module/program/program.service';
 
@@ -75,6 +76,7 @@ export class AddProjectComponent implements OnInit {
     this.dialog.open(ClusterComponent, {width: '500px', height: '450px', disableClose: true});
   }
   submit(form) {
-    this.projectservice.addProject(form);
+    const date = new Date();
+    console.log(form.value.start.format('YYYY-MM-DD HH:mm:ss'));
   }
 }

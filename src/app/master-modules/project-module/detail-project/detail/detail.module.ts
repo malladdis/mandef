@@ -16,11 +16,13 @@ import {OutcomeDialogComponent} from '../outcome-dialog/outcome-dialog.component
 import {OutputDialogComponent} from '../output-dialog/output-dialog.component';
 import {InputDialogComponent} from '../input-dialog/input-dialog.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {ChooserDialogComponent} from '../chooser-dialog/chooser-dialog.component';
 import {PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarConfigInterface, PerfectScrollbarModule} from 'ngx-perfect-scrollbar';
 import {ExpenditureComponent} from '../expenditure/expenditure.component';
 import {ActivityDetailComponent} from '../activity/activity-detail/activity-detail.component';
 import {FinanceComponent} from '../finance/finance.component';
+import {AddFinanceDialogComponent} from '../finance/add-finance-dialog/add-finance-dialog.component';
+import {AddExpenditureCategoryComponent} from '../expenditure/add-expenditure-category/add-expenditure-category.component';
+import {AddExpenditureComponent} from '../expenditure/add-expenditure/add-expenditure.component';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -30,25 +32,30 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     MaterialModule,
     DetailRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     PerfectScrollbarModule
   ],
   declarations: [DetailProjectComponent, OverviewComponent,
     ActivityComponent, LogFrameComponent, OutcomeTreeComponent,
     IndicatorTreeComponent, ActivityTreeComponent, OutputTreeComponent, ExpenditureComponent, FinanceComponent,
   ActivityDialogComponent, IndicatorDialogComponent, OutcomeDialogComponent,
-    OutputDialogComponent, InputDialogComponent, ChooserDialogComponent, ActivityDetailComponent],
+    OutputDialogComponent, InputDialogComponent, ActivityDetailComponent,
+    AddFinanceDialogComponent, AddExpenditureCategoryComponent, AddExpenditureComponent],
   exports: [DetailProjectComponent, OverviewComponent,
     ActivityComponent, LogFrameComponent, OutcomeTreeComponent,
     IndicatorTreeComponent, ActivityTreeComponent, OutputTreeComponent,
     ActivityDialogComponent, IndicatorDialogComponent, OutcomeDialogComponent, FinanceComponent,
-    OutputDialogComponent, InputDialogComponent, ChooserDialogComponent, ActivityDetailComponent],
+    OutputDialogComponent, InputDialogComponent, ActivityDetailComponent,
+    AddFinanceDialogComponent,  AddExpenditureCategoryComponent, AddExpenditureComponent],
   entryComponents: [
     ActivityDialogComponent,
     IndicatorDialogComponent,
     OutcomeDialogComponent,
     OutputDialogComponent,
     InputDialogComponent,
-    ChooserDialogComponent
+    AddFinanceDialogComponent,
+    AddExpenditureCategoryComponent,
+    AddExpenditureComponent
   ],
   providers: [
     {

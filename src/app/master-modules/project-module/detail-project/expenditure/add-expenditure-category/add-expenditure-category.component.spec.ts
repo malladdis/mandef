@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { ChooserDialogComponent } from './chooser-dialog.component';
+import { AddExpenditureCategoryComponent } from './add-expenditure-category.component';
 
-describe('ChooserDialogComponent', () => {
-  let component: ChooserDialogComponent;
-  let fixture: ComponentFixture<ChooserDialogComponent>;
+describe('AddExpenditureCategoryComponent', () => {
+  let component: AddExpenditureCategoryComponent;
+  let fixture: ComponentFixture<AddExpenditureCategoryComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ChooserDialogComponent ]
+      declarations: [ AddExpenditureCategoryComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ChooserDialogComponent);
+    fixture = TestBed.createComponent(AddExpenditureCategoryComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -20,9 +20,9 @@ export class ErrorInterceptor implements HttpInterceptor {
         this.token.remove();
         this.router.navigate(['/login']);
       }
-      console.log(err);
+      console.log(err, 'fuck');
       const error = err.error.message || err.statusText;
-      toaster.error('Unexpected Error', err.message);
+      toaster.error('Unexpected Error', err.error.error.message);
       return throwError(error);
     }));
   }
