@@ -1,0 +1,26 @@
+<div fxLayout="row" fxLayout.xs="column" class="components-container-gt-xs" [ngClass.xs]="'components-container-xs'" fxLayoutGap="20px">
+    <div fxFlexFill style="background-color: #fff;" class="my-container">
+      <mat-toolbar>
+          <h1 class="mat-headline center-align">List of indicators</h1>
+        <span class="example-fill-remaining-space "></span>
+        <button mat-button routerLinkActive="mat-accent" *ngFor="let f of frequencies" (click)="changeFrequency(f.id)">
+          {{f.name}}
+      </button>
+      </mat-toolbar>
+      
+      <div *ngFor="let frindicator of frequenciesWithIndicator">
+          <div [ngSwitch]="frindicator.name">
+             <div *ngSwitchCase="'Biannual'">
+                <app-biannual-table [indicator]="frindicator.indicator" ></app-biannual-table>
+             </div>
+             <div *ngSwitchCase="'Quarterly'">
+                <app-quarter-table></app-quarter-table>
+             </div>
+             <div *ngSwitchCase="'Annual'">
+                <app-annual-table></app-annual-table>
+             </div>
+          </div>
+        </div>
+
+    </div>
+</div>

@@ -96,7 +96,7 @@
 
 
 table {
-    background-color: transparent;
+    background-color: white;
   }
   caption {
     padding-top: 8px;
@@ -110,7 +110,8 @@ table {
   .table {
     width: 100%;
     max-width: 100%;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
+    border-collapse: collapse;
   }
   .table > thead > tr > th,
   .table > tbody > tr > th,
@@ -125,7 +126,7 @@ table {
   }
   .table > thead > tr > th {
     vertical-align: bottom;
-    border-bottom: 2px solid #ddd;
+    border-bottom: 1px solid rgb(231, 225, 225);
   }
   .table > caption + thead > tr:first-child > th,
   .table > colgroup + thead > tr:first-child > th,
@@ -136,7 +137,7 @@ table {
     border-top: 0;
   }
   .table > tbody + tbody {
-    border-top: 2px solid #ddd;
+    border-top: 1px solid #ddd;
   }
   .table .table {
     background-color: #fff;
@@ -162,7 +163,7 @@ table {
   }
   .table-bordered > thead > tr > th,
   .table-bordered > thead > tr > td {
-    border-bottom-width: 2px;
+    border-bottom-width: 1px;
   }
   .table-striped > tbody > tr:nth-of-type(odd) {
     background-color: #f9f9f9;
@@ -525,4 +526,86 @@ table {
     }
   }
 
+  .full-width{
+    width: 100%;
+  }
+  .half-width{
+    width: 60%;
+  }
+
+  table th.resizing {
+    cursor: col-resize;
+}
+
+.noCrsr {
+    cursor: default;
+    margin-right: +5px;
+}
+
+.noSelect {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.inner-table{
+background-color: transparent;
+}
+.table-tree {
+  display: block;
+  padding: 0px 0 0 0px;
+}
+li {
+  display: block;
+  position: relative;
+}
+li label {
+  cursor: pointer;
+  display: block;
+  padding-left: 20px;
+  width: 100%;
+}
+li input {
+  position: absolute;
+  left: 0;
+  margin-left: 0;
+  opacity: 0;
+  z-index: 2;
+  cursor: pointer;
+  height: 1em;
+  width: 1em;
+  top: 0;
+}
+li input + ul {
+  background: url(http://www.webmasters.by/images/articles/css-tree/toggle-small-expand.png) -3px -1px no-repeat;
+  margin: -0.938em 0 0 0;
+  height: 1em;
+  width: 1em;
+}
+li input:checked + ul {
+  background: url(http://www.webmasters.by/images/articles/css-tree/toggle-small.png) 41px 4px no-repeat;
+  display: block;
+  margin: -1.25em 0 0 -44px;
+  padding: 1.25em 0 0 80px;
+  height: auto;
+  width: 100%;
+}
+li.file {
+  margin-left: -1px !important;
+}
+li input + ul > li {
+  display: none;
+  margin-left: -14px !important;
+  padding-left: 1px;
+}
+li input:checked + ul > li {
+  display: block;
+  margin: 0 0 0em;
+}
+li input:checked + ul > li:last-child {
+  margin: 0 0 0em;
+  /* 1px */
+}
   

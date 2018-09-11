@@ -1,4 +1,9 @@
+import {
+    EditIndicatorDialogComponent
+} from './edit-indicator-dialog/edit-indicator-dialog.component';
+import { MatDialogConfig } from '@angular/material';
 import {Component, Input, OnInit} from '@angular/core';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-indicator-tree',
@@ -7,9 +12,23 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class IndicatorTreeComponent implements OnInit {
   @Input() indicator: any;
-  constructor() { }
+  constructor(private matDialog:MatDialog) { }
 
   ngOnInit() {
+  }
+
+  editIndicator(indicator){
+    const editDialogConf=new MatDialogConfig();
+    editDialogConf.data={
+      'indicator_id':indicator.id
+    };
+    editDialogConf.position={
+      'top':'0',
+      'right':'0'
+    }
+    editDialogConf.height='100%';
+    editDialogConf.width="40%";
+    this.matDialog.open(EditIndicatorDialogComponent,editDialogConf);
   }
 
 }

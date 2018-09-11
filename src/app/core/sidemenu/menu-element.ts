@@ -102,9 +102,23 @@ export const menus = [
         ]
     }, {
         'name': 'Report',
-        'open': false,
-        'link': '/auth/scrumboard',
         'icon': 'insert_drive_file',
+        'link': false,
+        'open': false,
+        'sub': [
+            {
+              'name': 'Programmes',
+              'icon': false,
+              'link': '/auth/reports/programmes',
+              'open': false,
+            },
+            {
+              'name': 'Projects',
+              'icon': false,
+              'link': '/auth/reports/projects',
+              'open': false,
+            }
+      ]
     },
      {
       'name': 'Survey',

@@ -21,7 +21,9 @@ export class DetailProjectComponent implements OnInit {
   overviewLink: string;
   activityLink: string;
   logframLink: string;
-  financeLink: string;
+  dataEntery: string;
+  expenditureLink: string;
+
   constructor(private route: ActivatedRoute,
               private projectserivce: ProjectService,
               private dialog: MatDialog) {
@@ -38,21 +40,26 @@ export class DetailProjectComponent implements OnInit {
         this.overviewLink = `/auth/master-modules/project/detail/${data['data']['id']}/overview/${data['data']['id']}`;
         this.activityLink = `/auth/master-modules/project/detail/${data['data']['id']}/activities/${data['data']['id']}`;
         this.logframLink = `/auth/master-modules/project/detail/${data['data']['id']}/logframe/${data['data']['id']}`;
-        this.financeLink = `/auth/master-modules/project/detail/${data['data']['id']}/finance/${data['data']['id']}`;
+        this.dataEntery = `/auth/master-modules/project/detail/${data['data']['id']}/data-entry/${data['data']['id']}`;
+        this.expenditureLink = `/auth/master-modules/project/detail/${data['data']['id']}/expenditure/${data['data']['id']}`;
       });
     });
   }
+
   openOutputForm() {
     this.dialog.open(OutputDialogComponent, {width: '500px', height: '450px', disableClose: false});
   }
+
   openIndicatorForm() {
-    this.dialog.open(IndicatorDialogComponent,{width: '500px', height: '450px', disableClose: false});
+    this.dialog.open(IndicatorDialogComponent, {width: '500px', height: '450px', disableClose: false});
   }
+
   openActivityForm() {
-    this.dialog.open(ActivityDialogComponent,{width: '500px', height: '450px', disableClose: false});
+    this.dialog.open(ActivityDialogComponent, {width: '500px', height: '450px', disableClose: false});
   }
+
   openInputForm() {
-    this.dialog.open(InputDialogComponent,{width: '500px', height: '450px', disableClose: false});
+    this.dialog.open(InputDialogComponent, {width: '500px', height: '450px', disableClose: false});
   }
 
 }

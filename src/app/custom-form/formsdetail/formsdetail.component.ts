@@ -44,9 +44,12 @@ export class FormsdetailComponent implements OnInit {
     });
 
     this.formDataHttp.show(this.id).subscribe(data=>{
+      if(data['data'].length>0){
+
       this.formDataList=data['data'];
       this.tableRowData=this.formDataList[0]['data'];
       this.json=JSON.parse(this.tableRowData.toString());
+      }
     });
     
   }

@@ -3,7 +3,7 @@
   <span class="my-title">{{indicator['name']}}</span>
   <span class="spacer"></span>
   <span style="float: right !important;">
-     <mat-icon>edit</mat-icon>
+     <mat-icon (click)="editIndicator(indicator)">edit</mat-icon>
     &nbsp;
      <mat-icon>delete_sweep</mat-icon> &nbsp;
   </span>
