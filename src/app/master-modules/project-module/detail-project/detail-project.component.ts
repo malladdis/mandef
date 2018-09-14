@@ -22,7 +22,7 @@ export class DetailProjectComponent implements OnInit {
   activityLink: string;
   logframLink: string;
   dataEntery: string;
-  expenditureLink: string;
+  financeLink: string;
 
   constructor(private route: ActivatedRoute,
               private projectserivce: ProjectService,
@@ -41,7 +41,7 @@ export class DetailProjectComponent implements OnInit {
         this.activityLink = `/auth/master-modules/project/detail/${data['data']['id']}/activities/${data['data']['id']}`;
         this.logframLink = `/auth/master-modules/project/detail/${data['data']['id']}/logframe/${data['data']['id']}`;
         this.dataEntery = `/auth/master-modules/project/detail/${data['data']['id']}/data-entry/${data['data']['id']}`;
-        this.expenditureLink = `/auth/master-modules/project/detail/${data['data']['id']}/expenditure/${data['data']['id']}`;
+        this.financeLink = `/auth/master-modules/project/detail/${data['data']['id']}/finance/${data['data']['id']}`;
       });
     });
   }

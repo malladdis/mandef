@@ -2,7 +2,6 @@ import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angula
 import {Program} from '../../../models/program';
 import {AppService} from '../../../services/app.service';
 import {apiRoutes} from '../../../app.constants';
-import {ResponsiveTableHelpers} from '../../../tables/responsive-table/helpers.data';
 import {MatPaginator} from '@angular/material';
 import {ProgramService} from './program.service';
 import {ProgramTableHeaders} from './program-helpers.data';

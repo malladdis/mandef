@@ -25,18 +25,21 @@ export class ExpenditureComponent implements OnInit {
   id;
   finance_plan_id: number;
   project_id: number;
-  categories: Array<Object>;
+  categories = [];
   months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   start;
   end;
   finance;
+  finance_index;
   columns = [];
   enable = false;
   finance_plan;
   params;
   formsInputs = {};
   expenses;
+  expenditures;
   @ViewChild('monthlyExpenditure') monthlyExpenditure;
+
   constructor(private route: ActivatedRoute,
               private projectserivce: ProjectService,
               private toaseter: ToasterNotificationService,
@@ -51,25 +54,34 @@ export class ExpenditureComponent implements OnInit {
       this.params = +params['finance_plan_id'];
       this.getProject(+params['finance_plan_id'].split('_')[1]);
       this.project_id = Number(+params['finance_plan_id'].split('_')[1]);
+      this.finance_index = Number(+params['finance_plan_id'].split('_')[2]);
     });
     this.getExpenditureCategories();
     this.getMonthlyExpenditureByFinancePlan();
   }
+
   getFormInputs() {
     let j = '{';
-    for (let category of this.categories) {
-      for (const exp in category['expenditures']) {
-        for (let i = 1; i < this.columns.length; i++) {
-          j += `"${category['expenditures'][exp]['id']}_${this.columns[i]}":"",`;
+    for (const category of this.categories) {
+      for (const exp of this.expenditures[category]) {
+        if (exp) {
+          for (let i = 1; i < this.columns.length; i++) {
+            if (this.columns[i] !== ' ') {
+              const value = JSON.parse(exp['values']);
+              const setV = this.columns[i] !== 'Total' ? value[this.columns[i]] : this.sumTotal(exp['exp_id']);
+              j += `"${exp['exp_id']}_${this.columns[i]}": "${setV}",`;
+            }
+          }
         }
       }
     }
     j = j.substring(0, j.lastIndexOf(',')) + '}';
     return j;
   }
+
   getExpenditureCategories() {
     this.projectserivce.getExpenditureCategories().subscribe(data => {
-      this.categories = data['data'];
+      // this.categories = data['data'];
       console.log(data);
     });
   }
@@ -86,17 +98,16 @@ export class ExpenditureComponent implements OnInit {
   getFinanceByProject(id) {
     this.projectserivce.getFinanceByProject(id).subscribe(data => {
       this.finance = data['data'];
-      this.getFinancePlan(data['data'], this.finance_plan_id);
-      let plan = '';
-      for (let p in data['data']['plans']) {
-        plan = data['data']['plans'][p]['name'];
+      console.log(data['data']);
+      this.getFinancePlan(data['data']);
+      this.populateColumns(data['data']['plans'][this.finance_index]['name'], Number(this.start.split('-')[1]) - 1);
+      if (this.getFormInputs().length > 4) {
+        this.formsInputs = JSON.parse(this.getFormInputs());
       }
-      this.populateColumns(plan, Number(this.start.split('-')[1]) - 1);
-      this.formsInputs = JSON.parse(this.getFormInputs());
     });
   }
 
-  getMonthlyExpenditureByFinancePlan(){
+  getMonthlyExpenditureByFinancePlan() {
     this.projectserivce.getMonthlyExpenditureByFinancePlan(this.finance_plan_id).subscribe(data => {
       this.expenses = data['data'];
       console.log(data);
@@ -146,34 +157,38 @@ export class ExpenditureComponent implements OnInit {
       return column;
     }
   }
-  getFinancePlan(finance, finance_plan_id) {
-    for (const plan in finance['plans']) {
-      if (plan) {
-        if (finance['plans'][plan]['id'] === finance_plan_id) {
-          this.finance_plan = finance['plans'][plan];
-        }
+
+  getFinancePlan(finance) {
+    this.finance_plan = finance['plans'][this.finance_index];
+    for (const exp in this.finance_plan['expenditures']) {
+      if (exp) {
+        this.categories.push(exp);
       }
     }
+    this.expenditures = this.finance_plan['expenditures'];
   }
 
   setEnable(b) {
     this.enable = b;
   }
+
   prepareFormData(form) {
-    let data = [];
+    const data = [];
     for (const category of this.categories) {
-      for (const exp in category['expenditures']) {
-        if (category['expenditures'].length > 0) {
+      for (const exp of this.expenditures[category]) {
+        if (exp) {
           let values = '{';
           for (let i = 0; i < this.columns.length; i++) {
             if (this.columns[i] !== ' ' && this.columns[i] !== 'Total') {
-              values += `"${this.columns[i]}": "${form.value[category['expenditures'][exp]['id'] + '_' + this.columns[i]]}",`;
+              const value = form.value[exp['exp_id'] + '_' + this.columns[i]]
+              !== undefined ? Number(form.value[exp['exp_id'] + '_' + this.columns[i]]) : 0;
+              values += `"${this.columns[i]}": "${value}",`;
             }
           }
           values = values.substring(0, values.lastIndexOf(',')) + '}';
           data.push({
             finance_plan_id: this.finance_plan_id,
-            expenditure_id: category['expenditures'][exp]['id'],
+            expenditure_id: exp['exp_id'],
             values: values
           });
         }
@@ -181,21 +196,29 @@ export class ExpenditureComponent implements OnInit {
     }
     return data;
   }
+
   openExpenditureDialog() {
     this.dialog.open(AddExpenditureComponent,
-      {data: {'project_id' : this.project_id}, minWidth: '500px', minHeight: '400px', maxHeight: '600px' , disableClose: true});
+      {data: {'project_id': this.project_id}, minWidth: '500px', minHeight: '400px', maxHeight: '600px', disableClose: true});
   }
+
   openExpenditureCategoryDialog() {
     this.dialog.open(AddExpenditureCategoryComponent,
-      {data: {'project_id' : this.project_id}, minWidth: '500px', minHeight: '350px', maxHeight: '600px' , disableClose: true});
+      {data: {'project_id': this.project_id}, minWidth: '500px', minHeight: '350px', maxHeight: '600px', disableClose: true});
   }
+
   sumTotal(id) {
     let sum = 0;
     for (let i = 1; i < this.columns.length - 1; i++) {
       sum += Number(this.formsInputs[`${id}_${this.columns[i]}`]);
     }
     this.formsInputs[`${id}_Total`] = sum;
+    if (isNaN(sum)) {
+      return 0;
+    }
+    return sum;
   }
+
   submit() {
     this.projectserivce.addmonthlyExpenditure(
       this.prepareFormData(this.monthlyExpenditure)

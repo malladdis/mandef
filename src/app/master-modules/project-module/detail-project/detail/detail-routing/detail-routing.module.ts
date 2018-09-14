@@ -17,8 +17,7 @@ const detailRoutes: Routes = [{
     {path: 'finance/:id', component: FinanceComponent},
     {path: 'expenditure/:finance_plan_id', component: ExpenditureComponent},
     {path: 'activity-detail/:activity_id', component: ActivityDetailComponent},
-    {path: 'data-entry/:id', component: DataEntryComponent},
-    {path: 'expenditure/:id', component: ExpenditureComponent},
+    {path: 'data-entry/:id', component: DataEntryComponent}
   ]
 }];
 

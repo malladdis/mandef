@@ -89,6 +89,7 @@ export class FinanceComponent implements OnInit {
       .charAt(plans[plan]['name'].length - 1)))} ${this.changeName(plans[plan]['name'])}`;
     }
     this.financePlans = plans;
+    console.log(plans);
   }
 
   addFinancePlan() {
@@ -97,7 +98,7 @@ export class FinanceComponent implements OnInit {
       minWidth: '500px', minHeight: '100vh', maxHeight: '600px', disableClose: true
     });
   }
-  navigateToExpenditure(finance_plan_id) {
-    this.router.navigate([`/auth/master-modules/project/detail/${this.project_id}/expenditure/${finance_plan_id}_${this.project_id}`]);
+  navigateToExpenditure(finance_plan_id, i) {
+    this.router.navigate([`/auth/master-modules/project/detail/${this.project_id}/expenditure/${finance_plan_id}_${this.project_id}_${i}`]);
   }
 }
