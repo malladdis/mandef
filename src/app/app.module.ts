@@ -14,6 +14,8 @@ import {TokenInterceptor} from './interceptors/token.interceptor';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {ToasterModule, ToasterService} from 'angular5-toaster/dist';
 import {ToasterNotificationService} from './services/toaster-notification.service';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 
 
@@ -27,7 +29,8 @@ import {ToasterNotificationService} from './services/toaster-notification.servic
     CoreModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    ToasterModule
+    ToasterModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: true })
   ],
   providers: [
     AuthService,

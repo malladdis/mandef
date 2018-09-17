@@ -1,11 +1,11 @@
 <div fxLayout="column" class="components-container-gt-xs" [ngClass.xs]="'components-container-xs'" fxLayoutGap="20px">
   <div fxFlex class="program-component-holder mat-elevation-z4">
     <mat-toolbar color="primary">
-      <mat-icon>star_rate</mat-icon> <span *ngFor="let f of forms" style="margin-left: 5px;">{{f.title}}</span>
-    
+      <mat-icon>star_rate</mat-icon> <span *ngFor="let f of forms" style="margin-left: 5px;">{{f['title']}}</span>
+
       <!-- This fills the remaining space of the current row -->
       <span class="example-fill-remaining-space"></span>
-    
+
       <div fxLayoutGap="20px" fxLayout="row" style="padding-right: 20px;">
       <button mat-button matTooltip="Edit form"><mat-icon>edit</mat-icon>  Edit</button>
       <button mat-button matTooltip="Clone form"><mat-icon>repeat</mat-icon>  Clone</button>
@@ -14,20 +14,20 @@
 
     <mat-toolbar>
       <span><mat-icon color="primary">info</mat-icon>Drag The Item here</span>
-    
+
       <!-- This fills the remaining space of the current row -->
       <span class="example-fill-remaining-space"></span>
       <button mat-raised-button color="primary" matTooltip="Publish this form" style="margin-right: 10px;"><mat-icon>publish</mat-icon>Publish</button>
       <button (click)="save()" mat-raised-button color="primary" matTooltip="Save this form"><mat-icon>save</mat-icon> Save</button>
     </mat-toolbar>
-    
+
     <div
      fxLayout="row"
      fxLayoutGap="10px"
      fxLayoutGap.xs="0">
 
         <div fxFlex="30%">
-          
+
           <div>
             <ul class="list-group">
               <li data="<div style='padding-left:15px;' id='holder' draggable='true'><label class='editable' >Text name</label><p id='label-editor' style='display:none;'><span class='btn-link edit'>Edit</span> <span class='btn-link remove' style='margin-left:15px;'>Remove</span></p></div>"  id="drag1" class="list-group-item" draggable="true"><span class="fa fa-font"> Text</span></li>
@@ -39,7 +39,7 @@
                 </div>" draggable="true" class="list-group-item">
                 <span class="fa fa-file"> File</span>
               </li>
-              
+
                 <li data="<div><table id='customers' style='border-collapse: collapse;text-align:center;'>
                 <thead>
                   <tr>
@@ -79,7 +79,7 @@
                   <button id='success' class='fa fa-plus add-column' style='font-size:20px;'>  add column</button>
                 </div>
               </div>
-            </div>" 
+            </div>"
 
             id="table-drager" class="list-group-item" draggable="true"><span class="fa fa-table"> Table</span></li>
               <li id="message-drager" data="<div id='holder' draggable='true'><p class='message-editable' >write message</p></div>" class="list-group-item" draggable="true"><span class="fa fa-comment"> Message</span></li>

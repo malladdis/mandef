@@ -6,7 +6,7 @@ import {BehaviorSubject, Observable, of} from 'rxjs';
 import {delay} from 'rxjs/internal/operators';
 @Injectable()
 export class AuthService {
-  API_URL = 'http://localhost:8000/api';
+  API_URL = 'https://api.vitamande.org/api';
   isLogged = false;
   httpOptions = {
     headers: new HttpHeaders({
@@ -43,6 +43,6 @@ export class AuthService {
     });
   }
   refresh() {
-    return Observable.of(this.getToken()).delay(20000);
+    return of(this.getToken());
   }
 }

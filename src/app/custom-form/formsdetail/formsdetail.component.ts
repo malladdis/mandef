@@ -17,9 +17,9 @@ import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
   styleUrls: ['./formsdetail.component.scss']
 })
 export class FormsdetailComponent implements OnInit {
-  private id:number;
-  private sub:any;
-  private myForm:Array<Forms>=[];
+   id:number;
+   sub:any;
+   myForm:Array<Forms>=[];
    myColumn:Array<Columns>=[];
    columnName:Array<string>=[];
    formDataList:Array<FormData>=[];
@@ -36,7 +36,7 @@ export class FormsdetailComponent implements OnInit {
     this.customForm.show(this.id).subscribe((data:Array<Forms>)=>{
       this.myForm=data['data'];
     },error=>{
-      
+
     });
     this.columnsHtpp.show(this.id).subscribe(data=>{
       this.myColumn=data['data'];
@@ -51,7 +51,7 @@ export class FormsdetailComponent implements OnInit {
       this.json=JSON.parse(this.tableRowData.toString());
       }
     });
-    
+
   }
 
   openShareDialog(){

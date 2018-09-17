@@ -34,7 +34,7 @@ export class EditIndicatorDialogComponent implements OnInit {
   selectedindicatorCalculationMethod:Array<any>=[];
   indicatorDisagregations:Array<any>=[];
   customForm:Array<any>=[];
-  private editForm:FormGroup;
+   editForm:FormGroup;
   isChecked:boolean=false;
   disaggregationMethod:Array<any>=[];
   customForms:Array<any>=[];
@@ -45,9 +45,9 @@ export class EditIndicatorDialogComponent implements OnInit {
    loading=false;
    customFormName:string
    isConnected:boolean=false;
-   
+
    indicatorFormData:Array<any>=[];
-  
+
   constructor(@Inject(MAT_DIALOG_DATA) public data: string,private dialogRef:MatDialogRef<EditIndicatorDialogComponent>,
               private indicatorHttp:IndicatorService,private builder:FormBuilder,private projectServie:ProjectService,private formHttp:CustomFormsService,
               private customFormHttp:CustomFormsService,private disaggregationHttp:DisaggreagtionService,private calculationHttp:CalculationMethodService,
@@ -98,9 +98,9 @@ export class EditIndicatorDialogComponent implements OnInit {
         this.selectedIndicatorDisaggregations=data['data'];
       })
     }
-    }); 
+    });
 
-    
+
     this.projectServie.getDatatypes()
     .subscribe(data=>{
       this.dataType=data['data'];
@@ -137,18 +137,18 @@ export class EditIndicatorDialogComponent implements OnInit {
   }
 
   showCustoForms(event){
-    
+
     if(this.indicatorFormData.length<=0){
       this.indicatorFormHttp.show(this.data['indicator_id'])
     .subscribe(data=>{
       if(data['data'].length>0){
         console.log('true');
       }else{
-       
+
       this.customFormHttp.index()
     .subscribe(data=>{
       this.customForms=data['data'];
-    }); 
+    });
 
       }
     });
@@ -165,7 +165,7 @@ export class EditIndicatorDialogComponent implements OnInit {
    .subscribe(data=>{
     this.myColumn=data['data'];
     this.columnName= this.myColumn[0].columns.split(',');
-    
+
    })
   }
 
@@ -183,7 +183,7 @@ export class EditIndicatorDialogComponent implements OnInit {
 
       }
     });
-    
+
   }
 
   closeDialog(){

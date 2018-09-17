@@ -1,6 +1,6 @@
 import {HttpHeaders} from '@angular/common/http';
 
-const API_URL = 'http://localhost:8000/api';
+const API_URL = 'https://api.vitamande.org/api';
 const programCategoryRoutes = {
   index: createUrl('/program_categories'),
   show: createUrl('/program_categories'),
