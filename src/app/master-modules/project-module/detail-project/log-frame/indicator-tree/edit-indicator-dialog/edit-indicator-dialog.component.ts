@@ -74,18 +74,23 @@ export class EditIndicatorDialogComponent implements OnInit {
     //finding previus inserted indicator form data if it exists
     this.indicatorFormHttp.show(this.data['indicator_id'])
     .subscribe(data=>{
-      this.indicatorFormData=data['data'];
-      this.formHttp.show(this.indicatorFormData[0]['form_id'])
-      .subscribe(data=>{
-        this.customForm=data['data'][0];
-        console.log(this.customForm);
-      })
+      if(data['data'].length>0){
+
+          this.indicatorFormData=data['data'];
+          this.formHttp.show(this.indicatorFormData[0]['form_id'])
+          .subscribe(data=>{
+            this.customForm=data['data'][0];
+            console.log(this.customForm);
+          })
+
+      }
     })
     //end of finding previus inserted indicator form data
 
    this.indicatorHttp.show(this.data['indicator_id'])
     .subscribe(data=>{
-      this.indicator=data['data'][0];
+      
+       this.indicator=data['data'][0];
       this.selectedDataType=this.indicator['type'];
       this.selectedMeasuringUnit=this.indicator['unit'];
       this.selectedFrequency=this.indicator['frequency'];
@@ -97,7 +102,7 @@ export class EditIndicatorDialogComponent implements OnInit {
       .subscribe(data=>{
         this.selectedIndicatorDisaggregations=data['data'];
       })
-    }
+    } 
     }); 
 
     

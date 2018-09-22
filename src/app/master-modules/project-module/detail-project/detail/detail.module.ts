@@ -28,6 +28,7 @@ import { ActivityDetailComponent } from '../activity/activity-detail/activity-de
 import { FinanceComponent } from '../finance/finance.component';
 import { FilterPipePipe } from '../data-entry/pipe/filter-pipe.pipe';
 import { ShowAllComponent } from '../data-entry/show-all/show-all.component';
+import { MonthlyComponent } from '../data-entry/monthly/monthly.component';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -41,6 +42,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   ],
   declarations: [DetailProjectComponent, OverviewComponent,
     ActivityComponent, LogFrameComponent, OutcomeTreeComponent,DataEntryComponent,BiannualTableComponent,QuarterTableComponent,AnnualTableComponent,
+    MonthlyComponent,
     DataEntryDialogComponent,FinanceComponent,FilterPipePipe,ShowAllComponent,
     IndicatorTreeComponent, ActivityTreeComponent, OutputTreeComponent, ExpenditureComponent,
   ActivityDialogComponent, IndicatorDialogComponent, OutcomeDialogComponent,

@@ -10,6 +10,9 @@
       
       <div *ngFor="let frindicator of frequenciesWithIndicator">
           <div [ngSwitch]="frindicator.name">
+              <div *ngSwitchCase="'Monthly'">
+                <app-monthly [indicator]="frindicator.indicator"></app-monthly>
+              </div>
              <div *ngSwitchCase="'Biannual'">
                 <app-biannual-table [indicator]="frindicator.indicator" ></app-biannual-table>
              </div>

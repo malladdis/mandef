@@ -97,7 +97,6 @@ export class DataEntryDialogComponent implements OnInit {
   }
 
   calculate(){
-   
     switch(this.calculationMethod){
       case "Sum":
       this.findSum()

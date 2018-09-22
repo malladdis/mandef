@@ -2,7 +2,6 @@ import { FrequenciesService } from './services/frequencies.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Frequency } from '../../../../models/frequency';
-import { th } from 'fontawesome';
 import { DataEntryService } from './services/data-entry.service';
 import { DataEntryIndicator } from '../../../../models/dataEntryIndicator';
 import { IndicatorService } from '../log-frame/indicator-tree/services/indicator.service';
@@ -29,9 +28,8 @@ private frequenciesWithIndicator:Array<any>=[];
 
       this.frequencyHttp.index()
       .subscribe(data=>{
-        this.frequencies=data['data'];
-        this.frequencies.splice(0,1);
-        this.changeFrequency(this.frequencies[0].id);
+        this.frequencies = data['data'];
+        this.changeFrequency(this.frequencies[0].id); //automatically finding frequencies when this component is initialized
       });
 
       
@@ -42,6 +40,7 @@ private frequenciesWithIndicator:Array<any>=[];
     this.frequencyHttp.show(id)
     .subscribe(data=>{
       this.frequenciesWithIndicator=data['data'];
+      console.log(this.frequenciesWithIndicator);
     });
     
   }

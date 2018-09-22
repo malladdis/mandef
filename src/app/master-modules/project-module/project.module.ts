@@ -21,6 +21,7 @@ import { AnnualTableComponent } from './detail-project/data-entry/annual-table/a
 import { DataEntryDialogComponent } from './detail-project/data-entry/data-entry-dialog/data-entry-dialog.component';
 import { FilterPipePipe } from './detail-project/data-entry/pipe/filter-pipe.pipe';
 import { ShowAllComponent } from './detail-project/data-entry/show-all/show-all.component';
+import { MonthlyComponent } from './detail-project/data-entry/monthly/monthly.component';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };

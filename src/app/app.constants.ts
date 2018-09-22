@@ -264,11 +264,11 @@ const createCustomForms = {
 };
 
 const createFormSections = {
-  index: createUrl('/form-sections'),
-  show: createUrl('/form-sections'),
-  store: createUrl('/form-sections'),
-  update: createUrl('/form-sections'),
-  destroy: createUrl('/form-sections')
+  index: createUrl('/form_sections'),
+  show: createUrl('/form_sections'),
+  store: createUrl('/form_sections'),
+  update: createUrl('/form_sections'),
+  destroy: createUrl('/form_sections')
 };
 
 const createFormColumns = {
@@ -490,7 +490,8 @@ export const apiRoutes = {
   calculationMethod:createCalculationMethod,
   disaggregation:createDisaggreagtion,
   indicatorCalculationMethod:createIndicatorCalculationMethod,
-  indicatorForm:createIndicatorForm
+  indicatorForm:createIndicatorForm,
+  
 };
 
 

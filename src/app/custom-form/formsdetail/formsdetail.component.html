@@ -13,10 +13,14 @@
       <mat-toolbar>
           <span class="example-fill-remaining-space"></span>
           <button mat-button color="primary" [routerLink]="['/auth/custom-forms/add-records',id]"><mat-icon>add</mat-icon>Add records</button>
-          <button mat-button color="primary"><mat-icon>import_export</mat-icon>Import</button>
+          <button mat-button [matMenuTriggerFor]="menu"><mat-icon>import_export</mat-icon> Export</button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="tableToExcel('table')">.excel</button>
+        <button mat-menu-item>.doc</button>
+      </mat-menu>
       </mat-toolbar>
-        <div style="height: auto;overflow: auto;">
-          <table class="table table-hover table-bordered" style="width: 100%;">
+        <div style="height: auto;overflow: auto;" id="printable-div">
+          <table class="table table-hover table-bordered" style="width: 100%;" id="table">
             <thead>
               <tr >
                 <th style="text-transform: capitalize;" *ngFor="let c of columnName">{{c}}</th>
