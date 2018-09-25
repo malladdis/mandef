@@ -3,11 +3,13 @@ import {AppService} from '../../services/app.service';
 import {Observable} from 'rxjs';
 import {Project} from '../../models/project';
 import {apiRoutes} from '../../app.constants';
+import {ToasterNotificationService} from '../../services/toaster-notification.service';
 
 @Injectable()
 export class ProjectService {
 
-  constructor(private appservice: AppService) {
+  constructor(private appservice: AppService,
+              private toaseter: ToasterNotificationService) {
   }
 
   getProjectCategories() {
@@ -141,8 +143,8 @@ export class ProjectService {
       objective: form.value.objective,
       mng_1: form.value.manager1,
       mng_2: form.value.manager2,
-      starting_date: form.value.start,
-      ending_date: form.value.end
+      starting_date: form.value.start.format('YYYY-MM-DD HH:mm:ss'),
+      ending_date: form.value.end.format('YYYY-MM-DD HH:mm:ss')
     });
     return this.appservice.post(apiRoutes.project_detail.store, projectDetail);
   }
@@ -301,8 +303,8 @@ export class ProjectService {
       status_id: form.value.status,
       activity_category_id: form.value.category,
       kebele_id: form.value.kebele,
-      start_date: form.value.start,
-      end_date: form.value.end,
+      start_date: form.value.start.format('YYYY-MM-DD HH:mm:ss'),
+      end_date: form.value.end.format('YYYY-MM-DD HH:mm:ss'),
       implementing_partners: imp,
       parent_id: type['type'] === 'output' ? 0 : type['id']
     });
@@ -330,7 +332,41 @@ export class ProjectService {
   getExpenditureCategories() {
     return this.appservice.get(apiRoutes.expenditure_categories.index);
   }
+  addExpenditureCategiries(body) {
+    return this.appservice.post(apiRoutes.expenditure_categories.store, body);
+  }
+  addExpenditure(body) {
+    return this.appservice.post(apiRoutes.expenditures.store, body);
+  }
   getFinanceByProject(project_id) {
     return this.appservice.show(apiRoutes.finance.project_finance, project_id);
+  }
+  addFinance(project_id, frequency_id, plans, form) {
+    this.appservice.post(apiRoutes.finance.store,
+      JSON.stringify({
+      project_id: project_id,
+      frequency_id: frequency_id
+    })
+    ).subscribe(data =>  {
+      this.addFinancePlans(data['data']['id'], plans, form);
+      console.log(data['data']['id']);
+    });
+  }
+
+  addFinancePlans(finance_id, plans, form) {
+    this.appservice.post(apiRoutes.finance_plans.store, JSON.stringify({
+      finance_id: finance_id,
+      plans: plans
+    })).subscribe(data => {
+      form.resetForm();
+      this.toaseter.success('success', data['message']);
+    });
+  }
+  addmonthlyExpenditure(body) {
+    console.log(body.length);
+    return this.appservice.post(apiRoutes.monthly_expenditures.store, JSON.stringify({length: body.length, body: body}));
+  }
+  getMonthlyExpenditureByFinancePlan(id) {
+    return this.appservice.show(apiRoutes.monthly_expenditures.get_monthly_expenditures_by_finance_plan, id);
   }
 }

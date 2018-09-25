@@ -237,6 +237,13 @@ const expenditure_categories = {
   update: createUrl('/expenditure_categories'),
   destroy: createUrl('/expenditure_categories')
 };
+const expenditures = {
+  index: createUrl('/expenditures'),
+  show: createUrl('/expenditures'),
+  store: createUrl('/expenditures'),
+  update: createUrl('/expenditures'),
+  destroy: createUrl('/expenditures')
+};
 
 const status = {
   index: createUrl('/statuses'),
@@ -320,6 +327,23 @@ const finances = {
   project_finance: createUrl('/project-finance')
 };
 
+const finance_plans = {
+  index: createUrl('/finance_plans'),
+  show: createUrl('/finance_plans'),
+  store: createUrl('/finance_plans'),
+  update: createUrl('/finance_plans'),
+  destroy: createUrl('/finance_plans')
+};
+const monthly_expenditures = {
+  index: createUrl('/monthly_expenditures'),
+  show: createUrl('/monthly_expenditures'),
+  store: createUrl('/monthly_expenditures'),
+  update: createUrl('/monthly_expenditures'),
+  destroy: createUrl('/monthly_expenditures'),
+  get_monthly_expenditures_by_finance_plan: createUrl('/get_monthly_expenditures_by_finance_plan')
+};
+
+
 const createFormsDataFile = {
   index: createUrl('/form_data_files'),
   show: createUrl('/form_data_files'),
@@ -398,28 +422,29 @@ const createDataEntry = {
   destroy: createUrl('/data_entries')
 };
 
-const createPeriods={
+const createPeriods = {
   index: createUrl('/current'),
   show: createUrl('/current'),
   store: createUrl('/current'),
   update: createUrl('/current'),
   destroy: createUrl('/current')
 };
-const createIndicatorDisaggregationMethods={
+const createIndicatorDisaggregationMethods = {
   index: createUrl('/indicator_disaggregation_methods'),
   show: createUrl('/indicator_disaggregation_methods'),
   store: createUrl('/indicator_disaggregation_methods'),
   update: createUrl('/indicator_disaggregation_methods'),
   destroy: createUrl('/indicator_disaggregation_methods')
 };
+const createDataEntryDisaggregation={
+  index: createUrl('/data_entry_disaggregation'),
+  show: createUrl('/data_entry_disaggregation'),
+  store: createUrl('/data_entry_disaggregation'),
+  update: createUrl('/data_entry_disaggregation'),
+  destroy: createUrl('/data_entry_disaggregation')
+}
 
-const createIndicatorCalculationrMethod={
-  index: createUrl('/indicator_calculation_methods'),
-  show: createUrl('/indicator_calculation_methods'),
-  store: createUrl('/indicator_calculation_methods'),
-  update: createUrl('/indicator_calculation_methods'),
-  destroy: createUrl('/indicator_calculation_methods')
-};
+
 
 const userRoutes = {
   me: createAuthUrl('/me'),
@@ -470,6 +495,7 @@ export const apiRoutes = {
   activity_budgets: activity_budgets,
   activity_indicators: activity_indicators,
   expenditure_categories: expenditure_categories,
+  expenditures: expenditures,
   customForms: createCustomForms,
   formSections: createFormSections,
   formColumn: createFormColumns,
@@ -491,7 +517,9 @@ export const apiRoutes = {
   disaggregation:createDisaggreagtion,
   indicatorCalculationMethod:createIndicatorCalculationMethod,
   indicatorForm:createIndicatorForm,
-  
+  dataEntryDisaggregation:createDataEntryDisaggregation,
+  finance_plans: finance_plans,
+  monthly_expenditures: monthly_expenditures
 };
 
 

@@ -1,5 +1,5 @@
 <div>
-  <h2 mat-dialog-title color="primary-color">Attach files for {{data.title}}</h2>
+  <h2 mat-dialog-title color="primary-color">Attach files for {{data['title']}}</h2>
   <mat-dialog-content style="height:100%;" style="overflow-y: hidden;" [formGroup]="fileForm">
       <input type="text" matInput formControlName="id" name="id" [value]='id' style="display: none;">
       <input hidden type="file" #fileInput formControlName="file" name="file" id="file" (change)="fileSelected($event)">

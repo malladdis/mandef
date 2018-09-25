@@ -19,9 +19,7 @@ export class BiannualTableComponent implements OnInit {
   constructor(private dataEntryHttp:DataEntryService,private period:PeriodsService,private dialog:MatDialog) { }
 
   ngOnInit() {
-    for(var i=0;i<this.indicator.length;i++){
-      this.getPast(this.indicator[i].id);
-    }
+    this.getPast(this.indicator[0].id);
 
     this.period.current("biannual")
     .subscribe(data=>{
@@ -60,7 +58,19 @@ export class BiannualTableComponent implements OnInit {
    }
 
    getSpan(){
-     return this.dataEntry.length;
+     return this.dataEntry.length*3;
+     
+   }
+
+   getTotal(){
+     let sum=0;
+     let data= this.dataEntry.filter((d)=>d.id==3);
+    for(let i=0;i<data.length;i++){
+      for(let j=0;j<this.dataEntry[i]['disaggregation'].length;j++){
+        sum=sum+this.dataEntry[i]['disaggregation'][j]['value'];
+      }
+    }
+    return sum;
    }
 
    addCurrentValue(indicatorId){

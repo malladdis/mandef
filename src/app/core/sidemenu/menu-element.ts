@@ -123,7 +123,7 @@ export const menus = [
      {
       'name': 'Survey',
       'open': false,
-      'link': '/auth/scrumboard',
+      'link': '/auth/dashboard',
       'icon': 'done',
     },
     {
@@ -135,43 +135,43 @@ export const menus = [
               {
                   'name': 'Individual Beneficiary',
                   'icon': false,
-                  'link': 'chats/chat',
+                  'link': '/auth/dashboard',
                   'open': false,
               },
               {
                   'name': 'Group Beneficiary',
                   'icon': false,
-                  'link': 'mail/mail',
+                  'link': '/auth/dashboard',
                   'open': false,
               },
               {
                   'name': 'Activities',
                   'icon': false,
-                  'link': 'editor/editor',
+                  'link': '/auth/dashboard',
                   'open': false,
               },
               {
                 'name': 'Budget',
                 'icon': false,
-                'link': 'chats/chat',
+                'link': '/auth/dashboard',
                 'open': false,
               },
               {
                 'name': 'Activities Expenditures',
                 'icon': false,
-                'link': 'mail/mail',
+                'link': '/auth/dashboard',
                 'open': false,
               },
               {
                 'name': 'Admin Expenditures',
                 'icon': false,
-                'link': 'editor/editor',
+                'link': '/auth/dashboard',
                 'open': false,
               },
               {
                 'name': 'Intervention Input',
                 'icon': false,
-                'link': 'chats/chat',
+                'link': '/auth/dashboard',
                 'open': false,
               }
           ]

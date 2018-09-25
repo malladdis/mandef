@@ -16,6 +16,9 @@ import {
     IndicatorCalculationMethodService
 } from '../services/indicator-calculation-method.service';
 import { IndicatorFormService } from '../services/indicator-form.service';
+import {
+    IndicatorDisaggregationService
+} from '../../../data-entry/services/indicator-disaggregation.service';
 
 @Component({
   selector: 'app-edit-indicator-dialog',
@@ -33,8 +36,11 @@ export class EditIndicatorDialogComponent implements OnInit {
   selectedIndicatorDisaggregations:Array<any>=[];
   selectedindicatorCalculationMethod:Array<any>=[];
   indicatorDisagregations:Array<any>=[];
+  indicatorCalcualtionMethod:Array<any>=[];
+  indicatorDisaggregationIsSet:boolean=false;
+  indicatorCalculationMethodIsset:boolean=false;
   customForm:Array<any>=[];
-  private editForm:FormGroup;
+   editForm:FormGroup;
   isChecked:boolean=false;
   disaggregationMethod:Array<any>=[];
   customForms:Array<any>=[];
@@ -45,13 +51,17 @@ export class EditIndicatorDialogComponent implements OnInit {
    loading=false;
    customFormName:string
    isConnected:boolean=false;
-   
    indicatorFormData:Array<any>=[];
-  
+   isCustomFormChecked:boolean=false;
+
+  private disaggregationId:number;
+   calculationMethodId:number;
+
   constructor(@Inject(MAT_DIALOG_DATA) public data: string,private dialogRef:MatDialogRef<EditIndicatorDialogComponent>,
               private indicatorHttp:IndicatorService,private builder:FormBuilder,private projectServie:ProjectService,private formHttp:CustomFormsService,
               private customFormHttp:CustomFormsService,private disaggregationHttp:DisaggreagtionService,private calculationHttp:CalculationMethodService,
-              private formFieldsHttp:FormColumnsService,private indicatorCalculationMethodHttp:IndicatorCalculationMethodService,private indicatorFormHttp:IndicatorFormService) { }
+              private formFieldsHttp:FormColumnsService,private indicatorCalculationMethodHttp:IndicatorCalculationMethodService,private indicatorFormHttp:IndicatorFormService,
+              private indicatorDisaggregationHttp:IndicatorDisaggregationService) { }
 
   ngOnInit() {
     this.editForm=this.builder.group({
@@ -63,7 +73,7 @@ export class EditIndicatorDialogComponent implements OnInit {
       measuringUnit:[''],
       frequency:[''],
       source:[''],
-      disaggregation:[''],
+      disaggregation:[],
       customForm:[''],
       customFormcalculationMethod:[''],
       customFormValueField:[''],
@@ -71,41 +81,58 @@ export class EditIndicatorDialogComponent implements OnInit {
       calculationMethod:['']
     })
 
-    //finding previus inserted indicator form data if it exists
+    //checking if this indicator is connected with Custom forms
     this.indicatorFormHttp.show(this.data['indicator_id'])
     .subscribe(data=>{
       if(data['data'].length>0){
-
           this.indicatorFormData=data['data'];
           this.formHttp.show(this.indicatorFormData[0]['form_id'])
           .subscribe(data=>{
             this.customForm=data['data'][0];
-            console.log(this.customForm);
           })
-
       }
     })
-    //end of finding previus inserted indicator form data
+    //end of checking if this indicator is connected with Custom forms
 
+    //finding indicator details information for editing
    this.indicatorHttp.show(this.data['indicator_id'])
     .subscribe(data=>{
       
-       this.indicator=data['data'][0];
+      this.indicator=data['data'][0];
+      console.log(this.indicator);
       this.selectedDataType=this.indicator['type'];
       this.selectedMeasuringUnit=this.indicator['unit'];
       this.selectedFrequency=this.indicator['frequency'];
-      this.indicatorDisagregations=this.indicator['disaggregations'];
 
-    if(this.indicatorDisagregations.length>0){
-      this.isChecked=true;
-      this.disaggregationHttp.show(this.indicatorDisagregations[0]['disaggregation_method_id'])
-      .subscribe(data=>{
-        this.selectedIndicatorDisaggregations=data['data'];
-      })
-    } 
+      //checking if calculation method is set for this indicator
+      if(this.indicator['calculation_method']!=null){
+        this.indicatorCalculationMethodIsset=true;
+        this.editForm.get('indicatorCalcualtionMethod').setValue(this.indicator['calculation_method']['calculation_method_id']);
+        this.calculationHttp.show(this.indicator['calculation_method']['calculation_method_id'])
+        .subscribe(data=>{
+          this.selectedindicatorCalculationMethod=data['data'];
+        })
+      }
+      //end of checking calcualtion method of this indicator
+
+      //checking if disaggregation is set for this indicator
+      if(this.indicator['disaggregations']!=null){
+        this.indicatorDisaggregationIsSet=true;
+        this.editForm.get('disaggregation').setValue(this.indicator['disaggregations']['disaggregation_method_id']);
+        this.isChecked=true;
+        this.disaggregationHttp.show(this.indicator['disaggregations']['disaggregation_method_id'])
+        .subscribe(data=>{
+          this.selectedIndicatorDisaggregations=data['data'];
+        });
+       } 
+       //end of checking disaggregation of this indicator
+
+
+      
+
     }); 
+    //end of indicator details editing
 
-    
     this.projectServie.getDatatypes()
     .subscribe(data=>{
       this.dataType=data['data'];
@@ -142,24 +169,23 @@ export class EditIndicatorDialogComponent implements OnInit {
   }
 
   showCustoForms(event){
-    
-    if(this.indicatorFormData.length<=0){
-      this.indicatorFormHttp.show(this.data['indicator_id'])
-    .subscribe(data=>{
-      if(data['data'].length>0){
-        console.log('true');
-      }else{
-       
-      this.customFormHttp.index()
-    .subscribe(data=>{
+    this.isCustomFormChecked=true;
+     //finding list of custom forms
+     this.customFormHttp.index()
+     .subscribe(data=>{
       this.customForms=data['data'];
-    }); 
+     });
+     //end of finding custom forms
 
-      }
-    });
-    }else{
-      this.isConnected=true;
-    }
+     //checking if this indicator is connected with custom forms
+     this.indicatorFormHttp.show(this.data['indicator_id'])
+     .subscribe(data=>{
+       if(data['data'].length>0){
+         this.isConnected=true;
+        this.editForm.get('customForm').setValue(data['data'][0]['form_id']);
+       }
+     });
+     //end of checking if this indicator is connected with custom forms
 
   }
 
@@ -170,27 +196,78 @@ export class EditIndicatorDialogComponent implements OnInit {
    .subscribe(data=>{
     this.myColumn=data['data'];
     this.columnName= this.myColumn[0].columns.split(',');
-    
+
    })
   }
 
   save(){
     this.loading=true;
+       if(this.indicatorCalculationMethodIsset){
+        this.updateIndicatorDisaggregationMethod();
+       }else{
+         this.storeIndicatorCalculationMethod();
+       }
+
+       if(this.indicatorDisaggregationIsSet){
+         this.updateIndicatorDisaggregationMethod();
+       }else{
+         this.storeIndicatorDisaggregationMethod();
+       }
+       
+       if(this.isCustomFormChecked){
+         if(this.indicatorFormData.length>0){
+           this.updateIndicatorForm();
+         }else if(!this.isConnected&&this.customForm.length>0){
+           this.storeIndicatorForm();
+         }else{
+           this.storeIndicatorForm();
+         }
+       }
+  }
+
+  storeIndicatorCalculationMethod(){
     this.indicatorCalculationMethodHttp.store(this.data['indicator_id'],this.editForm.get('indicatorCalcualtionMethod').value)
     .subscribe(data=>{
-      if(data){
-        this.indicatorFormHttp.store(this.data['indicator_id'],this.editForm.get('customForm').value,this.editForm.get('customFormcalculationMethod').value,this.editForm.get('customFormValueField').value)
+      console.log(data);
+    })
+  }
+  updateIndicatorCalculationMethod(){
+    this.indicatorCalculationMethodHttp.update(this.data['indicator_id'],this.editForm.get('indicatorCalcualtionMethod').value)
+    .subscribe(data=>{
+      console.log(data);
+    })  
+  }
+
+  storeIndicatorDisaggregationMethod(){
+    this.indicatorDisaggregationHttp.store(this.data['indicator_id'],this.editForm.get('disaggregation').value)
+    .subscribe(data=>{
+      console.log(data);
+    })
+  }
+  updateIndicatorDisaggregationMethod(){
+    this.indicatorDisaggregationHttp.update(this.data['indicator_id'],this.editForm.get('disaggregation').value)
+    .subscribe(data=>{
+      console.log(data);
+    })
+  }
+
+  storeIndicatorForm(){
+    this.indicatorFormHttp.store(this.data['indicator_id'],this.editForm.get('customForm').value)
         .subscribe(data=>{
           if(data['data']){
             this.dialogRef.close();
           }
         });
-
-      }
-    });
-    
   }
 
+  updateIndicatorForm(){
+    this.indicatorFormHttp.update(this.data['indicator_id'],this.editForm.get('customForm').value)
+        .subscribe(data=>{
+          if(data['data']){
+            this.dialogRef.close();
+          }
+        });
+  }
   closeDialog(){
     this.dialogRef.close();
   }

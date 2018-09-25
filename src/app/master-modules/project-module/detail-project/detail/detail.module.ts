@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {DetailProjectComponent} from '../detail-project.component';
 import {OverviewComponent} from '../overview/overview.component';
 import {LogFrameComponent} from '../log-frame/log-frame.component';
@@ -16,7 +16,6 @@ import {OutcomeDialogComponent} from '../outcome-dialog/outcome-dialog.component
 import {OutputDialogComponent} from '../output-dialog/output-dialog.component';
 import {InputDialogComponent} from '../input-dialog/input-dialog.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {ChooserDialogComponent} from '../chooser-dialog/chooser-dialog.component';
 import {PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarConfigInterface, PerfectScrollbarModule} from 'ngx-perfect-scrollbar';
 import {ExpenditureComponent} from '../expenditure/expenditure.component';
 import { DataEntryComponent } from '../data-entry/data-entry.component';
@@ -29,15 +28,20 @@ import { FinanceComponent } from '../finance/finance.component';
 import { FilterPipePipe } from '../data-entry/pipe/filter-pipe.pipe';
 import { ShowAllComponent } from '../data-entry/show-all/show-all.component';
 import { MonthlyComponent } from '../data-entry/monthly/monthly.component';
+import { AddFinanceDialogComponent } from '../finance/add-finance-dialog/add-finance-dialog.component';
+import { AddExpenditureCategoryComponent } from '../expenditure/add-expenditure-category/add-expenditure-category.component';
+import { AddExpenditureComponent } from '../expenditure/add-expenditure/add-expenditure.component';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
+
 @NgModule({
   imports: [
     CommonModule,
     MaterialModule,
     DetailRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     PerfectScrollbarModule
   ],
   declarations: [DetailProjectComponent, OverviewComponent,
@@ -45,21 +49,24 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     MonthlyComponent,
     DataEntryDialogComponent,FinanceComponent,FilterPipePipe,ShowAllComponent,
     IndicatorTreeComponent, ActivityTreeComponent, OutputTreeComponent, ExpenditureComponent,
-  ActivityDialogComponent, IndicatorDialogComponent, OutcomeDialogComponent,
-    OutputDialogComponent, InputDialogComponent, ChooserDialogComponent, ActivityDetailComponent],
-
-  exports: [DetailProjectComponent, OverviewComponent,FilterPipePipe,
+    ActivityDialogComponent, IndicatorDialogComponent, OutcomeDialogComponent,
+    OutputDialogComponent, InputDialogComponent, ActivityDetailComponent,
+    AddFinanceDialogComponent, AddExpenditureCategoryComponent, AddExpenditureComponent],
+  exports: [DetailProjectComponent, OverviewComponent, FilterPipePipe,
     ActivityComponent, LogFrameComponent, OutcomeTreeComponent,
     IndicatorTreeComponent, ActivityTreeComponent, OutputTreeComponent,
     ActivityDialogComponent, IndicatorDialogComponent, OutcomeDialogComponent, FinanceComponent,
-    OutputDialogComponent, InputDialogComponent, ChooserDialogComponent, ActivityDetailComponent],
+    OutputDialogComponent, InputDialogComponent, ActivityDetailComponent,
+    AddFinanceDialogComponent, AddExpenditureCategoryComponent, AddExpenditureComponent],
   entryComponents: [
     ActivityDialogComponent,
     IndicatorDialogComponent,
     OutcomeDialogComponent,
     OutputDialogComponent,
     InputDialogComponent,
-    ChooserDialogComponent,
+    AddFinanceDialogComponent,
+    AddExpenditureCategoryComponent,
+    AddExpenditureComponent,
     DataEntryDialogComponent,
     ShowAllComponent
   ],
@@ -70,4 +77,5 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     }
   ]
 })
-export class DetailModule { }
+export class DetailModule {
+}

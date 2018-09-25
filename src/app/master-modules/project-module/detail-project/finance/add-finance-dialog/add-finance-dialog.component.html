@@ -1,0 +1,35 @@
+<div  fxLayout="column" class="components-container-gt-xs" [ngClass.xs]="'components-container-xs'" >
+  <mat-toolbar>
+    <h1 class="mat-headline center-align">Add Finance Plan</h1>
+    <span class="spacer"></span>
+    <button  mat-button mat-dialog-close class="close-button">
+      <mat-icon > close</mat-icon>
+    </button>
+  </mat-toolbar>
+
+  <div fxFlexFill>
+    <p>
+      <mat-form-field class="full-width">
+        <mat-select [formControl]="frequencySelect" placeholder="select frequency" required>
+          <mat-option *ngFor="let frequency of frequencies" [value]="frequency['name'] + '_' +frequency['id']">{{frequency['name']}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </p>
+
+    <mat-toolbar>
+      <h1 class="mat-headline center-align">{{data['budget'] |currency}} Unallocated project budget</h1>
+      <span class="spacer"></span>
+    </mat-toolbar>
+    <form novalidate #financeForm="ngForm" (ngSubmit)="submit(financeForm)">
+      <p *ngFor="let input of financeInputs">
+        <mat-form-field class="full-width">
+          <input type="number" matInput name="{{input['name']}}" placeholder="{{input['title']}}" ngModel required>
+        </mat-form-field>
+      </p>
+      <button *ngIf="financeInputs[0]" mat-raised-button color="primary" type="submit" mat-button style="float: right;" [disabled]="financeForm.form.invalid">
+        <mat-icon iconsmall>save</mat-icon>
+        Save
+      </button>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,22 @@
+<div fxLayout="row" fxLayout.xs="column" class="components-container-gt-xs" [ngClass.xs]="'components-container-xs'">
+  <div fxFlexFill>
+    <mat-toolbar style="background-color: white;">
+      <h1 class="mat-headline center-align">Add New Expenditure Category</h1>
+      <span class="spacer"></span>
+      <button  mat-button mat-dialog-close class="close-button" style="float: right">
+        <mat-icon > close</mat-icon>
+      </button>
+    </mat-toolbar>
+    <form novalidate #addExpenditureCategory="ngForm" (ngSubmit)="submit(addExpenditureCategory)">
+      <p>
+        <mat-form-field class="full-width">
+          <input type="text" name="name" ngModel matInput placeholder="expenditure category title" required>
+        </mat-form-field>
+      </p>
+      <button mat-raised-button color="primary" type="submit" mat-button class="background-primary text-floral-white" [disabled]="addExpenditureCategory.form.invalid">
+        <mat-icon iconsmall>save</mat-icon>
+        Save
+      </button>
+    </form>
+  </div>
+</div>

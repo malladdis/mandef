@@ -43,6 +43,6 @@ export class AuthService {
     });
   }
   refresh() {
-    return Observable.of(this.getToken()).delay(20000);
+    return of(this.getToken());
   }
 }

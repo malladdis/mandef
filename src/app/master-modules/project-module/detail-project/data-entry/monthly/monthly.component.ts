@@ -2,6 +2,7 @@ import { Input } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { MatDialogConfig } from '@angular/material';
 import { DataEntryDialogComponent } from '../data-entry-dialog/data-entry-dialog.component';
+import { ShowAllComponent } from '../show-all/show-all.component';
 import { MatDialog } from '@angular/material';
 
 @Component({
@@ -40,5 +41,15 @@ export class MonthlyComponent implements OnInit {
 
     this.dialog.open(DataEntryDialogComponent,dialogConfig);
    }
+
+   showAll(id){
+    const showAllDialogConf=new MatDialogConfig();
+    showAllDialogConf.data={
+      'indicator_id':id
+    }
+    showAllDialogConf.width="60%";
+    showAllDialogConf.height="60%";
+    this.dialog.open(ShowAllComponent,showAllDialogConf);
+  }
 
 }
