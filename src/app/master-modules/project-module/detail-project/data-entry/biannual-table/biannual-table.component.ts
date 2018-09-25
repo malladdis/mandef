@@ -64,8 +64,7 @@ export class BiannualTableComponent implements OnInit {
 
    getTotal(){
      let sum=0;
-     let data= this.dataEntry.filter((d)=>d.id==3);
-    for(let i=0;i<data.length;i++){
+    for(let i=0;i<this.dataEntry.length;i++){
       for(let j=0;j<this.dataEntry[i]['disaggregation'].length;j++){
         sum=sum+this.dataEntry[i]['disaggregation'][j]['value'];
       }
