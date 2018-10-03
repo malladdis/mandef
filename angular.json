@@ -26,7 +26,8 @@
               "src/theme/my-style.css",
               "src/theme/typography.scss",
               "src/assets/fonts/material-icons/material-icons.css",
-              "./node_modules/angular5-toaster/src/toaster.css"
+              "./node_modules/angular5-toaster/src/toaster.css",
+              "node_modules/jquery-confirm/dist/jquery-confirm.min.css"
             ],
             "scripts": []
           },

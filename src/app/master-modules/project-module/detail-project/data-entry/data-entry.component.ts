@@ -29,11 +29,10 @@ export class DataEntryComponent implements OnInit {
       console.log(this.projectId);
     });
 
-    this.frequencyHttp.index()
-      .subscribe(data => {
+      this.frequencyHttp.index()
+      .subscribe(data=>{
         this.frequencies = data['data'];
-        this.frequencies.splice(0, 1);
-        this.changeFrequency(this.frequencies[0].id);
+        this.changeFrequency(this.frequencies[0].id); //automatically finding frequencies when this component is initialized
       });
 
 
@@ -42,10 +41,11 @@ export class DataEntryComponent implements OnInit {
   changeFrequency(id) {
     this.frequenciesWithIndicator.splice(0, this.frequenciesWithIndicator.length);
     this.frequencyHttp.show(id)
-      .subscribe(data => {
-        this.frequenciesWithIndicator = data['data'];
-      });
-
+    .subscribe(data=>{
+      this.frequenciesWithIndicator=data['data'];
+      console.log(this.frequenciesWithIndicator);
+    });
+    
   }
 
   getQuarter(d, f) {

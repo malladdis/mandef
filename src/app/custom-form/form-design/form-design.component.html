@@ -34,7 +34,7 @@
               <li data="<input type='text' placeholder='write the thing you want to accept' id='drope-input'>" id="input-drager" class="list-group-item" draggable="true"><span class="fa fa-wpforms"> Text Field</span></li>
               <li id="dropDown-drager" data="<div id='dropHolder' style='padding:10px;'><label id='select-label' style='margin-bottom:20px;' for='dropDown'>write select type e.g gender</label><select class='form-control' id='dropDown' class='form-control' style='width:60%;'></select><span id='addDropDownOption' class='fa fa-plus' style='margin-left:40px;margin:10px;'> option</span>
                 <p id='dropDown-editor' style='display:none;'><span class='btn-link edit'>Edit</span> <span class='btn-link remove' style='margin-left:15px;'>Remove</span></p></div>" class="list-group-item" draggable="true"><span class="fa fa-chevron-down"> drop down</span></li>
-              <li id="file-drager" data="<div id='fileHolder' style='padding:10px;'><label id='file-label'>Write identifier for your file e.g photo</label><br><br><label for='file' style='display:none;' id='hiden-file-label'></label><br><input id='file' type='file'>
+              <li id="file-drager" data="<div id='fileHolder' style='padding:10px;'><label id='file-label'>Write identifier for your file e.g photo</label><br><br><label for='file' style='display:none;' id='hiden-file-label'></label><br><input id='file' type='file' name='files'>
                 <p id='dropDown-editor' style='display:none;'><span class='btn-link edit'>Edit</span> <span class='btn-link remove' style='margin-left:15px;'>Remove</span></p>
                 </div>" draggable="true" class="list-group-item">
                 <span class="fa fa-file"> File</span>
@@ -98,3 +98,14 @@
     </div>
 </div>
  </div>
+
+ <!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <h4 class="text-success">Please use Form elements or tables only for now.We are developing for complex form design of custom forms</h4>
+    <button mat-raised-button color='primary' style="padding: 10px;" id="custom-form-modal">Ok</button>
+  </div>
+
+</div>

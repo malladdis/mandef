@@ -15,6 +15,10 @@ import {
 } from '../../log-frame/indicator-tree/services/calculation-method.service';
 import { sum } from 'd3';
 import { DataEntryService } from '../services/data-entry.service';
+import {
+    DisaggreagtionService
+} from '../../log-frame/indicator-tree/services/disaggreagtion.service';
+import { DataentryDisaggregationService } from '../services/dataentry-disaggregation.service';
 
 
 @Component({
@@ -39,10 +43,10 @@ export class DataEntryDialogComponent implements OnInit {
   grandTotal:number=0;
   isCalculated:boolean=false;
   frequency_symbol:string;
+  isDataSent:boolean=false;
   constructor(@Inject(MAT_DIALOG_DATA) public data: string,private dialogRef:MatDialogRef<DataEntryDialogComponent>,private indicatoFormHttp:IndicatorFormService,
-  private indicatorDisaggregationHttp:IndicatorDisaggregationService,private indicatorCalculationMethodHttp:IndicatorCalculationmethodService,private calculationMethodHttp:CalculationMethodService,
-  private calculator:CalculatorService,private measuringUnitHttp:MeasuringUnitService,private indicatorHttp:IndicatorService,private formDataHttp:FormsDataService,
-  private dataEntriesHttp:DataEntryService) { }
+  private calculationMethodHttp:CalculationMethodService,private indicatorHttp:IndicatorService,private formDataHttp:FormsDataService,
+  private dataEntriesHttp:DataEntryService,private disaggregationHttp:DisaggreagtionService,private dataentryDisaggregationHttp:DataentryDisaggregationService) { }
 
   ngOnInit() {
     this.indicator_id=this.data['indicator_id'];
@@ -51,53 +55,50 @@ export class DataEntryDialogComponent implements OnInit {
     this.indicatorHttp.show(this.indicator_id)
     .subscribe(data=>{
       this.indicators=data['data'];
-
-      this.measuringUnitHttp.show(this.indicators[0]['measuring_unit_id'])
-      .subscribe(data=>{
-       
-      });
-    })
-
-    //indicator form data
-    this.indicatoFormHttp.show(this.indicator_id)
-    .subscribe(data=>{
-
-     this.indicatorForm=data['data'];
-
-     //finding calculation method
-     this.calculationMethodHttp.show(this.indicatorForm[0]['calculation_method_id'])
+      
+      //finding indicator calculation method
+      this.calculationMethodHttp.show(this.indicators[0]['calculation_method']['calculation_method_id'])
      .subscribe(data=>{
       this.calculationMethod=data['data']['name'];
-      
+      console.log(this.calculationMethod);
      })
-     //end of finding calculation methods
+     //end of finding calculation method
 
-     //assigning disaggregation method
-     this.disaggregation=this.indicatorForm[0]['disaggregation'];
-     //end of assigning disaggregation methods
-
-     //finding disaggregated items on form data
-     this.formDataHttp.show(this.indicatorForm[0]['form_id'])
+      //finding disaggregation of this indicator
+     this.disaggregationHttp.show(this.indicators[0]['disaggregations']['disaggregation_method_id'])
      .subscribe(data=>{
-      this.formDataList=data['data'];
-      this.tableRowData=this.formDataList[0]['data'];
-      this.json=JSON.parse(this.tableRowData.toString());
-      
-      for(var i=0;i<this.json.length;i++){
-        if(this.json[i][this.disaggregation]!=null){
-          this.duplicate.push(this.json[i][this.disaggregation]);
-        }
-      }
-      this.category=this.unique(this.duplicate);
+       this.disaggregationMethod=data['data']['name'];
      })
-     //end of finding disaggregated items on form data
+     //end of finding disaggregation of this indicator
 
-    });
-    //end of indicator form
+     this.indicatoFormHttp.show(this.indicator_id)
+     .subscribe(data=>{
+       this.indicatorForm=data['data'];
+
+       this.formDataHttp.show(this.indicatorForm[0]['form_id'])
+       .subscribe(data=>{
+        if(data['data'].length>0){
+          this.isDataSent=true;
+          this.formDataList=data['data'];
+          
+        this.tableRowData=this.formDataList[0]['data'];
+        this.json=JSON.parse(this.tableRowData.toString());
+        for(var i=0;i<this.json.length;i++){
+          if(this.json[i][this.disaggregationMethod]!=null){
+            this.duplicate.push(this.json[i][this.disaggregationMethod]);
+          }
+        }
+        this.category=this.unique(this.duplicate);
+        }
+       })
+
+     })
+
+    })
+
   }
 
   calculate(){
-   
     switch(this.calculationMethod){
       case "Sum":
       this.findSum()
@@ -114,7 +115,7 @@ export class DataEntryDialogComponent implements OnInit {
     this.value.splice(0,this.value.length);
 
     for(var i=0;i<this.category.length;i++){
-      var count = array.filter((obj) => obj[this.disaggregation] === this.category[i]).length;
+      var count = array.filter((obj) => obj[this.disaggregationMethod] === this.category[i]).length;
       allData[this.category[i]]=count;
     }
     this.value.push(allData);
@@ -126,11 +127,17 @@ export class DataEntryDialogComponent implements OnInit {
     }
   }
   saveDataEntry(){
-   console.log(this.frequency_symbol);
    this.dataEntriesHttp.store(this.indicator_id,this.frequency_symbol,this.json.length)
    .subscribe(data=>{
      if(data){
-       this.dialogRef.close();
+       let jsonData=JSON.stringify(this.value);
+       let dataEntryId=data['data']['id'];
+      this.dataentryDisaggregationHttp.store(dataEntryId,jsonData)
+      .subscribe(data=>{
+        if(data['data'].length>0){
+          this.dialogRef.close();
+        }
+      });
      }
    })
   }

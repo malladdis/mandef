@@ -76,12 +76,25 @@ export class AddRecordsComponent implements OnInit {
     this.submited = true;
 
     var inputNumber = $(document).find('#dragCopy').find('input[type=text]').length;
+
     if (inputNumber > 0) {
+
+      //handling forms data only
       var fileInput = $(document).find('#dragCopy').find('input[type=file]').length;
       if (fileInput > 0) {
+        $(document).ready(() => {
+          var inputJSON = [];
+          var inputItem = {};
+          $(document).find('input[type=text],input[type=file],select').each(function (index, item) {
+            inputItem[$(this).attr('name')] = $(item).val();
+          });
+          inputJSON.push(inputItem);
+          var myJSOn = JSON.stringify(inputJSON);
+         console.log(myJSOn);
+        });
+        console.log("files");
 
       } else {
-
         $(document).ready(() => {
           var inputJSON = [];
           var inputItem = {};
@@ -100,6 +113,9 @@ export class AddRecordsComponent implements OnInit {
           });
         });
       }
+      //end of handling forms data
+
+      //handling table data started here
     } else {
       $(document).ready(() => {
         var fileInput = $(document).find('#dragCopy').find('#table-file-form').length;
@@ -168,6 +184,7 @@ export class AddRecordsComponent implements OnInit {
         }
       });
     }
+    //end of handling of table data
 
   }
 

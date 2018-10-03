@@ -14,6 +14,9 @@ import {ElementRef} from '@angular/core';
 import {BrowserDomAdapter} from '@angular/platform-browser/src/browser/browser_adapter';
 import $ from 'jquery';
 import {Forms} from '../../models/forms';
+import { CustomformErrorComponent } from '../customform-error/customform-error.component';
+import { MatDialogConfig } from '@angular/material';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-form-design',
@@ -25,6 +28,7 @@ export class FormDesignComponent implements OnInit, OnDestroy, AfterViewInit {
   title: string;
   id: number;
   mesage: string = '<p class="fa fa-font"><h3>Text</h3></p>';
+  
   sub: any;
   sections: Array<FormSections> = [];
   columnName: Array<any> = [];
@@ -33,7 +37,7 @@ export class FormDesignComponent implements OnInit, OnDestroy, AfterViewInit {
   forms: Array<Forms> = [];
 
   constructor(private route: ActivatedRoute, private http: CustomFormsService, private sectionsHttp: FormSectionsService, private element: ElementRef,
-              private formColumnApi: FormColumnsService, private generatedFormApi: GeneratedFormService, private router: Router) {
+              private formColumnApi: FormColumnsService, private generatedFormApi: GeneratedFormService, private router: Router,private dialog:MatDialog) {
   }
 
   ngOnInit() {
@@ -59,7 +63,7 @@ export class FormDesignComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngAfterViewInit() {
     //jquery starts here
-    $(document).ready(function () {
+    $(document).ready(()=> {
 
       $('#drag1').bind('dragstart', function (e) {
         e.originalEvent.dataTransfer.effectAllowed = 'copy';
@@ -311,14 +315,12 @@ export class FormDesignComponent implements OnInit, OnDestroy, AfterViewInit {
             if (evt.keyCode == 13) {
               var no = $(this).val();
               $lbl.text(no);
-              $(this).parent().find('input').attr('name', no);
               $(this).parent().find('input').attr('formControlName', no.replace(/ /g, ''));
               $(document).find('#hiden-file-label').text(no);
               $txt.replaceWith($lbl);
             }
           });
       });
-
 //end of file handling
 
 
@@ -326,12 +328,32 @@ export class FormDesignComponent implements OnInit, OnDestroy, AfterViewInit {
       $('#dragCopy').bind('drop', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        $(this).append($(e.originalEvent.dataTransfer.getData('Text')));
+        let elementType=e.originalEvent.dataTransfer.getData('Text');
+        let inputElemenet=$(document).find('#dragCopy').find('input[type=text]').length;
+        let tableElement=$(document).find('#dragCopy').find('table').length;
+        if(inputElemenet>0 && elementType.indexOf('table')>0){
+          showMe();
+        }else if(tableElement>0 && elementType.indexOf('input')>0){
+          showMe();
+        }else{
+          $(this).append($(e.originalEvent.dataTransfer.getData('Text')));
         return false;
+        }
       }).bind('dragover', false);
-
 //drop ends here
 
+   //showing modals for complex form design
+    function showMe(){
+      var modal = document.getElementById('myModal');
+      modal.style.display = "block";
+    }
+    //end of showing modals for complex form design
+
+    //closing event for modal of complex form design
+    $(document).on('click','#custom-form-modal',()=>{
+      document.getElementById('myModal').style.display="none";
+    })
+    //end of event for modal of complex form design
 
     });//end of jquery
   }
@@ -421,5 +443,9 @@ export class FormDesignComponent implements OnInit, OnDestroy, AfterViewInit {
 
     });
     //end of finding columns
+  }
+
+  showDialogse(){
+    console.log('Show dialog');
   }
 }

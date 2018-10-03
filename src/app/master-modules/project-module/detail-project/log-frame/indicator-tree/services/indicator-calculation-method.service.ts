@@ -16,4 +16,11 @@ export class IndicatorCalculationMethodService {
     });
     return this.app.post(apiRoutes.indicatorCalculationMethod.store,datas);
   }
+  update(indicatoID:any,calculationId:any){
+    const datas=JSON.stringify({
+      indicator_id:indicatoID,
+      calculation_method_id:calculationId
+    });
+    return this.app.put(apiRoutes.indicatorCalculationMethod.update,2,datas);
+  }
 }

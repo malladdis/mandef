@@ -26,6 +26,7 @@ import { ProjectService } from '../master-modules/project-module/project.service
 import { ChipsTagComponent } from './chips-tag/chips-tag.component';
 import { FileUploaderComponent } from './file-uploader/file-uploader.component';
 import { FormDataFileService } from './services/form-data-file.service';
+import { CustomformErrorComponent } from './customform-error/customform-error.component';
 
 const formsRoute:Routes=[
   {
@@ -60,10 +61,10 @@ const formsRoute:Routes=[
     RouterModule.forChild(formsRoute)
   ],
   declarations: [FormsDashboardComponent, ShowFormsComponent, DialogBodyComponent,FormDesignComponent, DraggableComponent,EscapeHtmlPipe, 
-    FormsdetailComponent, ShareDialogComponent, AddRecordsComponent, InputSanitizerPipe, ChipsTagComponent, FileUploaderComponent],
+    FormsdetailComponent, ShareDialogComponent, AddRecordsComponent, InputSanitizerPipe, ChipsTagComponent, FileUploaderComponent, CustomformErrorComponent],
   exports:[FormsDashboardComponent, ShowFormsComponent,DialogBodyComponent,FormDesignComponent,DraggableComponent,FormsdetailComponent,
     ShareDialogComponent,AddRecordsComponent,FileUploaderComponent],
   providers:[CustomFormsService,FormSectionsService,FormColumnsService,GeneratedFormService,FormsDataService,ProjectService,FormDataFileService],
-  entryComponents:[DialogBodyComponent,FormDesignComponent,ShareDialogComponent,FileUploaderComponent]
+  entryComponents:[DialogBodyComponent,FormDesignComponent,ShareDialogComponent,FileUploaderComponent,CustomformErrorComponent]
 })
 export class CustomFormModule { }

@@ -61,55 +61,80 @@
               <label for="name">Primary Source of data</label>
               <input type="text" matInput [(ngModel)]="indicator['source']" formControlName="source" name="source" style="margin-top:10px;">
           </mat-form-field>
-
-          <mat-checkbox  [checked]="isChecked">Disaggregations</mat-checkbox>
+          <div *ngIf="indicatorDisaggregationIsSet;then contentOne else otherContent"></div>
+          <ng-template #contentOne>
+            <mat-checkbox  [checked]="isChecked">Disaggregations</mat-checkbox>
           <mat-form-field style="width: 100%;">
-              <mat-select  formControlName="disaggregation" [(ngModel)]="selectedIndicatorDisaggregations['name']">
-                <mat-option *ngFor="let dis of disaggregationMethod" [value]="dis['name']" (onSelectionChange)="typeSelected(dis['name'])">{{dis.name}}</mat-option>
-              </mat-select>
+              <mat-select  formControlName="disaggregation">
+                <mat-option *ngFor="let dis of disaggregationMethod" [value]="dis['id']" >{{dis.name}}</mat-option>
+              </mat-select> 
             </mat-form-field>
+          </ng-template>
 
-            <h4 style="color: #242424">Calculation Method for this indicator</h4>
+          <ng-template #otherContent>
+            <mat-checkbox  [checked]="isChecked">Disaggregations</mat-checkbox>
+            <mat-form-field style="width: 100%;">
+                <mat-select  formControlName="disaggregation">
+                  <mat-option *ngFor="let dis of disaggregationMethod" [value]="dis['id']">{{dis.name}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </ng-template>
+          
+            <div *ngIf="indicatorCalculationMethodIsset;then calculationOne else calculationTwo"></div>
+
+            <ng-template #calculationOne>
+              <h4 style="color: #242424">Calculation Method for this indicator</h4>
           <p style="margin-top: -20px;color: gray;">The selected calculation method will determined whether the gloabl value of the indicator is the sum or average
-          of disaggregated values</p>
+          of disaggregated values{{selectedindicatorCalculationMethod.name}}</p>
           <mat-form-field style="width: 100%;">
-            <mat-select placeholder="calcualtion method" formControlName="indicatorCalcualtionMethod">
+            <mat-select  formControlName="indicatorCalcualtionMethod" >
               <mat-option *ngFor="let indicatorCal of calculationMethod" [value]="indicatorCal['id']">{{indicatorCal['name']}}</mat-option>
             </mat-select>
           </mat-form-field>
+            </ng-template>
+
+            <ng-template #calculationTwo>
+              <h4 style="color: #242424">Calculation Method for this indicator</h4>
+              <p style="margin-top: -20px;color: gray;">The selected calculation method will determined whether the gloabl value of the indicator is the sum or average
+              of disaggregated values</p>
+              <mat-form-field style="width: 100%;">
+                <mat-select placeholder="calcualtion method" formControlName="indicatorCalcualtionMethod">
+                  <mat-option *ngFor="let indicatorCal of calculationMethod" [value]="indicatorCal['id']">{{indicatorCal['name']}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </ng-template>
+
+            
 
             <mat-checkbox  [checked]="true">Total is automatically calculated</mat-checkbox>
 
             <h4 style="color: #242424">Link to custom form:</h4>
             <mat-checkbox (change)="showCustoForms($event)" >link custom form</mat-checkbox>
-            <div *ngIf="customForms.length>0" style="padding:20px;">
+            <div *ngIf="isCustomFormChecked" style="padding:10px;">
+              <div *ngIf="customForms.length>0;then customFormOne;else customFormTwo"></div>
 
-                <h4 style="color: #242424">Select Custom Form:</h4>
-                <mat-form-field style="width: 100%;">
-                  <mat-select placeholder="custom form" formControlName="customForm"  name="customForms" >
-                    <mat-option *ngFor="let form of customForms" [value]="form.id" (onSelectionChange)="customFormSelected(form)">{{form['title']}}</mat-option>
-                  </mat-select>
-                </mat-form-field>
-
-                <h4 style="color: #242424">Calculation Method:</h4>
-                <mat-form-field style="width: 100%;">
-                    <mat-select  formControlName="customFormcalculationMethod" name="calculationMethod" >
-                      <mat-option *ngFor="let calculation of calculationMethod" [value]="calculation['id']" (onSelectionChange)="typeSelected(calculation['id'])">{{calculation.name}}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-
-                  <h4 style="color: #242424">Select custom form disaggregation method that matches with the above indicator:</h4>
-                  <mat-form-field style="width: 100%;">
-                      <mat-select placeholder="select custom form calculation method"  formControlName="customFormValueField" name="calculationMethod"  [disabled]="columnName.length==0" >
-                        <mat-option *ngFor="let fields of columnName" [value]="fields" (onSelectionChange)="customFormDissagregationMethod(fields)"> {{customFormName}}---of---{{fields}}</mat-option>
+              <ng-template #customFormOne>
+                <div *ngIf="isConnected;then connectedContent;else notConnected"></div>
+                <ng-template #connectedContent>
+                  <p style="color:#3c763d;font-size:16px;">This indicator is Allready connected with custom form named <span style="color:royalblue;">{{customForm['title']}}</span></p>
+                </ng-template>
+                <ng-template #notConnected>
+                  <p style="color:#3c763d;font-size:16px;">Note: The selected custom form must have atleast one attribute of this indicator disaggregation</p>
+                </ng-template>
+                    <h4 style="color: #242424">Select Custom Form:</h4>
+                    <mat-form-field style="width: 100%;">
+                      <mat-select placeholder="custom form" formControlName="customForm"  name="customForms" >
+                        <mat-option *ngFor="let form of customForms" [value]="form.id" (onSelectionChange)="customFormSelected(form)">{{form['title']}}</mat-option>
                       </mat-select>
                     </mat-form-field>
+              </ng-template>
 
+              <ng-template #customFormTwo>
+                <p style="color:red;font-size:16px;">Custom form is not created. Please design custom form for this indicator and start collecting your data</p>
+              </ng-template>
+            
             </div>
 
-            <div *ngIf="isConnected" style="padding:10px;">
-              <p style="color:#3c763d;font-size:18px;">This indicator is Allready connected with custom form named <span style="color:royalblue;">{{customForm['title']}}</span></p>
-            </div>
       </mat-card-content>
       <mat-card-actions fxLayoutAlign="center">
         <button mat-raised-button color="primary"(click)="save()">Save</button>

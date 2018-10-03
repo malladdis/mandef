@@ -9,51 +9,57 @@
 
   <mat-dialog-content  style="overflow-y: hidden;height:100%">
     <div fxFlex fxLayout="row">
-      <div fxFlex="50" *ngFor="let i of indicatorForm">
-       <span> Disaggregated by : {{i.disaggregation}}</span>
+      <div fxFlex="50">
+       <span> Disaggregated by : {{disaggregationMethod}}</span>
       </div>
       <div fxFlex="20">
       </div>
       <div fxFlex="30">
-        <button mat-raised-button color="primary" (click)="calculate()">Calculate</button>
+        <button mat-raised-button color="primary" (click)="calculate()" [disabled]="!isDataSent">Calculate</button>
       </div>
     </div>
     <div fxFlex fxLayout="row" style="margin-top:20px;">
-      <div *ngIf="value.length>0; then first else second"></div>
-      <ng-template #first>
-          <table class="table">
-              <tr>
-                <th>Category</th>
-                <th>Value</th>
-              </tr>
-              <tbody *ngFor="let c of category;">
-                <tr  *ngFor="let data of valueData;">
-                  <td>{{c}}</td>
-                  <td><input type="text" [value]="data[c]"></td>
-                </tr>
-              </tbody>
-            </table>
+      <div *ngIf="isDataSent;then contentOne;else contentTwo"> </div>
+      <ng-template #contentOne>
+          <div fxFlex fxLayout="column">
+              <div *ngIf="value.length>0; then first else second"></div>
+              <ng-template #first>
+                  <table class="table">
+                      <tr>
+                        <th>Category</th>
+                        <th>Value</th>
+                      </tr>
+                      <tbody *ngFor="let c of category;">
+                        <tr  *ngFor="let data of valueData;">
+                          <td>{{c}}</td>
+                          <td><input type="text" [value]="data[c]"></td>
+                        </tr>
+                      </tbody>
+                    </table>
+              </ng-template>
+              <ng-template #second>
+                <table class="table">
+                  <tr>
+                    <th>Category</th>
+                    <th>Value</th>
+                  </tr>
+                  <tbody *ngFor="let c of category;">
+                    <tr>
+                      <td>{{c}}</td>
+                      <td><input type="text"></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </ng-template>
+            <div *ngIf="isCalculated">
+              <h4>Grand Total(Sum):  {{grandTotal}}</h4>
+            </div>
+            <button mat-raised-button color="primary" (click)="saveDataEntry()" [disabled]="!isCalculated">Save</button>
+          </div>
+          </ng-template>
+      <ng-template #contentTwo>
+        <p style="color:darkgreen;font-size:18px;">Data is not sent yet ):</p>
       </ng-template>
-      <ng-template #second>
-        <table class="table">
-          <tr>
-            <th>Category</th>
-            <th>Value</th>
-          </tr>
-          <tbody *ngFor="let c of category;">
-            <tr>
-              <td>{{c}}</td>
-              <td><input type="text"></td>
-            </tr>
-          </tbody>
-        </table>
-      </ng-template>
-    </div>
-    <div fxFlex="column" *ngIf="isCalculated" style="margin:20px;">
-      <h4>Grand Total(Sum):  {{grandTotal}}</h4>
-    </div>
-    <div fxLayoutAlign="left" style="margin-top:30px;">
-        <button mat-raised-button color="primary" (click)="saveDataEntry()" [disabled]="!isCalculated">Save</button>
-    </div>
+      </div>
   </mat-dialog-content>
 </div>

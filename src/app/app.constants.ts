@@ -1,5 +1,3 @@
-import {HttpHeaders} from '@angular/common/http';
-
 const API_URL = 'http://127.0.0.1:8000/api';
 export const API_URL_File = 'http://127.0.0.1:8000';
 const programCategoryRoutes = {
@@ -279,11 +277,11 @@ const createCustomForms = {
 };
 
 const createFormSections = {
-  index: createUrl('/form-sections'),
-  show: createUrl('/form-sections'),
-  store: createUrl('/form-sections'),
-  update: createUrl('/form-sections'),
-  destroy: createUrl('/form-sections')
+  index: createUrl('/form_sections'),
+  show: createUrl('/form_sections'),
+  store: createUrl('/form_sections'),
+  update: createUrl('/form_sections'),
+  destroy: createUrl('/form_sections')
 };
 
 const createFormColumns = {
@@ -445,14 +443,14 @@ const createIndicatorDisaggregationMethods = {
   update: createUrl('/indicator_disaggregation_methods'),
   destroy: createUrl('/indicator_disaggregation_methods')
 };
-
-const createIndicatorCalculationrMethod = {
-  index: createUrl('/indicator_calculation_methods'),
-  show: createUrl('/indicator_calculation_methods'),
-  store: createUrl('/indicator_calculation_methods'),
-  update: createUrl('/indicator_calculation_methods'),
-  destroy: createUrl('/indicator_calculation_methods')
+const createDataEntryDisaggregation = {
+  index: createUrl('/data_entry_disaggregation'),
+  show: createUrl('/data_entry_disaggregation'),
+  store: createUrl('/data_entry_disaggregation'),
+  update: createUrl('/data_entry_disaggregation'),
+  destroy: createUrl('/data_entry_disaggregation')
 };
+
 const files = {
   index: createUrl('/files'),
   show: createUrl('/files'),
@@ -525,8 +523,6 @@ export const apiRoutes = {
   currencies: currencies,
   budgets: budgets,
   finance: finances,
-  finance_plans: finance_plans,
-  monthly_expenditures: monthly_expenditures,
   dataEntry: createDataEntry,
   indicatorDisaggregation: createIndicatorDisaggregationMethods,
   periods: createPeriods,
@@ -534,8 +530,11 @@ export const apiRoutes = {
   disaggregation: createDisaggreagtion,
   indicatorCalculationMethod: createIndicatorCalculationMethod,
   indicatorForm: createIndicatorForm,
+  dataEntryDisaggregation: createDataEntryDisaggregation,
+  finance_plans: finance_plans,
+  monthly_expenditures: monthly_expenditures,
   files: files,
-  milestones: milestones
+  milestones: milestones,
 };
 
 
