@@ -4,8 +4,6 @@ import {Routes, RouterModule} from '@angular/router';
 import {ProgrammesComponent} from './programmes/programmes.component';
 import {ProjectsComponent} from './projects/projects.component';
 import {MaterialModule} from '../material.module';
-import {ProjectService} from '../master-modules/project-module/project.service';
-import {providers} from 'ng2-dnd';
 import {ProgrammesService} from './service/programmes.service';
 import {ProjectsService} from './service/projects.service';
 

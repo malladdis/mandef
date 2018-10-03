@@ -34,7 +34,7 @@
       </mat-tab>
       <!-- end of outcome tab -->
       <!-- start of output tab -->
-      <mat-tab  [label]="'Activity'">
+      <mat-tab [label]="'Activity'">
         <ng-template matTabContent>
           <form #activityForm="ngForm" novalidate (ngSubmit)="submitActivity(activityForm)">
             <p>
@@ -45,34 +45,46 @@
             <p>
               <mat-form-field class="full-width">
                 <mat-select name="category" ngModel placeholder="Activity Category" required>
-                  <mat-option *ngFor="let category of activityCategories"  [value]="category['id']">{{category['name']}}</mat-option>
+                  <mat-option *ngFor="let category of activityCategories" [value]="category['id']">
+                    {{category['name']}}
+                  </mat-option>
                 </mat-select>
               </mat-form-field>
             </p>
             <p>
               <mat-form-field class="half-width">
                 <mat-select name="kebele" ngModel placeholder="kebele" required>
-                  <mat-option *ngFor="let kebele of kebeles"  [value]="kebele['id']">{{kebele['name']}}</mat-option>
+                  <mat-option *ngFor="let kebele of kebeles" [value]="kebele['id']">{{kebele['name']}}</mat-option>
                 </mat-select>
               </mat-form-field>
               <mat-form-field class="half-width">
-                <mat-select name="status" ngModel  placeholder="status" required>
-                  <mat-option *ngFor="let status of statuses"  [value]="status['id']">{{status['name']}}</mat-option>
+                <mat-select name="status" ngModel placeholder="status" required>
+                  <mat-option *ngFor="let status of statuses" [value]="status['id']">{{status['name']}}</mat-option>
                 </mat-select>
               </mat-form-field>
             </p>
             <p>
               <mat-form-field class="full-width">
                 <mat-select name="partners" ngModel placeholder="Implementing Partners" [multiple]="true" required>
-                  <mat-option *ngFor="let implementer of implementers"  [value]="implementer['id'] + '_' + implementer['name']">{{implementer['name']}}</mat-option>
+                  <mat-option *ngFor="let implementer of implementers"
+                              [value]="implementer['id'] + '_' + implementer['name']">{{implementer['name']}}
+                  </mat-option>
                 </mat-select>
               </mat-form-field>
             </p>
             <p>
               <mat-form-field class="half-width">
+                <input name="baseline" type="number" ngModel matInput placeholder="Baseline Value" required>
+              </mat-form-field>
+              <mat-form-field class="half-width">
                 <input name="start" ngModel matInput [matDatepicker]="starting" placeholder="Baseline Date" required>
                 <mat-datepicker-toggle matSuffix [for]="starting"></mat-datepicker-toggle>
                 <mat-datepicker #starting></mat-datepicker>
+              </mat-form-field>
+            </p>
+            <p>
+              <mat-form-field class="half-width">
+                <input name="target" type="number" ngModel matInput placeholder="Target Value" required>
               </mat-form-field>
               <mat-form-field class="half-width">
                 <input name="end" ngModel matInput [matDatepicker]="ending" placeholder="Target Date" required>
@@ -82,14 +94,16 @@
             </p>
             <p>
               &nbsp;&nbsp;&nbsp;
-              <mat-checkbox name="onbudget" ngModel [(ngModel)]="onbudget" color="primary">Add Activity Budget</mat-checkbox>
+              <mat-checkbox name="onbudget" ngModel [(ngModel)]="onbudget" color="primary">Add Activity Budget
+              </mat-checkbox>
             </p>
             <p *ngIf="onbudget">
               <mat-form-field class="full-width">
                 <input type="number" name="budget" ngModel matInput placeholder="Activity Budget">
               </mat-form-field>
             </p>
-            <button mat-raised-button color="primary" type="submit" mat-button class="background-primary text-floral-white" [disabled]="activityForm.form.invalid">
+            <button mat-raised-button color="primary" type="submit" mat-button
+                    class="background-primary text-floral-white" [disabled]="activityForm.form.invalid">
               <mat-icon iconsmall>save</mat-icon>
               Save
             </button>

@@ -1,6 +1,7 @@
 import {HttpHeaders} from '@angular/common/http';
 
-const API_URL = 'https://api.vitamande.org/api';
+const API_URL = 'http://127.0.0.1:8000/api';
+export const API_URL_File = 'http://127.0.0.1:8000';
 const programCategoryRoutes = {
   index: createUrl('/program_categories'),
   show: createUrl('/program_categories'),
@@ -192,6 +193,13 @@ const indicators = {
   update: createUrl('/indicators'),
   destroy: createUrl('/indicators'),
 };
+const milestones = {
+  index: createUrl('/milestones'),
+  show: createUrl('/milestones'),
+  store: createUrl('/milestones'),
+  update: createUrl('/milestones'),
+  destroy: createUrl('/milestones'),
+};
 const indicator_disaggregation_methods = {
   index: createUrl('/indicator_disaggregation_methods'),
   show: createUrl('/indicator_disaggregation_methods'),
@@ -324,7 +332,8 @@ const finances = {
   store: createUrl('/finances'),
   update: createUrl('/finances'),
   destroy: createUrl('/finances'),
-  project_finance: createUrl('/project-finance')
+  project_finance: createUrl('/project-finance'),
+  financial_report: createUrl('/financial-report')
 };
 
 const finance_plans = {
@@ -444,6 +453,13 @@ const createIndicatorCalculationrMethod = {
   update: createUrl('/indicator_calculation_methods'),
   destroy: createUrl('/indicator_calculation_methods')
 };
+const files = {
+  index: createUrl('/files'),
+  show: createUrl('/files'),
+  store: createUrl('/files'),
+  update: createUrl('/files'),
+  destroy: createUrl('/files')
+};
 
 const userRoutes = {
   me: createAuthUrl('/me'),
@@ -517,7 +533,9 @@ export const apiRoutes = {
   calculationMethod: createCalculationMethod,
   disaggregation: createDisaggreagtion,
   indicatorCalculationMethod: createIndicatorCalculationMethod,
-  indicatorForm: createIndicatorForm
+  indicatorForm: createIndicatorForm,
+  files: files,
+  milestones: milestones
 };
 
 

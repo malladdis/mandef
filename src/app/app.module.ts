@@ -30,7 +30,7 @@ import { environment } from '../environments/environment';
     BrowserAnimationsModule,
     HttpClientModule,
     ToasterModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: true })
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
     AuthService,

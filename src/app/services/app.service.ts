@@ -13,10 +13,10 @@ export class AppService {
   post(url: string, postBody: any) {
     return this.http.post(url, postBody);
   }
-  put(url: string, id: number ,putBody: any) {
+  put(url: string, id: number , putBody: any) {
     return this.http.put(`${url}/${id}`, putBody);
   }
-  show(url: string, id: number) {
+  show(url: string, id) {
     return this.http.get(`${url}/${id}`);
   }
 }

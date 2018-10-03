@@ -22,14 +22,25 @@ export class AddExpenditureComponent implements OnInit {
       this.categories = data['data'];
     });
   }
+  prepareData(expenditure_id) {
+    const data = [{
+        finance_plan_id: this.data['finance_plan_id'],
+        expenditure_id: expenditure_id,
+        values: this.data['values']
+      }];
+    return data;
+  }
   submit(form) {
     const preData = JSON.stringify({
       project_id: this.data['project_id'],
+      finance_plan_id: this.data['finance_plan_id'],
       expenditure_category_id: form.value.category,
       name: form.value.name
     });
     this.projectservice.addExpenditure(preData).subscribe(response => {
-      this.toaster.success('success', response['message']);
+      this.projectservice.addmonthlyExpenditure(this.prepareData(response['data']['id'])).subscribe(res => {
+        this.toaster.success('success', res['message']);
+      });
     });
   }
 }

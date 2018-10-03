@@ -1,0 +1,17 @@
+::ng-deep .body-section{
+  max-height: 500px !important;
+  border-right: 2px solid #b6b6b6; border-left: 2px solid #b6b6b6;
+}
+::ng-deep ngez-gantt-color-bar{
+  height: 32px;
+  min-height: 32px;
+  border-right: 1px solid white;
+  border-left: 1px solid white;
+  min-width: 8.34%;
+}
+::ng-deep ngez-gantt-month-bar{
+  height: 32px;
+  min-height: 32px;
+  border-right: 1px solid white;
+  border-left: 1px solid white;
+}

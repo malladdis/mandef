@@ -32,6 +32,7 @@
     "@types/jwt-decode": "^2.2.1",
     "angular-highlight-js": "^2.0.1",
     "angular-material": "^1.1.10",
+    "angular-material-fileupload": "^1.0.1",
     "angular-nvd3": "^1.0.9",
     "angular-svg-round-progressbar": "^2.0.0",
     "angular2-chartjs": "^0.4.1",
@@ -59,6 +60,7 @@
     "rxjs-compat": "^6.2.2",
     "screenfull": "^3.3.2",
     "vued3tree": "^3.5.0",
+    "xlsx": "^0.14.0",
     "zone.js": "^0.8.26"
   },
   "devDependencies": {

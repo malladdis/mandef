@@ -1,14 +1,11 @@
-import { ClusterComponent } from './../cluster/cluster.component';
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import { ClusterComponent } from '../cluster/cluster.component';
+import {Component, OnInit} from '@angular/core';
 import {MapsAPILoader} from '@agm/core';
-import {COMMA, ENTER} from '@angular/cdk/keycodes';
-import {FormControl} from '@angular/forms';
-import {Observable} from 'rxjs';
-import {map, startWith} from 'rxjs/operators';
-import {MatAutocompleteSelectedEvent, MatChipInputEvent, MatDialog} from '@angular/material';
-import * as moment from 'moment';
+import {MatDialog} from '@angular/material';
 import {ProjectService} from '../project.service';
 import {ProgramService} from '../../program-module/program/program.service';
+import {FormControl} from '@angular/forms';
+import {ToasterNotificationService} from '../../../services/toaster-notification.service';
 
 @Component({
   selector: 'app-add-project',
@@ -27,10 +24,18 @@ export class AddProjectComponent implements OnInit {
   project_categories: Array<Object> = [];
   users: Array<object> = [];
   frequencies: Array<Object> = [];
+  programControl = new FormControl('');
+  program;
+  currency = '__';
+  budgetControl = new FormControl({value: '', disabled: true});
+  isFormSumitable: boolean;
+  selectedProgram: number;
+  budget: number;
   constructor(private mapsAPILoader: MapsAPILoader,
      private projectservice: ProjectService,
      private programservice: ProgramService,
-     public dialog: MatDialog ) {
+     public dialog: MatDialog,
+              private toaster: ToasterNotificationService) {
        this.dialog.afterAllClosed.subscribe(() => {
           this.getClusters();
        });
@@ -39,6 +44,7 @@ export class AddProjectComponent implements OnInit {
   ngOnInit() {
     this.programservice.getProgramCategories().subscribe(data => {
       this.categories = data['data'];
+      console.log(data['data']);
     });
     this.projectservice.getImplementers().subscribe(data => {
       this.implementers = data['data'];
@@ -50,11 +56,42 @@ export class AddProjectComponent implements OnInit {
     this.getProjectCategories();
     this.getStafManager();
     this.getFrequencies();
+    this.programControl.valueChanges.subscribe(data => {
+      if (data !== '') {
+        this.program = this.getProjectById(data);
+        this.selectedProgram = data;
+        this.currency = this.program['details']['currency_id'];
+        if (this.program['details']['budget'] < this.program['allocated_budget']) {
+          this.toaster.info('info', 'the selected program\'s budget gets too low, please update the budget before you continue');
+          this.budgetControl.disable();
+          this.isFormSumitable = false;
+        } else { this.budgetControl.enable(); this.isFormSumitable = true; }
+      } else {this.budgetControl.disable(); }
+    });
+    this.budgetControl.valueChanges.subscribe(data => {
+      if (data && this.program) {
+        this.budget = data;
+        if (this.program['details']['budget'] < (this.program['allocated_budget']) + data) {
+          const dif = this.program['details']['budget'] - this.program['allocated_budget'];
+          this.toaster.warning('warning', `please enter less amount, available budget is ${dif} ${this.program['details']['currency_id']}`);
+          this.isFormSumitable = false; console.log(this.isFormSumitable);
+        } else {this.isFormSumitable = true; console.log(this.isFormSumitable); }
+      }
+    });
   }
   getProjectCategories() {
     this.projectservice.getProjectCategories().subscribe(data => {
       this.project_categories = data['data'];
     });
+  }
+  getProjectById(id) {
+    let pro: any;
+    for (const category of this.categories) {
+      for (const program of category['programs']) {
+        pro = program['id'] === id ? program : 'not available';
+      }
+    }
+    return pro;
   }
   getClusters() {
     this.projectservice.getClusters().subscribe(data => {
@@ -69,14 +106,13 @@ export class AddProjectComponent implements OnInit {
   getFrequencies() {
     this.projectservice.getFrequencies().subscribe(data => {
       this.frequencies = data['data'];
-      console.log(data);
     });
   }
   openClusterForm() {
     this.dialog.open(ClusterComponent, {width: '500px', height: '450px', disableClose: true});
   }
   submit(form) {
-    const date = new Date();
-    console.log(form.value.start.format('YYYY-MM-DD HH:mm:ss'));
+    this.projectservice.addProject(form, this.selectedProgram, this.budget);
+    //console.log(form);
   }
 }

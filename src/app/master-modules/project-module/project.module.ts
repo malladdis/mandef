@@ -9,18 +9,12 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AgmCoreModule} from '@agm/core';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {MAT_CHIPS_DEFAULT_OPTIONS} from '@angular/material';
-import {DetailProjectComponent} from './detail-project/detail-project.component';
-import {ProjectService} from './project.service';
 import { ClusterComponent } from './cluster/cluster.component';
 import { PerfectScrollbarModule, PerfectScrollbarConfigInterface, PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import {DetailModule} from './detail-project/detail/detail.module';
 import { EditIndicatorDialogComponent } from './detail-project/log-frame/indicator-tree/edit-indicator-dialog/edit-indicator-dialog.component';
 import { CustomFormsService } from '../../custom-form/custom-forms.service';
 import { FormColumnsService } from '../../custom-form/services/form-columns.service';
-import { AnnualTableComponent } from './detail-project/data-entry/annual-table/annual-table.component';
-import { DataEntryDialogComponent } from './detail-project/data-entry/data-entry-dialog/data-entry-dialog.component';
-import { FilterPipePipe } from './detail-project/data-entry/pipe/filter-pipe.pipe';
-import { ShowAllComponent } from './detail-project/data-entry/show-all/show-all.component';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -56,7 +50,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
     },
-    CustomFormsService,FormColumnsService
+    CustomFormsService, FormColumnsService
   ],
   entryComponents: [
     ClusterComponent,

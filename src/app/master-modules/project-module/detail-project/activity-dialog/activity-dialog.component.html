@@ -47,9 +47,17 @@
             </p>
             <p>
               <mat-form-field class="half-width">
+                <input name="baseline" type="number" ngModel matInput placeholder="Baseline Value" required>
+              </mat-form-field>
+              <mat-form-field class="half-width">
                 <input name="start" ngModel matInput [matDatepicker]="starting" placeholder="Baseline Date" required>
                 <mat-datepicker-toggle matSuffix [for]="starting"></mat-datepicker-toggle>
                 <mat-datepicker #starting></mat-datepicker>
+              </mat-form-field>
+            </p>
+            <p>
+              <mat-form-field class="half-width">
+                <input name="target" type="number" ngModel matInput placeholder="Target Value" required>
               </mat-form-field>
               <mat-form-field class="half-width">
                 <input name="end" ngModel matInput [matDatepicker]="ending" placeholder="Target Date" required>
@@ -76,7 +84,7 @@
         </ng-template>
       </mat-tab>
       <!-- end of output tab -->
-      <!-- start of indicator tab -->
+      <!-- start of indicator tab
       <mat-tab [label]="'Indicator'">
         <perfect-scrollbar>
           <ng-template matTabContent>
@@ -175,7 +183,7 @@
             </form>
           </ng-template>
         </perfect-scrollbar>
-      </mat-tab>
+      </mat-tab>-->
     </mat-tab-group>
   </div>
 </div>
