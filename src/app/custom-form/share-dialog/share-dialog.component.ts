@@ -6,6 +6,7 @@ import {ProjectService} from '../../master-modules/project-module/project.servic
 import {Project} from '../../models/project';
 import {UsersService} from '../../services/users.service';
 import {User} from '../../models/users';
+import { SharedFormService } from '../services/shared-form.service';
 
 @Component({
   selector: 'app-share-dialog',
@@ -21,9 +22,12 @@ export class ShareDialogComponent implements OnInit {
   selectedProjects: number[] = [];
   selectedUsers: number[] = [];
   errorMessage: string;
+  formTitle:string="";
+  formId:number;
+  loading:boolean=false;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: string
-    , private dialogref: MatDialogRef<ShareDialogComponent>, private formbuilder: FormBuilder, private projectHttp: ProjectService, private userHttp: UsersService) {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: string,private dialogref: MatDialogRef<ShareDialogComponent>, private formbuilder: FormBuilder, private projectHttp: ProjectService, private userHttp: UsersService,
+             private sharedFormHttp:SharedFormService) {
   }
 
   ngOnInit() {
@@ -31,6 +35,8 @@ export class ShareDialogComponent implements OnInit {
       users: [''],
       projects: [''],
     });
+    this.formTitle=this.data['title'];
+    this.formId=this.data['id'];
 
     this.projectHttp.index().subscribe(data => {
       this.projectData = data['data'];
@@ -38,7 +44,7 @@ export class ShareDialogComponent implements OnInit {
 
     this.userHttp.index().subscribe((data: Array<User>) => {
       this.userData = data;
-      console.log(this.userData);
+     
     });
   }
 
@@ -56,10 +62,27 @@ export class ShareDialogComponent implements OnInit {
   }
 
   save() {
-    if (this.selectedProjects.length <= 0 && this.selectedUsers.length <= 0) {
+    if (this.selectedUsers.length <= 0) {
       this.errorMessage = 'Please select at least one user or project to share this form';
+    }else{
+      this.loading=true;
+      let count=0;
+      for(let i=0;i<this.selectedUsers.length;i++){
+        this.sharedFormHttp.store(this.selectedUsers[i],this.formId)
+        .subscribe(data=>{
+          if(data['status']===true){
+            count++;
+          }
+          if(count==this.selectedUsers.length){
+            setTimeout(() => {
+              this.dialogref.close();
+              this.loading=false;
+            }, 2000);
+          }
+        });
+        
+      }
     }
-    console.log(this.selectedProjects);
   }
 
 }

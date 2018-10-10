@@ -14,6 +14,7 @@ export class DialogBodyComponent implements OnInit {
   createForm:FormGroup;
   isChecked=true;
   public title:string;
+  loading:boolean=false;
   constructor(private dialogref:MatDialogRef<DialogBodyComponent>,private formBuilder:FormBuilder,private http:CustomFormsService,
     private router:Router) { }
 
@@ -32,9 +33,11 @@ export class DialogBodyComponent implements OnInit {
    this.dialogref.close();
   }
   save(){
+    this.loading=true;
    this.title=this.createForm.value.title;
    this.http.create(this.createForm).subscribe(data=>{
      this.dialogref.close();
+     this.loading=false;
      this.router.navigate(['/auth/custom-forms/form-design',data['data']['id']]);
    },error=>{
 

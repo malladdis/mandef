@@ -56,10 +56,6 @@ export class FormsdetailComponent implements OnInit {
 
   openShareDialog(){
     const matDialogConf=new MatDialogConfig();
-    matDialogConf.position={
-      'top':'0',
-      'right':'0'
-    };
     matDialogConf.data={
       'title':this.myForm[0].title,
       'id':this.id
@@ -98,6 +94,10 @@ export class FormsdetailComponent implements OnInit {
         //triggering the function
         downloadLink.click();
     }
+  }
+
+  fileHandler(fileName){
+    console.log(fileName);
   }
 
 }

@@ -9,21 +9,25 @@ export class IndicatorFormService {
 
   constructor(private app:AppService) { }
 
-  store(indicatorId:any,formId:any){
-    const datas=JSON.stringify({
-      indicator_id:indicatorId,
-      form_id:formId
-    });
-   return this.app.post(apiRoutes.indicatorForm.store,datas);
-  }
+ 
   show(id){
    return this.app.show(apiRoutes.indicatorForm.show,id);
   }
-  update(indicatorId:any,formId:any){
+  store(indicatorId:number,formId:number,calculationId:number){
     const datas=JSON.stringify({
       indicator_id:indicatorId,
-      form_id:formId
+      form_id:formId,
+      calculation_method_id:calculationId
     });
-    return this.app.put(apiRoutes.indicatorForm.update,2,datas);
+    return this.app.post(apiRoutes.indicatorForm.store,datas);
+  }
+
+  update(indicatorId:number,formId:number,calculationId:number){
+    const datas=JSON.stringify({
+      indicator_id:indicatorId,
+      form_id:formId,
+      calculation_method_id:calculationId
+    });
+    return this.app.put(apiRoutes.indicatorForm.store,indicatorId,datas);
   }
 }

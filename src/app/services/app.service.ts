@@ -19,4 +19,7 @@ export class AppService {
   show(url: string, id: number) {
     return this.http.get(`${url}/${id}`);
   }
+  destroy(url:string,id:number){
+    return this.http.delete(`${url}/${id}`);
+  }
 }

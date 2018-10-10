@@ -12,8 +12,8 @@
       <button mat-raised-button color="primary" style="margin-left: 10px;" (click)="saveData()" [disabled]='loading'><mat-icon iconsmall>send</mat-icon> Send</button>
     </mat-toolbar>
     <div *ngFor="let html of generatedForm">
-      <div  [innerHTML]="html.html_document | inputSanitizer">
-        
+      <div  [innerHTML]="html.html_document | inputSanitizer" id="sanitizerDiv">
+       
       </div>
     </div>
     </div>

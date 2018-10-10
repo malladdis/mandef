@@ -21,4 +21,7 @@ export class CustomFormsService {
   show(id){
     return this.app.show(apiRoutes.customForms.show,id);
   }
+  delete(id){
+    return this.app.destroy(apiRoutes.customForms.destroy,id);
+  }
 }

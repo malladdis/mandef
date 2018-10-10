@@ -3,14 +3,14 @@
 <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="20px" style="padding: 10px;" >
   <ng-container *ngFor="let fm of forms" >
     <div fxFlex='25'>
-      <mat-card [routerLink]="['/auth/custom-forms/form-detail',fm.id]" style="cursor: pointer;">
-        <mat-card-title>{{fm['title']}}</mat-card-title>
+      <mat-card  style="cursor: pointer;">
+        <mat-card-title [routerLink]="['/auth/custom-forms/form-detail',fm.id]">{{fm['title']}}</mat-card-title>
           <mat-card-footer>
             <mat-divider></mat-divider>
-            <div style="padding: 10px;">
-              <div *ngIf="fm.form_data.length>0;then content else other_content">here is ignored</div>
-              <ng-template #content>{{fm.form_data.length}} Records Found</ng-template>
-              <ng-template #other_content>No Records Found</ng-template>
+            <div style="padding: 10px;text-align: right;">
+              <button mat-button (click)="openSharedUsersDialog(fm)"><mat-icon iconsmall>people</mat-icon> Shared Users</button>
+              <button mat-button (click)="openShareDialog(fm)"><mat-icon iconsmall>share</mat-icon> Share</button>
+               <button mat-button (click)="removeForm(fm,fm.id)"><mat-icon iconsmall>delete</mat-icon> Remove</button>
             </div>
           </mat-card-footer>
       </mat-card>

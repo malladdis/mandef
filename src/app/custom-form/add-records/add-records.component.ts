@@ -10,6 +10,7 @@ import {Columns} from '../../models/columns';
 import {FormColumnsService} from '../services/form-columns.service';
 import {FileUploaderComponent} from '../file-uploader/file-uploader.component';
 import {MatDialog, MatDialogConfig} from '@angular/material';
+import { LocationDialogComponent } from '../location-dialog/location-dialog.component';
 
 @Component({
   selector: 'app-add-records',
@@ -27,7 +28,8 @@ export class AddRecordsComponent implements OnInit {
   submited: boolean = false;
   myColumn: Array<Columns> = [];
   columnName: Array<string> = [];
-
+  fileLabelName:string;
+  locationLabelName:string;
   constructor(private route: ActivatedRoute, private generateHttp: GeneratedFormService, private customForm: CustomFormsService,
               private formDataHttp: FormsDataService, private router: Router, private columnHttp: FormColumnsService, private dialog: MatDialog) {
   }
@@ -50,49 +52,76 @@ export class AddRecordsComponent implements OnInit {
       this.myColumn = data['data'];
       this.columnName = this.myColumn[0].columns.split(',');
     });
-
-
-    //adading row to table
-    $(document).ready(() => {
-      $(document).on('click', '.add-row', function () {
-        var columnLength = $(document).find('table>thead>tr>th').length;
-        var addeRow = $('<tr><tr>');
-        for (var i = 0; i < columnLength; i++) {
-          addeRow.append('<td><input class=\'table-input\'></td>');
-        }
-        $(document).find('table tbody').append(addeRow);
-        $(document).on('click', '.add-row', function () {
-        });
-      });
-
-    });
-    //end of adding row to each table
+  
+   
 
   }
 
   saveData() {
 
-    this.loading = true;
-    this.submited = true;
+    $(document).ready(()=>{
+      let file= $(document).find("#dragCopy").attr('file');
+      let location=$(document).find("#dragCopy").attr('location');
+     
+      if(location==='true' && file ===undefined){
 
-    var inputNumber = $(document).find('#dragCopy').find('input[type=text]').length;
+        this.locationLabelName=$(document).find("#dragCopy").attr("location-label");
+        this.locationDialog();
 
-    if (inputNumber > 0) {
+      }else if(location===undefined && file==='true'){
+
+          this.fileLabelName=$(document).find("#dragCopy").attr("file-label");
+          this.fileExist();
+
+      }else if(location===undefined && file===undefined){
+
+        this.fileNotExist();
+
+      }else if(location==='true' && file==='true'){
+
+      }
+      
+    })
+    
 
       //handling forms data only
-      var fileInput = $(document).find('#dragCopy').find('input[type=file]').length;
+     /*  var fileInput = $(document).find('#dragCopy').find('input[type=file]').length;
       if (fileInput > 0) {
         $(document).ready(() => {
           var inputJSON = [];
           var inputItem = {};
           $(document).find('input[type=text],input[type=file],select').each(function (index, item) {
-            inputItem[$(this).attr('name')] = $(item).val();
+            if($(this).attr('name')=='files'){
+              this.selectedFile = <File>$(item).val();
+              inputItem[$(this).attr('name')] = $(item).val();
+              console.log(this.selectedFile.name);
+            }else{
+              inputItem[$(this).attr('name')] = $(item).val();
+            }
           });
           inputJSON.push(inputItem);
           var myJSOn = JSON.stringify(inputJSON);
-         console.log(myJSOn);
+          //console.log(this.selectedFile.name)
+          this.formDataHttp.store(this.id, myJSOn.toString(),'true').subscribe(data => {
+
+            this.message = data['message'];
+            setTimeout(() => {
+              this.loading = false;
+              this.router.navigate(['/auth/custom-forms/form-detail', this.id]);
+            }, 2000);
+          });
+
+          $(document).ready(()=>{
+            let file= $(document).find("#dragCopy").attr('file');
+            if(typeof file !== undefined && file !== false){
+              console.log('file exists');
+              console.log($(document).find('#dragCopy').attr("file-label"));
+            }else{
+              console.log('file not exist')
+            }
+          })
+          
         });
-        console.log("files");
 
       } else {
         $(document).ready(() => {
@@ -103,7 +132,8 @@ export class AddRecordsComponent implements OnInit {
           });
           inputJSON.push(inputItem);
           var myJSOn = JSON.stringify(inputJSON);
-          this.formDataHttp.store(this.id, myJSOn.toString()).subscribe(data => {
+          console.log(myJSOn)
+          this.formDataHttp.store(this.id, myJSOn.toString(),'false').subscribe(data => {
 
             this.message = data['message'];
             setTimeout(() => {
@@ -112,80 +142,91 @@ export class AddRecordsComponent implements OnInit {
             }, 2000);
           });
         });
-      }
+      } */
       //end of handling forms data
 
-      //handling table data started here
-    } else {
-      $(document).ready(() => {
-        var fileInput = $(document).find('#dragCopy').find('#table-file-form').length;
-        if (fileInput > 0) {
-          var array = [];
-          var headers = [];
+    
 
-          $('table thead tr th>label').each(function (index, item) {
-            headers[index] = $(item).html();
-          });
-          $('table tr').has('td').each(function () {
-            var arrayItem = {};
-            $('td>input', $(this)).each(function (index, item) {
-              arrayItem[headers[index]] = $(item).val();
-            });
-            array.push(arrayItem);
-          });
-          for (var i = 0; i < array.length; i++) {
-            this.tableData.push(array[i]);
-          }
-          var tableJSON = JSON.stringify(this.tableData);
-          var tablesFiles = tableJSON.toString();
-          const matDialogConf = new MatDialogConfig();
-          matDialogConf.position = {
-            'top': '0',
-            'right': '0'
-          };
-          matDialogConf.data = {
-            'title': this.myForm[0].title,
-            'id': this.id,
-            'table_data': tablesFiles
-          };
-          matDialogConf.height = '100%';
-          matDialogConf.width = '35%';
-          this.dialog.open(FileUploaderComponent, matDialogConf);
-          this.loading = false;
+  }
 
-        } else {
-
-          var array = [];
-          var headers = [];
-
-          $('table thead tr th>label').each(function (index, item) {
-            headers[index] = $(item).html();
-          });
-          $('table tr').has('td').each(function () {
-            var arrayItem = {};
-            $('td>input', $(this)).each(function (index, item) {
-              arrayItem[headers[index]] = $(item).val();
-            });
-            array.push(arrayItem);
-          });
-          for (var i = 0; i < array.length; i++) {
-            this.tableData.push(array[i]);
-          }
-          var tableJSON = JSON.stringify(this.tableData);
-          this.formDataHttp.store(this.id, tableJSON.toString()).subscribe(data => {
-
-            this.message = data['message'];
-            setTimeout(() => {
-              this.loading = false;
-              this.router.navigate(['/auth/custom-forms/form-detail', this.id]);
-            }, 2000);
-          });
-
-        }
+  fileExist(){
+    console.log("file exist");
+    $(document).ready(() => {
+      var inputJSON = [];
+      var inputItem = {};
+      $(document).find('input[type=text],input[type=file],select').each(function (index, item) {
+        inputItem[$(this).attr('name')] = $(item).val();
       });
-    }
-    //end of handling of table data
+      inputJSON.push(inputItem);
+      var myJSOn = JSON.stringify(inputJSON);
+      console.log(this.fileLabelName);
+      const dialogConf=new MatDialogConfig();
+      dialogConf.data={
+        'file-label':this.fileLabelName,
+        'id':this.id,
+        'title':this.myForm['title'],
+        'table_data':myJSOn
+      };
+      dialogConf.position={
+        top:'50px'
+      }
+      dialogConf.width="40%";
 
+      this.dialog.open(FileUploaderComponent,dialogConf);
+      
+
+    });
+    
+
+  }
+
+  fileNotExist(){
+    console.log("File not exist")
+    $(document).ready(() => {
+      var inputJSON = [];
+      var inputItem = {};
+      $(document).find('input[type=text],input[type=file],select').each(function (index, item) {
+        inputItem[$(this).attr('name')] = $(item).val();
+      });
+      inputJSON.push(inputItem);
+      var myJSOn = JSON.stringify(inputJSON);
+      this.formDataHttp.store(this.id, myJSOn.toString()).subscribe(data => {
+
+        this.message = data['message'];
+        setTimeout(() => {
+          this.loading = false;
+          this.router.navigate(['/auth/custom-forms/form-detail', this.id]);
+        }, 2000);
+      });
+    });
+  }
+
+  locationDialog(){
+    
+    $(document).ready(() => {
+      var inputJSON = [];
+      var inputItem = {};
+      $(document).find('input[type=text],input[type=file],select').each(function (index, item) {
+        inputItem[$(this).attr('name')] = $(item).val();
+      });
+      inputJSON.push(inputItem);
+      var myJSOn = JSON.stringify(inputJSON);
+      const dialogConf=new MatDialogConfig();
+      dialogConf.data={
+        'location-label':this.locationLabelName,
+        'id':this.id,
+        'title':this.myForm['title'],
+        'table_data':myJSOn
+      };
+      dialogConf.position={
+        top:'50px'
+      }
+      dialogConf.width="80%";
+      dialogConf.height="100%"
+
+      this.dialog.open(LocationDialogComponent,dialogConf);
+      
+    });
   }
 
 

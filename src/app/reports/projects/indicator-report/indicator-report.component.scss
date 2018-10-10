@@ -1,0 +1,29 @@
+.indicator{
+    background-color: #b29000;
+    
+  }
+  .my-title{
+    position: relative;
+    bottom: -4px;
+    margin-left: 4px;
+    vertical-align: center;
+  }
+  .my-badge{
+    padding: 4px 8px;
+    color: white;
+    position: relative;
+    max-height: 20px;
+  }
+  .spacer{
+    width: 100%;
+  }
+  .indicator-holder{
+    margin-left: 48px;
+    border: 1px solid #5c6bc0;
+  }
+  .indicator-header{
+    padding: 5px;
+    background-color: #5c6bc0;
+    color: white;
+  }
+  

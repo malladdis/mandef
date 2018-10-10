@@ -1,0 +1,21 @@
+<mat-accordion class="example-headers-align" *ngIf="activity">
+    <mat-expansion-panel #panelEx hideToggle>
+      <mat-expansion-panel-header (click)="toggleIcon()">
+        <mat-panel-title>
+          <mat-icon>{{icon}}</mat-icon>
+          <span class="my-badge activity">Activity</span>
+          <span class="my-title">{{activity['name']}}</span>
+        </mat-panel-title>
+        <mat-panel-description>
+          <span class="spacer"></span>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+  
+      <ng-template matExpansionPanelContent>
+        <app-activity-report *ngFor="let act of activity['activities']" [id]="act['id']"
+                           [output_id]="activity['output'][0]['id']"></app-activity-report>
+        <app-indicator-report *ngFor="let indicator of activity['indicators']" [indicator]="indicator"></app-indicator-report>
+      </ng-template>
+    </mat-expansion-panel>
+  </mat-accordion>
+  

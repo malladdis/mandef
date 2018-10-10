@@ -1,0 +1,58 @@
+<div>
+    <mat-toolbar style="background-color: white;">
+        <span class="spacer"></span>
+        <button mat-button mat-dialog-close class="close-button" style="float: right" (click)="closeDialog()">
+          <mat-icon> close</mat-icon>
+        </button>
+      </mat-toolbar>
+  <h2 mat-dialog-title color="primary-color">List of Users who are shared: {{form.title}}</h2>
+  <mat-divider></mat-divider>
+  <mat-dialog-content style="height:100%" style="overflow-y: hidden;">
+    <span *ngIf="sharedUsers.length>0;then contentOne else contentTwo"></span>
+
+    <ng-template #contentOne>
+
+      <div fxLayout="row" fxLayoutGap="20px" style="padding:10px;">
+        <!-- start displaying list of shared users -->
+        <mat-card *ngFor="let users of sharedUsers">
+          <mat-card-content>
+              <img width="100" [style.borderRadius]="'50%'" src="./assets/user-image.jpg">
+              <mat-card-title>{{users.name}}</mat-card-title>
+              <mat-card-subtitle>{{users.email}}</mat-card-subtitle>
+          </mat-card-content>
+          <mat-card-footer>
+            <div fxLayout="row" fxLayoutGap="20px" style="padding:10px;">
+                <button mat-raised-button color="accent" (click)="decline(users)">Decline</button>
+                <button mat-raised-button color="primary" (click)="editUser(users)">Edit</button>
+            </div>
+          </mat-card-footer>
+        </mat-card>
+        <!-- end of displaying list of shared users-->
+    </div>
+
+     <!-- move layout-->
+     <div *ngIf="showMove" fxLayout="column" style="padding:20px;border: 1px solid seagreen;" [formGroup]="moveForm">
+        <div fxLayout="row" fxLayoutAlign="center">
+          <h2 class="text-success">Select a custom form you want to insert {{moveUser.name}}</h2>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="center">
+            <mat-form-field style="width:50%;">
+                <mat-select formControlName="customForm" placeholder="Select custom form" >
+                  <mat-option *ngFor="let form of forms" [value]="form.id" (onSelectionChange)="formSelected()">{{form.title}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="center">
+            <button style="width:50%;" mat-raised-button color="primary" [disabled]="!isSelected" (click)="edit()">Edit
+                <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+            </button>
+        </div>
+      </div>
+      <!--end of move layout-->
+
+    </ng-template>
+    <ng-template #contentTwo>
+      <h2 class="text-success">This indicator is not shared for anyone</h2>
+    </ng-template>
+  </mat-dialog-content>
+</div>

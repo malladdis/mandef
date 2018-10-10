@@ -6,8 +6,6 @@
         <!-- This fills the remaining space of the current row -->
         <span class="example-fill-remaining-space"></span>
         <button mat-button (click)="openShareDialog()"><mat-icon>share</mat-icon> Share</button>
-        <button mat-button><mat-icon>assessment</mat-icon> Field and sections</button>
-        <button mat-button><mat-icon>edit</mat-icon> Edit</button>
       </mat-toolbar >
        
       <mat-toolbar>
@@ -28,7 +26,15 @@
             </thead>
             <tbody>
               <tr *ngFor="let data of json;">
-                <td *ngFor="let co of columnName;">{{data[co]}}</td>
+                <td *ngFor="let co of columnName;">
+                  <span *ngIf="co==='files';then tdOne else tdTwo"></span>
+                  <ng-template #tdOne>
+                    <button mat-button (click)="fileHandler(data[co])">{{data[co]}}</button>
+                  </ng-template>
+                  <ng-template #tdTwo>
+                    <span>{{data[co]}}</span>
+                  </ng-template>
+                </td>
               </tr>
             </tbody>
           </table>
