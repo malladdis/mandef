@@ -1,7 +1,5 @@
 import {Injectable} from '@angular/core';
 import {AppService} from '../../services/app.service';
-import {Observable} from 'rxjs';
-import {Project} from '../../models/project';
 import {apiRoutes} from '../../app.constants';
 import {ToasterNotificationService} from '../../services/toaster-notification.service';
 
@@ -100,9 +98,9 @@ export class ProjectService {
     return this.appservice.get(apiRoutes.statuses.index);
   }
 
-  addProject(form) {
+  addProject(form, program, budget) {
     const projectValue = JSON.stringify({
-      program_id: form.value.program,
+      program_id: program,
       project_category_id: form.value.category,
       name: form.value.name,
       description: form.value.description,
@@ -110,11 +108,12 @@ export class ProjectService {
       status_id: 2
     });
     this.appservice.post(apiRoutes.project.store, projectValue).subscribe(project => {
-      this.addProjectDetail(form, project['data']['id']).subscribe(detail => {
+      this.addProjectDetail(form, project['data']['id'], budget).subscribe(detail => {
         this.addProjectFrequencies(form, detail['data']['project_id']).subscribe(frequency => {
           this.addProjectImplementers(form, frequency['data']['project_id']).subscribe(implementer => {
             this.addProjectBeneficaries(form, implementer['data']['project_id']).subscribe(beneficary => {
               form.resetForm();
+              this.toaseter.success('Success', 'Project successfully saved');
             });
           });
         });
@@ -134,11 +133,11 @@ export class ProjectService {
     return this.appservice.show(apiRoutes.output_indicator.show, id);
   }
 
-  addProjectDetail(form, id) {
+  addProjectDetail(form, id, budget) {
     const projectDetail = JSON.stringify({
       project_id: id,
       cluster_id: form.value.cluster,
-      budget: form.value.budget,
+      budget: budget,
       goal: form.value.goal,
       objective: form.value.objective,
       mng_1: form.value.manager1,
@@ -302,6 +301,8 @@ export class ProjectService {
       output_id: type['output_id'],
       status_id: form.value.status,
       activity_category_id: form.value.category,
+      baseline: form.value.baseline,
+      target: form.value.target,
       kebele_id: form.value.kebele,
       start_date: form.value.start.format('YYYY-MM-DD HH:mm:ss'),
       end_date: form.value.end.format('YYYY-MM-DD HH:mm:ss'),
@@ -368,5 +369,9 @@ export class ProjectService {
   }
   getMonthlyExpenditureByFinancePlan(id) {
     return this.appservice.show(apiRoutes.monthly_expenditures.get_monthly_expenditures_by_finance_plan, id);
+  }
+
+  addMilestone(form) {
+    return this.appservice.post(apiRoutes.milestones.index, form);
   }
 }

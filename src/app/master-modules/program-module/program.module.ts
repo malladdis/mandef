@@ -6,7 +6,7 @@ import {ProgramCategoryComponent} from './program-category/program-category.comp
 import {ProgramService} from './program/program.service';
 import {MaterialModule} from '../../material.module';
 import {AddProgramComponent} from './add-program/add-program.component';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -19,6 +19,7 @@ import {FormsModule} from '@angular/forms';
     ProgramRoutingModule,
     FormsModule,
     MaterialModule,
+    ReactiveFormsModule
   ],
   exports: [
     ProgramComponent,

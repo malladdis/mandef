@@ -1,6 +1,5 @@
-import {HttpHeaders} from '@angular/common/http';
-
-const API_URL = 'http://localhost:8000/api';
+const API_URL = 'http://127.0.0.1:8000/api';
+export const API_URL_File = 'http://127.0.0.1:8000';
 const programCategoryRoutes = {
   index: createUrl('/program_categories'),
   show: createUrl('/program_categories'),
@@ -192,6 +191,13 @@ const indicators = {
   update: createUrl('/indicators'),
   destroy: createUrl('/indicators'),
 };
+const milestones = {
+  index: createUrl('/milestones'),
+  show: createUrl('/milestones'),
+  store: createUrl('/milestones'),
+  update: createUrl('/milestones'),
+  destroy: createUrl('/milestones'),
+};
 const indicator_disaggregation_methods = {
   index: createUrl('/indicator_disaggregation_methods'),
   show: createUrl('/indicator_disaggregation_methods'),
@@ -332,7 +338,8 @@ const finances = {
   store: createUrl('/finances'),
   update: createUrl('/finances'),
   destroy: createUrl('/finances'),
-  project_finance: createUrl('/project-finance')
+  project_finance: createUrl('/project-finance'),
+  financial_report: createUrl('/financial-report')
 };
 
 const finance_plans = {
@@ -444,13 +451,13 @@ const createIndicatorDisaggregationMethods = {
   update: createUrl('/indicator_disaggregation_methods'),
   destroy: createUrl('/indicator_disaggregation_methods')
 };
-const createDataEntryDisaggregation={
+const createDataEntryDisaggregation = {
   index: createUrl('/data_entry_disaggregation'),
   show: createUrl('/data_entry_disaggregation'),
   store: createUrl('/data_entry_disaggregation'),
   update: createUrl('/data_entry_disaggregation'),
   destroy: createUrl('/data_entry_disaggregation')
-}
+};
 
 const createIndicatorFields={
   index: createUrl('/indicator_form_fields'),
@@ -459,8 +466,13 @@ const createIndicatorFields={
   update: createUrl('/indicator_form_fields'),
   destroy: createUrl('/indicator_form_fields')
 }
-
-
+const files = {
+  index: createUrl('/files'),
+  show: createUrl('/files'),
+  store: createUrl('/files'),
+  update: createUrl('/files'),
+  destroy: createUrl('/files')
+};
 
 const userRoutes = {
   me: createAuthUrl('/me'),
@@ -526,16 +538,18 @@ export const apiRoutes = {
   currencies: currencies,
   budgets: budgets,
   finance: finances,
-  dataEntry:createDataEntry,
-  indicatorDisaggregation:createIndicatorDisaggregationMethods,
-  periods:createPeriods,
-  calculationMethod:createCalculationMethod,
-  disaggregation:createDisaggreagtion,
-  indicatorCalculationMethod:createIndicatorCalculationMethod,
-  indicatorForm:createIndicatorForm,
-  dataEntryDisaggregation:createDataEntryDisaggregation,
+  dataEntry: createDataEntry,
+  indicatorDisaggregation: createIndicatorDisaggregationMethods,
+  periods: createPeriods,
+  calculationMethod: createCalculationMethod,
+  disaggregation: createDisaggreagtion,
+  indicatorCalculationMethod: createIndicatorCalculationMethod,
+  indicatorForm: createIndicatorForm,
+  dataEntryDisaggregation: createDataEntryDisaggregation,
   finance_plans: finance_plans,
   monthly_expenditures: monthly_expenditures,
+  files: files,
+  milestones: milestones,
   sharedForm:createSharedForm,
   indicatorFields:createIndicatorFields
 };

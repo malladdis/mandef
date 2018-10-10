@@ -11,7 +11,7 @@ export class AppComponent {
   public toasterConfig: ToasterConfig = new ToasterConfig({
     animation: 'flyLeft',
     showCloseButton: true,
-    timeout: 2000,
+    timeout: 0,
     mouseoverTimerStop: false,
     positionClass: 'toast-top-center'
   });

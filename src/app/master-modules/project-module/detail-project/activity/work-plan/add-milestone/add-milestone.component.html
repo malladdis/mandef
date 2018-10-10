@@ -1,0 +1,52 @@
+<mat-toolbar>
+  <h1 class="mat-headline center-align">Add New Milestone</h1>
+  <span style="width: 100%;"></span>
+  <button  mat-button mat-dialog-close class="close-button" style="float: right">
+    <mat-icon > close</mat-icon>
+  </button>
+</mat-toolbar>
+<div fxLayout="row" class="components-container-gt-xs">
+  <div fxFlexFill>
+    <form #milestoneForm="ngForm" novalidate (ngSubmit)="submit(milestoneForm)">
+      <p>
+        <mat-form-field class="full-width">
+          <input type="text" name="name" ngModel matInput placeholder="Milestone title" required>
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field class="half-width">
+          <input name="baseline" type="number" ngModel matInput placeholder="Baseline Value" required>
+        </mat-form-field>
+        <mat-form-field class="half-width">
+          <input name="start" ngModel matInput [matDatepicker]="starting" placeholder="Baseline Date" required>
+          <mat-datepicker-toggle matSuffix [for]="starting"></mat-datepicker-toggle>
+          <mat-datepicker #starting></mat-datepicker>
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field class="half-width">
+          <input name="target" type="number" ngModel matInput placeholder="Target Value" required>
+        </mat-form-field>
+        <mat-form-field class="half-width">
+          <input name="end" ngModel matInput [matDatepicker]="ending" placeholder="Target Date" required>
+          <mat-datepicker-toggle matSuffix [for]="ending"></mat-datepicker-toggle>
+          <mat-datepicker #ending></mat-datepicker>
+        </mat-form-field>
+      </p>
+      <p>
+        &nbsp;&nbsp;&nbsp;
+        <mat-checkbox name="onbudget" ngModel [(ngModel)]="onbudget" color="primary">Add Milestone Budget
+        </mat-checkbox>
+      </p>
+      <p *ngIf="onbudget">
+        <mat-form-field class="full-width">
+          <input type="number" name="budget" ngModel matInput placeholder="Milestone Budget">
+        </mat-form-field>
+      </p>
+      <button mat-raised-button color="primary" type="submit" mat-button class="background-primary text-floral-white" [disabled]="milestoneForm.form.invalid">
+        <mat-icon iconsmall>save</mat-icon>
+        Save
+      </button>
+    </form>
+  </div>
+</div>

@@ -1,32 +1,23 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {ProjectService} from '../../project.service';
-import {animate, state, style, transition, trigger} from '@angular/animations';
-import {and} from '@angular/router/src/utils/collection';
 import {ToasterNotificationService} from '../../../../services/toaster-notification.service';
 import {MatDialog} from '@angular/material';
-import {OutcomeDialogComponent} from '../outcome-dialog/outcome-dialog.component';
 import {AddExpenditureComponent} from './add-expenditure/add-expenditure.component';
 import {AddExpenditureCategoryComponent} from './add-expenditure-category/add-expenditure-category.component';
+import {FinancialReportComponent} from './financial-report/financial-report.component';
+import {populateColumns} from './helper';
 
 @Component({
   selector: 'app-expenditure',
   templateUrl: './expenditure.component.html',
   styleUrls: ['./expenditure.component.scss'],
-  animations: [
-    trigger('detailExpand', [
-      state('void', style({height: '0px', minHeight: '0', visibility: 'hidden'})),
-      state('*', style({height: '*', visibility: 'visible'})),
-      transition('void <=> *', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
-    ]),
-  ],
 })
 export class ExpenditureComponent implements OnInit {
   id;
   finance_plan_id: number;
   project_id: number;
   categories = [];
-  months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   start;
   end;
   finance;
@@ -38,6 +29,7 @@ export class ExpenditureComponent implements OnInit {
   formsInputs = {};
   expenses;
   expenditures;
+  totalFormValue: number;
   @ViewChild('monthlyExpenditure') monthlyExpenditure;
 
   constructor(private route: ActivatedRoute,
@@ -56,7 +48,6 @@ export class ExpenditureComponent implements OnInit {
       this.project_id = Number(+params['finance_plan_id'].split('_')[1]);
       this.finance_index = Number(+params['finance_plan_id'].split('_')[2]);
     });
-    this.getExpenditureCategories();
     this.getMonthlyExpenditureByFinancePlan();
   }
 
@@ -78,20 +69,22 @@ export class ExpenditureComponent implements OnInit {
     j = j.substring(0, j.lastIndexOf(',')) + '}';
     return j;
   }
-
-  getExpenditureCategories() {
-    this.projectserivce.getExpenditureCategories().subscribe(data => {
-      // this.categories = data['data'];
-      console.log(data);
-    });
+  getValues() {
+    let values = '{';
+    for (let i = 0; i < this.columns.length; i++) {
+      if (this.columns[i] !== ' ') {
+        values += `"${this.columns[i]}": "${0}",`;
+      }
+    }
+    values = values.substring(0, values.lastIndexOf(',')) + '}';
+    return values;
   }
-
   getProject(id) {
     this.projectserivce.show(id).subscribe(data => {
       this.start = data['data']['details']['starting_date'];
       this.end = data['data']['details']['ending_date'];
       this.getFinanceByProject(data['data']['id']);
-      console.log(this.months[Number(this.start.split('-')[1]) - 1]);
+      // console.log(this.months[Number(this.start.split('-')[1]) - 1]);
     });
   }
 
@@ -100,10 +93,11 @@ export class ExpenditureComponent implements OnInit {
       this.finance = data['data'];
       console.log(data['data']);
       this.getFinancePlan(data['data']);
-      this.populateColumns(data['data']['plans'][this.finance_index]['name'], Number(this.start.split('-')[1]) - 1);
+      this.columns = populateColumns(data['data']['plans'][this.finance_index]['name'], this.finance_plan['start']);
       if (this.getFormInputs().length > 4) {
         this.formsInputs = JSON.parse(this.getFormInputs());
       }
+
     });
   }
 
@@ -114,49 +108,6 @@ export class ExpenditureComponent implements OnInit {
     });
   }
 
-  getEndingMonthByAnnual(start) {
-    if (Math.abs((start - 11)) > 10) {
-      return Math.abs((start - 11));
-    } else {
-      return (start - 11) + 10;
-    }
-  }
-
-  getEndingMonthBiAnnual(start) {
-    if ((start + 5) <= 11) {
-      return (start + 5);
-    } else {
-      return (start + 5) - this.months.length;
-    }
-  }
-
-  populateColumns(plan, start) {
-    if (plan.startsWith('Annual')) {
-      this.columns = this.getColumns(start, this.getEndingMonthByAnnual(start));
-    }
-    if (plan.startsWith('Biannual')) {
-      this.columns = this.getColumns(start, this.getEndingMonthBiAnnual(start));
-    }
-  }
-
-  getColumns(start, end) {
-    const column = [' '];
-    if (end > start) {
-      for (let i = start; i <= end; i++) {
-        column.push(this.months[i]);
-      }
-      return column;
-    } else {
-      for (let i = start; i < this.months.length; i++) {
-        column.push(this.months[i]);
-      }
-      for (let i = 0; i <= end; i++) {
-        column.push(this.months[i]);
-      }
-      column.push('Total');
-      return column;
-    }
-  }
 
   getFinancePlan(finance) {
     this.finance_plan = finance['plans'][this.finance_index];
@@ -166,6 +117,7 @@ export class ExpenditureComponent implements OnInit {
       }
     }
     this.expenditures = this.finance_plan['expenditures'];
+    console.log(finance['plans']);
   }
 
   setEnable(b) {
@@ -174,6 +126,7 @@ export class ExpenditureComponent implements OnInit {
 
   prepareFormData(form) {
     const data = [];
+    this.totalFormValue = 0;
     for (const category of this.categories) {
       for (const exp of this.expenditures[category]) {
         if (exp) {
@@ -183,6 +136,7 @@ export class ExpenditureComponent implements OnInit {
               const value = form.value[exp['exp_id'] + '_' + this.columns[i]]
               !== undefined ? Number(form.value[exp['exp_id'] + '_' + this.columns[i]]) : 0;
               values += `"${this.columns[i]}": "${value}",`;
+              this.totalFormValue += Number(value);
             }
           }
           values = values.substring(0, values.lastIndexOf(',')) + '}';
@@ -199,14 +153,20 @@ export class ExpenditureComponent implements OnInit {
 
   openExpenditureDialog() {
     this.dialog.open(AddExpenditureComponent,
-      {data: {'project_id': this.project_id}, minWidth: '500px', minHeight: '400px', maxHeight: '600px', disableClose: true});
+      {data: {'project_id': this.project_id, 'finance_plan_id': this.finance_plan_id, 'values': this.getValues()},
+        minWidth: '500px', minHeight: '400px', maxHeight: '600px', disableClose: true});
   }
 
   openExpenditureCategoryDialog() {
     this.dialog.open(AddExpenditureCategoryComponent,
-      {data: {'project_id': this.project_id}, minWidth: '500px', minHeight: '350px', maxHeight: '600px', disableClose: true});
+      {data: {'project_id': this.project_id},
+        minWidth: '500px', minHeight: '350px', maxHeight: '600px', disableClose: true});
   }
-
+  opendReportDialog() {
+    this.dialog.open(FinancialReportComponent,
+      {data: {'project_id': this.project_id, 'plans': this.finance},
+        width: '1000px', minHeight: '350px', maxHeight: '100vh', disableClose: true});
+  }
   sumTotal(id) {
     let sum = 0;
     for (let i = 1; i < this.columns.length - 1; i++) {
@@ -220,11 +180,17 @@ export class ExpenditureComponent implements OnInit {
   }
 
   submit() {
-    this.projectserivce.addmonthlyExpenditure(
-      this.prepareFormData(this.monthlyExpenditure)
-    )
-      .subscribe(data => this.toaseter.success('success', data['message'])
-      );
-    console.log(this.formsInputs);
+    const formData =  this.prepareFormData(this.monthlyExpenditure);
+    console.log(formData);
+    if (this.finance_plan['value'] >= this.totalFormValue) {
+      this.projectserivce.addmonthlyExpenditure(
+       formData
+      )
+        .subscribe(data => {this.toaseter.success('success', data['message']); this.setEnable(false); }
+        );
+    } else {
+      console.log(this.totalFormValue);
+      this.toaseter.warning('unable to save', 'please update the plan or enter less amount before you continue');
+    }
   }
 }

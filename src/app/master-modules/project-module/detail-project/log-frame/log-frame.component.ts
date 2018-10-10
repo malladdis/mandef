@@ -19,9 +19,6 @@ export class LogFrameComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private projectserivce: ProjectService,
               private dialog: MatDialog) {
-    this.dialog.afterAllClosed.subscribe(v => {
-      this.init();
-    });
 
   }
   ngOnInit() {

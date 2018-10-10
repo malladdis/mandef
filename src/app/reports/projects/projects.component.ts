@@ -9,11 +9,12 @@ import { MatExpansionPanel } from '@angular/material';
   styleUrls: ['./projects.component.scss']
 })
 export class ProjectsComponent implements OnInit {
-    //initializing all project
-    projects:Array<any>=[];
+  //initializing all project
+  projects: Array<any> = [];
 
-    //outcome of each projects
-   outcomes:Array<any>=[];
+  //outcome of each projects
+  outcomes: Array<any> = [];
+
 
    //selected projects
    selectedProject:Array<any>=[];

@@ -2,11 +2,13 @@ import { Injectable } from '@angular/core';
 import {AppService} from '../../../services/app.service';
 import {apiRoutes} from '../../../app.constants';
 import {Program} from '../../../models/program';
+import {ToasterNotificationService} from '../../../services/toaster-notification.service';
 
 @Injectable()
 export class ProgramService {
 
-  constructor(private app: AppService) { }
+  constructor(private app: AppService,
+              private toaster: ToasterNotificationService) { }
 
   getProgramCategories() {
     return this.app.get(apiRoutes.programCategory.index);
@@ -23,6 +25,7 @@ export class ProgramService {
       program_id: id,
       country: 'Ethiopia',
       budget: form.value.budget,
+      currency_id: form.value.currency_id,
       starting_date: form.value.start.format('YYYY-MM-DD HH:mm:ss'),
       ending_date: form.value.end.format('YYYY-MM-DD HH:mm:ss')
     });
@@ -41,7 +44,8 @@ export class ProgramService {
 
      this.app.post(apiRoutes.program.store, datas).subscribe(data => {
            this.storeProgramDetail(data['data']['id'], form).subscribe(res => {
-            form.resetForm();
+            form.reset();
+            this.toaster.success('success', res['message']);
           });
      });
   }

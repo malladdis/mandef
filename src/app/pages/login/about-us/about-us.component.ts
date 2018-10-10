@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material';
+import {Component, OnInit} from '@angular/core';
+import {MatDialogRef} from '@angular/material';
 
 @Component({
   selector: 'app-about-us',
@@ -8,13 +8,14 @@ import { MatDialogRef } from '@angular/material';
 })
 export class AboutUsComponent implements OnInit {
 
-  constructor(private aboutDialogref:MatDialogRef<AboutUsComponent>) { }
+  constructor(private aboutDialogref: MatDialogRef<AboutUsComponent>) {
+  }
 
   ngOnInit() {
 
   }
 
-  closeDialog(){
+  closeDialog() {
     this.aboutDialogref.close();
   }
 

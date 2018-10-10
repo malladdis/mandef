@@ -4,6 +4,8 @@ import {ProjectService} from '../../project.service';
 import * as moment from 'moment';
 import {MatDialog} from '@angular/material';
 import {AddFinanceDialogComponent} from './add-finance-dialog/add-finance-dialog.component';
+import {Moment, months} from 'moment';
+import {changeName, changeNumber, getEndingMonthBiAnnual, getEndingMonthByAnnual, MONTH} from '../expenditure/helper';
 
 @Component({
   selector: 'app-finance',
@@ -28,7 +30,6 @@ export class FinanceComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      this.getFinanceByProject(+params['id']);
       this.getProject(+params['id']);
       this.project_id = +params['id'];
     });
@@ -38,8 +39,9 @@ export class FinanceComponent implements OnInit {
     this.projectService.show(id).subscribe(data => {
       this.project = data['data'];
       this.budget = data['data']['details']['budget'];
-      this.start = data['data']['details']['starting_date']; this.end = data['data']['details']['ending_date'];
-      this.calclulateDate(this.start, this.end);
+      this.start = data['data']['details']['starting_date'];
+      this.end = data['data']['details']['ending_date'];
+      this.getFinanceByProject(data['data']['id']);
     });
   }
 
@@ -51,45 +53,15 @@ export class FinanceComponent implements OnInit {
     });
   }
 
-  calclulateDate(start, end) {
-    const duration = moment.duration(moment(end).diff(moment(start)));
-    console.log(Math.round(duration.asYears()));
-    console.log(moment(end).quarters());
-  }
 
-  changeName(frequency) {
-    if (frequency.startsWith('Annual')) {
-      return 'year';
-    }
-    if (frequency.startsWith('Biannual')) {
-      return 'half year';
-    }
-    if (frequency.startsWith('Quarterly')) {
-      return 'quarter';
-    }
-    return frequency;
-  }
-
-  changeNumber(n) {
-    if (n === 1) {
-      return n + 'st';
-    }
-    if (n === 2) {
-      return n + 'nd';
-    }
-    if (n === 3) {
-      return n + 'rd';
-    } else {
-      return n + 'th';
-    }
-  }
 
   preparePlans(plans) {
-    for (const plan in plans) { plans[plan]['name'] = `${this.changeNumber(Number(plans[plan]['name']
-      .charAt(plans[plan]['name'].length - 1)))} ${this.changeName(plans[plan]['name'])}`;
+    for (const plan in plans) {
+      plans[plan]['name'] = `${changeNumber(Number(plans[plan]['name']
+        .charAt(plans[plan]['name'].length - 1)))} ${changeName(plans[plan]['name'])}`;
     }
     this.financePlans = plans;
-    console.log(plans);
+    localStorage.setItem('plans', JSON.stringify(plans));
   }
 
   addFinancePlan() {
@@ -98,6 +70,7 @@ export class FinanceComponent implements OnInit {
       minWidth: '500px', minHeight: '100vh', maxHeight: '600px', disableClose: true
     });
   }
+
   navigateToExpenditure(finance_plan_id, i) {
     this.router.navigate([`/auth/master-modules/project/detail/${this.project_id}/expenditure/${finance_plan_id}_${this.project_id}_${i}`]);
   }

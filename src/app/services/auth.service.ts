@@ -6,7 +6,7 @@ import {BehaviorSubject, Observable, of} from 'rxjs';
 import {delay} from 'rxjs/internal/operators';
 @Injectable()
 export class AuthService {
-  API_URL = 'http://localhost:8000/api';
+  API_URL = 'http://127.0.0.1:8000/api';
   isLogged = false;
   httpOptions = {
     headers: new HttpHeaders({

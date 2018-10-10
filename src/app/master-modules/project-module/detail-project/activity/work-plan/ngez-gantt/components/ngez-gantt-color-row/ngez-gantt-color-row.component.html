@@ -1,0 +1,3 @@
+<div class="container" fxLayout="row" >
+  <ngez-gantt-color-bar  *ngFor="let bar of bars" fxFlex  [ngStyle]="{'background-color': bar.background_color}" (click)="openDialog(bar)"></ngez-gantt-color-bar>
+</div>

@@ -7,7 +7,7 @@
       <form novalidate #addproject="ngForm" (ngSubmit)="submit(addproject)">
         <p>
           <mat-form-field class="half-width" *ngIf="categories">
-            <mat-select name="program" ngModel required placeholder="program">
+            <mat-select name="program" [formControl]="programControl" ngModel required placeholder="program">
               <mat-optgroup  *ngFor="let category of categories" [label]="category['name']">
                 <mat-option *ngFor="let program of category['programs']" [value]="program.id">
                   {{program.name}}
@@ -17,7 +17,7 @@
           </mat-form-field>
           <mat-form-field class="half-width" *ngIf="project_categories[0]">
             <mat-select name="category" ngModel required placeholder="Project Category">
-              <mat-option *ngFor="let category of project_categories" [value]="category['id']">{{category.name}}</mat-option>
+              <mat-option *ngFor="let category of project_categories" [value]="category['id']">{{category['name']}}</mat-option>
             </mat-select>
           </mat-form-field>
           <button *ngIf="!project_categories[0]" mat-raised-button color="primary" class="program-button" routerLink="/auth/master-modules/project/add-category" fxFlexAlign="center end">
@@ -28,14 +28,14 @@
         <p>
           <mat-form-field class="one-third-width">
             <mat-select name="cluster" ngModel required placeholder="Select cluster">
-              <mat-option *ngFor="let cluster of clusters" [value]="cluster.id">{{cluster.name}}</mat-option>
+              <mat-option *ngFor="let cluster of clusters" [value]="cluster['id']">{{cluster['name']}}</mat-option>
             </mat-select>
           </mat-form-field>
           <button type="button"  class="program-button" mat-raised-button color="primary" (click)="openClusterForm()">
             <mat-icon iconsmall>add</mat-icon>
             cluster
           </button>
-          <button class="program-button" mat-raised-button color="primary">
+          <button type="button" class="program-button" mat-raised-button color="primary">
             <mat-icon iconsmall>add</mat-icon>
             kebele
           </button>
@@ -65,17 +65,17 @@
         <p>
           <mat-form-field class="half-width">
             <mat-select name="manager1" ngModel required placeholder="Project Manager">
-              <mat-option *ngFor= "let user of users" [value]="user.id">
-                {{user.name}}
-                ( {{user.email}} )
+              <mat-option *ngFor= "let user of users" [value]="user['id']">
+                {{user['name']}}
+                ( {{user['email']}} )
               </mat-option>
             </mat-select>
           </mat-form-field>
           <mat-form-field class="half-width">
             <mat-select name="manager2" ngModel  placeholder="Project Manager">
-              <mat-option *ngFor= "let user of users" [value]="user.id">
-                {{user.name}}
-                ( {{user.email}} )
+              <mat-option *ngFor= "let user of users" [value]="user['id']">
+                {{user['name']}}
+                ( {{user['email']}} )
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -83,22 +83,22 @@
         <p>
           <mat-form-field class="half-width">
             <mat-select name="implementer" ngModel placeholder="select implementer/s" multiple required>
-              <mat-option *ngFor="let implementer of implementers" [value]="implementer.id">
-                {{implementer.name}}
-              </mat-option>>
+              <mat-option *ngFor="let implementer of implementers" [value]="implementer['id']">
+                {{implementer['name']}}
+              </mat-option>
             </mat-select>
           </mat-form-field>
           <mat-form-field class="half-width">
             <mat-select name="beneficary" ngModel placeholder="select beneficary/ies" multiple required>
-              <mat-option *ngFor="let beneficary of beneficaries" [value]="beneficary.id">
-                {{beneficary.name}}
-              </mat-option>>
+              <mat-option *ngFor="let beneficary of beneficaries" [value]="beneficary['id']">
+                {{beneficary['name']}}
+              </mat-option>
             </mat-select>
           </mat-form-field>
         </p>
         <p>
           <mat-form-field class="full-width">
-            <input matInput type="number" name="budget" ngModel placeholder="total project budget in USD" required>
+            <input matInput type="number" name="budget" [formControl]="budgetControl" ngModel placeholder="total project budget in {{currency}}" required>
           </mat-form-field>
         </p>
         <p>
@@ -120,13 +120,13 @@
           <mat-label>Reporting Time Line</mat-label>
           <mat-form-field class="half-width">
             <mat-select name="frequency" ngModel placeholder="select frequency/s" multiple required>
-              <mat-option *ngFor="let frequency of frequencies" [value]="frequency.id">
-                {{frequency.name}}
+              <mat-option *ngFor="let frequency of frequencies" [value]="frequency['id']">
+                {{frequency['name']}}
               </mat-option>>
             </mat-select>
           </mat-form-field>
         </p>
-        <button mat-raised-button color="primary" type="submit" mat-button class="background-primary text-floral-white" [disabled]="addproject.form.invalid">
+        <button mat-raised-button color="primary" type="submit" mat-button class="background-primary text-floral-white" [disabled]="(addproject.form.invalid || !isFormSumitable)">
           <mat-icon iconsmall>save</mat-icon>
           Save
         </button>

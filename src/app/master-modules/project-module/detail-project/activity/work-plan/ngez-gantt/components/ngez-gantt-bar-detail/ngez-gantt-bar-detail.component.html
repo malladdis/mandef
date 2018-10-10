@@ -1,0 +1,8 @@
+<div class="container" fxLayout="row"  fxLayout.xs="column" fxLayoutAlign="center" >
+  <div fxFlexFill>
+    <p>Title: {{data['task']['name']}}</p>
+    <p>Implementation: {{data['task']['percentComplete']/100 |percent}} {{data['task']['status']}}</p>
+    <p>{{data['task']['start'] |date}} - to - {{data['task']['end'] |date}}</p>
+    <p>Budget: {{data['task']['budget'] |currency}}</p>
+  </div>
+</div>
