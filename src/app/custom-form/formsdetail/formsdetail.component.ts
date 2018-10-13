@@ -60,8 +60,6 @@ export class FormsdetailComponent implements OnInit {
       'title':this.myForm[0].title,
       'id':this.id
     }
-    matDialogConf.height='100%';
-    matDialogConf.width='35%';
     this.dialog.open(ShareDialogComponent,matDialogConf);
   }
 

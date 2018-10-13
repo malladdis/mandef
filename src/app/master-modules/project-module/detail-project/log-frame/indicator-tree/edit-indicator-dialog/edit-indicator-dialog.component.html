@@ -7,7 +7,8 @@
       </mat-toolbar>
   <h2 mat-dialog-title>Edit {{indicator['name']}} Indicator</h2>
   <mat-divider></mat-divider>
-  <mat-card [formGroup]="editForm" style="margin-bottom:100px;">
+  <mat-dialog-content>
+    <mat-card [formGroup]="editForm">
       <mat-card-content fxFlex="90">
           <mat-form-field class="full-width">
               <label for="name">Name</label>
@@ -119,4 +120,5 @@
         </button>
       </mat-card-actions>
     </mat-card>
+  </mat-dialog-content>
 </div>

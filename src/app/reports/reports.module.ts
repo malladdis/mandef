@@ -13,6 +13,8 @@ import { OutcomeReportComponent } from './projects/outcome-report/outcome-report
 import { IndicatorReportComponent } from './projects/indicator-report/indicator-report.component';
 import { ActivityReportComponent } from './projects/activity-report/activity-report.component';
 import { ProjectService } from '../master-modules/project-module/project.service';
+import { FormColumnsService } from '../custom-form/services/form-columns.service';
+import { CalculationMethodService } from '../master-modules/project-module/detail-project/log-frame/indicator-tree/services/calculation-method.service';
 
 const reportRoute: Routes = [
   {
@@ -38,7 +40,7 @@ const reportRoute: Routes = [
   ],
   declarations: [ProgrammesComponent, ProjectsComponent, OutputReportComponent, OutcomeReportComponent, IndicatorReportComponent, ActivityReportComponent],
   exports:[ OutputReportComponent, OutcomeReportComponent, IndicatorReportComponent, ActivityReportComponent,IndicatorReportComponent],
-  providers: [ProgrammesService, ProjectService]
+  providers: [ProgrammesService, ProjectService,FormColumnsService,CalculationMethodService]
 })
 export class ReportsModule {
 }

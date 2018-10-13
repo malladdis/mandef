@@ -46,8 +46,6 @@ export class ShowFormsComponent implements OnInit {
       'title':form['title'],
       'id':form['id']
     }
-    matDialogConf.height='90%';
-    matDialogConf.width='35%';
     this.dialog.open(ShareDialogComponent,matDialogConf);
   }
 
@@ -56,8 +54,6 @@ export class ShowFormsComponent implements OnInit {
     matDialogConf.data={
       'form':form
     }
-    matDialogConf.height='90%';
-    matDialogConf.width='70%';
     this.dialog.open(SharedUsersComponent,matDialogConf);
 
   }
