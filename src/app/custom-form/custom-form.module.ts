@@ -13,7 +13,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { CustomFormsService } from './custom-forms.service';
 import { FormDesignComponent } from './form-design/form-design.component';
 import { FormSectionsService } from './form-sections.service';
-import { DraggableComponent } from './draggable/draggable.component';
 import { EscapeHtmlPipe } from './pipes/keepHtmlSafe.pipe';
 import { FormColumnsService } from './services/form-columns.service';
 import { GeneratedFormService } from './services/generated-form.service';
@@ -69,9 +68,9 @@ const formsRoute:Routes=[
       apiKey: 'AIzaSyC_n7J4QTEgv89AWttZDKYf7ALt41MLYrQ'
     }),
   ],
-  declarations: [FormsDashboardComponent, ShowFormsComponent, DialogBodyComponent,FormDesignComponent, DraggableComponent,EscapeHtmlPipe, 
+  declarations: [FormsDashboardComponent, ShowFormsComponent, DialogBodyComponent,FormDesignComponent,EscapeHtmlPipe, 
     FormsdetailComponent, ShareDialogComponent, AddRecordsComponent, InputSanitizerPipe, ChipsTagComponent, FileUploaderComponent, CustomformErrorComponent, SharedUsersComponent, ConfirmDialogComponent, LocationDialogComponent],
-  exports:[FormsDashboardComponent, ShowFormsComponent,DialogBodyComponent,FormDesignComponent,DraggableComponent,FormsdetailComponent,
+  exports:[FormsDashboardComponent, ShowFormsComponent,DialogBodyComponent,FormDesignComponent,FormsdetailComponent,
     ShareDialogComponent,AddRecordsComponent,FileUploaderComponent],
   providers:[CustomFormsService,FormSectionsService,FormColumnsService,GeneratedFormService,FormsDataService,ProjectService,FormDataFileService,ConfirmService],
   entryComponents:[DialogBodyComponent,FormDesignComponent,ShareDialogComponent,FileUploaderComponent,CustomformErrorComponent,SharedUsersComponent,ConfirmDialogComponent,LocationDialogComponent]
