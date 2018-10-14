@@ -317,6 +317,10 @@ export class ProjectService {
     });
   }
 
+  updateActivity(updatedData) {
+    return this.appservice.put(apiRoutes.activities.update, updatedData['id'], updatedData);
+  }
+
   addActivityBudget(activity_id, amount) {
     this.appservice.post(apiRoutes.activity_budgets.index, JSON.stringify({
       activity_id: activity_id,
@@ -373,5 +377,8 @@ export class ProjectService {
 
   addMilestone(form) {
     return this.appservice.post(apiRoutes.milestones.index, form);
+  }
+  add_milestone_actual_values(form_data) {
+    return this.appservice.post(apiRoutes.milestone_actual_values.store, JSON.stringify(form_data));
   }
 }

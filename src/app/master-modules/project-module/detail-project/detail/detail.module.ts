@@ -18,7 +18,6 @@ import {InputDialogComponent} from '../input-dialog/input-dialog.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarConfigInterface, PerfectScrollbarModule} from 'ngx-perfect-scrollbar';
 import {ExpenditureComponent} from '../expenditure/expenditure.component';
-import {MatFileUploadModule} from 'angular-material-fileupload';
 import {NgezGanttModule} from '../activity/work-plan/ngez-gantt/ngez-gantt.module';
 import {DataEntryComponent} from '../data-entry/data-entry.component';
 import {BiannualTableComponent} from '../data-entry/biannual-table/biannual-table.component';
@@ -37,6 +36,10 @@ import {FinancialReportComponent} from '../expenditure/financial-report/financia
 import {WorkPlanComponent} from '../activity/work-plan/work-plan.component';
 import {TagPipe} from '../activity/activity-detail/tag.pipe';
 import {AddMilestoneComponent} from '../activity/work-plan/add-milestone/add-milestone.component';
+import {MatFileUploadModule} from '../../../../fileuploader/lib/matFileUpload.module';
+import {AddMilestoneActualValueComponent} from '../activity/add-milestone-actual-value/add-milestone-actual-value.component';
+import {ActivityListComponent} from '../activity/activity-list/activity-list.component';
+import {FileListComponent} from '../file-list/file-list.component';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -61,14 +64,14 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ActivityDialogComponent, IndicatorDialogComponent, OutcomeDialogComponent,
     OutputDialogComponent, InputDialogComponent, ActivityDetailComponent,
     AddFinanceDialogComponent, AddExpenditureCategoryComponent, AddExpenditureComponent,
-    FinancialReportComponent, WorkPlanComponent, TagPipe, AddMilestoneComponent],
+    FinancialReportComponent, WorkPlanComponent, TagPipe, AddMilestoneComponent, AddMilestoneActualValueComponent, ActivityListComponent, FileListComponent],
   exports: [DetailProjectComponent, OverviewComponent, FilterPipePipe,
     ActivityComponent, LogFrameComponent, OutcomeTreeComponent,
     IndicatorTreeComponent, ActivityTreeComponent, OutputTreeComponent,
     ActivityDialogComponent, IndicatorDialogComponent, OutcomeDialogComponent, FinanceComponent,
     OutputDialogComponent, InputDialogComponent, ActivityDetailComponent,
     AddFinanceDialogComponent, AddExpenditureCategoryComponent, AddExpenditureComponent,
-    FinancialReportComponent, WorkPlanComponent, TagPipe, AddMilestoneComponent],
+    FinancialReportComponent, WorkPlanComponent, TagPipe, AddMilestoneComponent, AddMilestoneActualValueComponent, ActivityListComponent, FileListComponent],
   entryComponents: [
     ActivityDialogComponent,
     IndicatorDialogComponent,
@@ -81,7 +84,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     DataEntryDialogComponent,
     ShowAllComponent,
     FinancialReportComponent,
-    AddMilestoneComponent
+    AddMilestoneComponent,
+    AddMilestoneActualValueComponent
   ],
   providers: [
     {

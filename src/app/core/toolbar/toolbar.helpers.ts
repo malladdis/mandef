@@ -21,7 +21,7 @@ export const ToolbarHelpers = {
   ],
 
   currentUser: {
-    photoURL: 'assets/user-image.jpg',
-    currentUserName: 'Ezedin Fedlu'
+    photoURL: 'assets/logo.png',
+    currentUserName: 'Ermias Guta'
   }
 };

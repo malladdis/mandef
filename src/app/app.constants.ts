@@ -459,6 +459,16 @@ const files = {
   destroy: createUrl('/files')
 };
 
+
+const milestone_actual_values = {
+  index: createUrl('/milestone_actual_values'),
+  show: createUrl('/milestone_actual_values'),
+  store: createUrl('/milestone_actual_values'),
+  update: createUrl('/milestone_actual_values'),
+  destroy: createUrl('/milestone_actual_values')
+};
+
+
 const userRoutes = {
   me: createAuthUrl('/me'),
   users: createAuthUrl('/users')
@@ -535,6 +545,7 @@ export const apiRoutes = {
   monthly_expenditures: monthly_expenditures,
   files: files,
   milestones: milestones,
+  milestone_actual_values: milestone_actual_values
 };
 
 

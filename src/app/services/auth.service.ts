@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {TokenService} from './token.service';
-import {BehaviorSubject, Observable, of} from 'rxjs';
-import {delay} from 'rxjs/internal/operators';
+import {BehaviorSubject, of} from 'rxjs';
+
 @Injectable()
 export class AuthService {
   API_URL = 'http://127.0.0.1:8000/api';

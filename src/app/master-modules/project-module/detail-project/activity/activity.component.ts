@@ -8,7 +8,6 @@ import {ActivatedRoute, Router} from '@angular/router';
   styleUrls: ['./activity.component.scss']
 })
 export class ActivityComponent implements OnInit {
-  displayedColumns: string[] = ['Activity', 'Start Date', 'End Date', 'Status' , 'Output', 'Location', 'Category', ' '];
   activities: Array<Object>;
   project_id: number;
   activity_id: number;
@@ -28,7 +27,5 @@ export class ActivityComponent implements OnInit {
       this.activities = data['data'];
     });
   }
-  detailActivity(id) {
-    this.router.navigate([`/auth/master-modules/project/detail/${this.project_id}/activity-detail/${id}`]);
-  }
+
 }
