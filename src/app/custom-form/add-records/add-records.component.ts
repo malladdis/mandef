@@ -30,6 +30,7 @@ export class AddRecordsComponent implements OnInit {
   columnName: Array<string> = [];
   fileLabelName:string;
   locationLabelName:string;
+  changed:boolean=false;
   constructor(private route: ActivatedRoute, private generateHttp: GeneratedFormService, private customForm: CustomFormsService,
               private formDataHttp: FormsDataService, private router: Router, private columnHttp: FormColumnsService, private dialog: MatDialog) {
   }
@@ -218,11 +219,6 @@ export class AddRecordsComponent implements OnInit {
         'title':this.myForm['title'],
         'table_data':myJSOn
       };
-      dialogConf.position={
-        top:'50px'
-      }
-      dialogConf.width="80%";
-      dialogConf.height="100%"
 
       this.dialog.open(LocationDialogComponent,dialogConf);
       

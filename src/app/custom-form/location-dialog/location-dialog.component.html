@@ -1,5 +1,22 @@
-<h1>{{ title }}</h1>
+<div fxLayout="column">
+  <mat-toolbar style="background-color: white;">
+    <h2>{{title}}</h2>
+    <span class="spacer"></span>
+    <button mat-button mat-dialog-close class="close-button" style="float: right" (click)="closeDialog()">
+      <mat-icon> close</mat-icon>
+    </button>
+  </mat-toolbar>
+  <mat-dialog-content [formGroup]="latLangForm">
+    <div  fxLayoutAlign="center center" fxLayout="column">
+      <mat-form-field style="width:100%;">
+        <input type="text" matInput formControlName="latitude" placeholder="Insert latitude">
+      </mat-form-field>
+  
+      <mat-form-field style="width:100%;">
+        <input type="text" matInput formControlName="longtude" placeholder="Insert longtude">
+      </mat-form-field>
 
-<agm-map [latitude]="lat" [longitude]="lng">
-  <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
-</agm-map>
+      <button style="width:100%;" mat-raised-button color="primary" [disabled]="latLangForm.invalid" (click)="save()">Save</button>
+    </div>
+  </mat-dialog-content>
+</div>
