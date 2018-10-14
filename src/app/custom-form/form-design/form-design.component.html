@@ -1,111 +1,95 @@
-<div fxLayout="column" class="components-container-gt-xs" [ngClass.xs]="'components-container-xs'" fxLayoutGap="20px">
-  <div fxFlex class="program-component-holder mat-elevation-z4">
-    <mat-toolbar color="primary">
-      <mat-icon>star_rate</mat-icon> <span *ngFor="let f of forms" style="margin-left: 5px;">{{f['title']}}</span>
+<div fxLayout="column" class="components-container-gt-xs" [ngClass.xs]="'components-container-xs'" fxLayoutGap="20px" style="height:900px;">
+    <div fxFlex class="program-component-holder mat-elevation-z4">
+      <mat-toolbar color="primary">
+        <mat-icon>star_rate</mat-icon> <span *ngFor="let f of forms" style="margin-left: 5px;">{{f['title']}}</span>
+  
+        <!-- This fills the remaining space of the current row -->
+        <span class="example-fill-remaining-space"></span>
+  
+        <div fxLayoutGap="20px" fxLayout="row" style="padding-right: 20px;"><span class="example-fill-remaining-space"></span>
+        </div>
+      </mat-toolbar>
+  
+      <mat-toolbar>
+        <span><mat-icon color="primary">info</mat-icon>Drag The Item here</span>
+  
+        <!-- This fills the remaining space of the current row -->
+        <span class="example-fill-remaining-space"></span>
+        <button (click)="save()" mat-raised-button color="primary" matTooltip="Save this form" [disabled]="loading"><mat-icon>save</mat-icon> Save</button>
+      </mat-toolbar>
+      <div
+       fxLayout="row"
+       fxLayoutGap="10px"
+       fxLayoutGap.xs="0">
+          <div fxFlex="30%">
+            <div>
+              <ul class="list-group">
+                <li data="<div style='padding-left:15px;' id='holder' draggable='true'><label class='editable' >Text name</label><p id='label-editor' style='display:none;'><span class='btn-link edit'>Edit</span> <span class='btn-link remove' style='margin-left:15px;'>Remove</span></p></div>"  id="drag1" class="list-group-item" draggable="true"><span class="fa fa-font"> Text</span></li>
+                
+                <li data="<div style='padding:10px 35px 0px 15px;margin-bottom:50px;width:700px;' id='holder' class='input-holder' draggable='true'>
+                  <div class='form-group' id='form-group'>
+                    <label class='col-md-4 col-sm-4' id='input-label' style='font-size:20px;'>Provide Name <span class='right text-success'><small>E.g Full name,Crop type</small></span></label>
+                    <input class='form-control col-md-8 col-sm-8' type='text'>
+                  </div>
+                <p id='label-editor' style='display:none;'><span class='btn-link edit'>Edit</span> <span class='btn-link remove' style='margin-left:15px;'>Remove</span></p>
+                </div>" id="input-drager" class="list-group-item" draggable="true"><span class="fa fa-wpforms"> Text Field</span></li>
+               
+                <li id="dropDown-drager" data="<div id='holder' style='padding:10px 35px 0px 15px;margin-bottom:50px;width:700px;'>
+                  <div class='form-group' id='form-group'>
+                      <label id='select-label' style='margin-bottom:20px;font-size:20px;' for='dropDown'>write select type e.g gender</label>
+                      <select class='form-control col-md-9 col-sm-8' id='dropDown' class='form-control'></select>
+                      <span id='addDropDownOption' class='fa fa-plus' style='margin-left:40px;margin:10px;font-size:20px;'> Add option</span>
+                  </div>
+                  <p id='dropDown-editor' style='display:none;'><span class='btn-link edit'>Edit</span> <span class='btn-link remove' style='margin-left:15px;'>Remove</span></p>
+                </div>" class="list-group-item" draggable="true"><span class="fa fa-chevron-down"> drop down</span></li>
 
-      <!-- This fills the remaining space of the current row -->
-      <span class="example-fill-remaining-space"></span>
-
-      <div fxLayoutGap="20px" fxLayout="row" style="padding-right: 20px;">
-      <button mat-button matTooltip="Edit form"><mat-icon>edit</mat-icon>  Edit</button>
-      <button mat-button matTooltip="Clone form"><mat-icon>repeat</mat-icon>  Clone</button>
-      </div>
-    </mat-toolbar>
-
-    <mat-toolbar>
-      <span><mat-icon color="primary">info</mat-icon>Drag The Item here</span>
-
-      <!-- This fills the remaining space of the current row -->
-      <span class="example-fill-remaining-space"></span>
-      <button mat-raised-button color="primary" matTooltip="Publish this form" style="margin-right: 10px;"><mat-icon>publish</mat-icon>Publish</button>
-      <button (click)="save()" mat-raised-button color="primary" matTooltip="Save this form"><mat-icon>save</mat-icon> Save</button>
-    </mat-toolbar>
-
-    <div
-     fxLayout="row"
-     fxLayoutGap="10px"
-     fxLayoutGap.xs="0">
-
-        <div fxFlex="30%">
-
-          <div>
-            <ul class="list-group">
-              <li data="<div style='padding-left:15px;' id='holder' draggable='true'><label class='editable' >Text name</label><p id='label-editor' style='display:none;'><span class='btn-link edit'>Edit</span> <span class='btn-link remove' style='margin-left:15px;'>Remove</span></p></div>"  id="drag1" class="list-group-item" draggable="true"><span class="fa fa-font"> Text</span></li>
-              <li data="<input type='text' placeholder='write the thing you want to accept' id='drope-input'>" id="input-drager" class="list-group-item" draggable="true"><span class="fa fa-wpforms"> Text Field</span></li>
-              <li id="dropDown-drager" data="<div id='dropHolder' style='padding:10px;'><label id='select-label' style='margin-bottom:20px;' for='dropDown'>write select type e.g gender</label><select class='form-control' id='dropDown' class='form-control' style='width:60%;'></select><span id='addDropDownOption' class='fa fa-plus' style='margin-left:40px;margin:10px;'> option</span>
-                <p id='dropDown-editor' style='display:none;'><span class='btn-link edit'>Edit</span> <span class='btn-link remove' style='margin-left:15px;'>Remove</span></p></div>" class="list-group-item" draggable="true"><span class="fa fa-chevron-down"> drop down</span></li>
-              <li id="file-drager" data="<div id='fileHolder' style='padding:10px;'><label id='file-label'>Write identifier for your file e.g photo</label><br><br><label for='file' style='display:none;' id='hiden-file-label'></label><br><input id='file' type='file' name='files'>
+                <li id='textarea-drager' data="<div id='holder' style='padding:10px 35px 0px 15px;margin-bottom:50px;width:700px;'>
+                    <div class='form-group' id='form-group'>
+                      <label id='textarea-label' class='col-md-4 col-sm-4' style='font-size:20px;'>Provide name for this text area. <span class='text-success'><small>E.g tell us what probelm have you got,send us problems that arises</small></span></label>
+                      <textarea cols='20' rows='10' class='form-control'></textarea>
+                    </div>
+                    <p id='dropDown-editor' style='display:none;'><span class='btn-link edit'>Edit</span> <span class='btn-link remove' style='margin-left:15px;'>Remove</span></p>
+                  </div>" class="list-group-item" draggable="true">
+                    <span>Text area</span>
+                  </li>
+                
+                  <li id="file-drager" data="<div id='holder' style='padding:10px 35px 0px 15px;margin-bottom:50px;width:700px;'>
+                    <div class='form-group file-form' id='form-group'>
+                        <label id='file-label' style='font-size:20px;'>Write identifier for your file <span class='text-success'><small>e.g photo</small></span></label><br><br><label for='file' style='display:none;' id='hiden-file-label'></label><br>
+                        <input id='file' type='file' name='files' style='margin-top:-150px;'>
+                    </div>
+                  <p id='dropDown-editor' style='display:none;'><span class='btn-link edit'>Edit</span> <span class='btn-link remove' style='margin-left:15px;'>Remove</span></p>
+                  </div>" draggable="true" class="list-group-item">
+                  <span class="fa fa-file"> File</span>
+                </li>
+                <li id="location-drager" data="<div id='holder' style='padding:10px 35px 0px 15px;margin-bottom:50px;width:700px;'>
+                  <div class='form-group location-form' id='form-group'>
+                      <label class='location-editable' style='font-size:20px;'>Say something for data collectors <span class='text-success'><small>E.g please send us the exact location of water Pod development project</small></span></label><br><br><label for='file' style='display:none;' id='hiden-file-label'></label><br>
+                      <a class='fa fa-map-marker location' style='font-size:50px;margin-top:-150px;cursor:pointer;'></a>
+                      <input class='location' id='file' type='text' name='location' style='margin-top:-150px;display:none;'>
+                  </div>
                 <p id='dropDown-editor' style='display:none;'><span class='btn-link edit'>Edit</span> <span class='btn-link remove' style='margin-left:15px;'>Remove</span></p>
                 </div>" draggable="true" class="list-group-item">
-                <span class="fa fa-file"> File</span>
+                <span class="fa fa-map-marker"> Longtude and latitude</span>
               </li>
-
-                <li data="<div><table id='customers' style='border-collapse: collapse;text-align:center;'>
-                <thead>
-                  <tr>
-                    <th class='editable'><label>Column name</label><span class='remove-column'>x</span></th>
-                    <th><label>Column name</label><span class='remove-column'>x</span></th>
-                    <th><label>Column name</label><span class='remove-column'>x</span></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><input class='table-input'></td>
-                    <td><input class='table-input'></td>
-                    <td><input class='table-input'></td>
-                  </tr>
-                  <tr>
-                    <td><input class='table-input'></td>
-                    <td><input class='table-input'></td>
-                    <td><input class='table-input'></td>
-                  </tr>
-                  <tr>
-                    <td><input class='table-input'></td>
-                    <td><input class='table-input'></td>
-                    <td><input class='table-input'></td>
-                  </tr>
-                </tbody>
-              </table>
-              <div  id='button-div' style='width:100%;'>
-                <div class='pull-left' style='padding:10px;' >
-                    <div id='table-file-form' style='display:none;'>
-                      <label class='text-info' for='fileToUpload' style='font-size:20px;'>This Form needs file attachment. After you fill the form<br> please attach the files for the filled item</label><br><br>
-                      <span class='btn-link' id='remove-file-attachment' style='font-size:20px;margin-top:20px;color:red !important;'>No need of file attachment</span>
-                    </div>
-                </div>
-                <div class='pull-right table-btn-holder'>
-                  <span class='btn-link remove-table' style='font-size:20px;'>Remove table</span>
-                  <span style='margin-left:10px;margin-right:10px;font-size:20px;' class='btn-link attach-file'>Attach file</span>
-                  <button id='success' class='fa fa-plus add-column' style='font-size:20px;'>  add column</button>
-                </div>
-              </div>
-            </div>"
-
-            id="table-drager" class="list-group-item" draggable="true"><span class="fa fa-table"> Table</span></li>
-              <li id="message-drager" data="<div id='holder' draggable='true'><p class='message-editable' >write message</p></div>" class="list-group-item" draggable="true"><span class="fa fa-comment"> Message</span></li>
-              <li id="link-drager" data="<div id='holder' draggable='true'><a class='link-editable' >write link</a></div>" class="list-group-item" draggable="true"><span class="fa fa-link"> Link</span></li>
-             <li class="list-group-item" draggable="true"><span class="fa fa-location-arrow"> Latitude/Longtude</span></li>
-            </ul>
+                <li id="message-drager" data="<div style='padding:10px 35px 0px 15px;margin-bottom:50px;width:700px;' id='holder' draggable='true'>
+                  <label class='message-editable' style='font-size:20px;' >write message</label>
+                  <p id='dropDown-editor' style='display:none;'><span class='btn-link edit'>Edit</span> <span class='btn-link remove' style='margin-left:15px;'>Remove</span></p>
+                 </div>" class="list-group-item" draggable="true">
+                 <span class="fa fa-comment"> Message</span>
+                </li>
+              </ul>
+            </div>
           </div>
-        </div>
-
-
-        <div class="item item-2" fxLayout="column"  fxFlex="70%" fxFlexOrder="3">
-          <div id="dragCopy">
-
+  
+  
+          <div class="item item-2" fxLayout="column"  fxFlex="70%" fxFlexOrder="3">
+            <div id="dragCopy" style="height:720px;overflow:auto;margin: 10px;">
+                
+            </div>
           </div>
-        </div>
-    </div>
-</div>
- </div>
-
- <!-- The Modal -->
-<div id="myModal" class="modal">
-
-  <!-- Modal content -->
-  <div class="modal-content">
-    <h4 class="text-success">Please use Form elements or tables only for now.We are developing for complex form design of custom forms</h4>
-    <button mat-raised-button color='primary' style="padding: 10px;" id="custom-form-modal">Ok</button>
+      </div>
   </div>
-
-</div>
+   </div>
+  
+  

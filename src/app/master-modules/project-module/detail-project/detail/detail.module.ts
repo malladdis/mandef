@@ -20,10 +20,6 @@ import {PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarConfigInterface, PerfectScroll
 import {ExpenditureComponent} from '../expenditure/expenditure.component';
 import {NgezGanttModule} from '../activity/work-plan/ngez-gantt/ngez-gantt.module';
 import {DataEntryComponent} from '../data-entry/data-entry.component';
-import {BiannualTableComponent} from '../data-entry/biannual-table/biannual-table.component';
-import {QuarterTableComponent} from '../data-entry/quarter-table/quarter-table.component';
-import {AnnualTableComponent} from '../data-entry/annual-table/annual-table.component';
-import {MonthlyComponent} from '../data-entry/monthly/monthly.component';
 import {DataEntryDialogComponent} from '../data-entry/data-entry-dialog/data-entry-dialog.component';
 import {FinanceComponent} from '../finance/finance.component';
 import {FilterPipePipe} from '../data-entry/pipe/filter-pipe.pipe';
@@ -57,8 +53,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   ],
   declarations: [DetailProjectComponent, OverviewComponent,
     ActivityComponent, LogFrameComponent, OutcomeTreeComponent, DataEntryComponent,
-    BiannualTableComponent, QuarterTableComponent, AnnualTableComponent,
-    MonthlyComponent,
     DataEntryDialogComponent, FinanceComponent, FilterPipePipe, ShowAllComponent,
     IndicatorTreeComponent, ActivityTreeComponent, OutputTreeComponent, ExpenditureComponent,
     ActivityDialogComponent, IndicatorDialogComponent, OutcomeDialogComponent,

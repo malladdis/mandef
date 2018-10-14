@@ -1,0 +1,84 @@
+
+<div class="indicator-holder">
+    <div class="indicator-header">
+        <p style="width: 100%;">
+            <span class="my-badge indicator">Indicator</span>
+            <span class="my-title">{{indicator['name']}}</span>
+            <span class="spacer"></span>
+            <span style="float: right !important;">
+              <button mat-button (click)="showActualData()">Show actual data</button>
+            </span>
+          </p>
+    </div>
+      <div >
+          <table class="table" style="border-bottom:1px solid mediumturquoise;">
+              <colgroup>
+              <col span="2" style="background-color:#E3E9D7;width: 8%;">
+              <col  style="background-color:burlywood;">
+              <col style="background-color:darkseagreen;">
+              <col style="background-color:lightslategray;width:10%;">
+              <col>
+              </colgroup>
+                <tr>
+                  <th colspan="2">Baseline</th>
+                  <th rowspan="2">Type</th>
+                  <th rowspan="2">Measuring unit</th>
+                  <th rowspan="2" style="color:white;">Target Value</th>
+                  <th>Actual Value</th>
+                  <th>Progress</th>
+                </tr>
+                <tr>
+                  <th >Date</th>
+                  <th >Value</th>
+                </tr>
+                <tbody>
+              <tr *ngFor="let indi of indicatorsData">
+                  <td>{{getYear(indi.created_at)}}</td>
+                  <td>{{indi.baseline_value}}</td>
+                  <td>{{type(indi.type_id)}}</td>
+                  <td>{{unit(indi.measuring_unit_id)}}</td>
+                  <td style="color:white">{{indi.target_value}}</td>
+                  <td>
+                    <span *ngIf="actualData.length>0;then contentOne else contentTwo"></span>
+                    <ng-template #contentOne>
+                        {{actualJson.length}}
+                    </ng-template>
+                    <ng-template #contentTwo>
+                      0 (No data sent)
+                    </ng-template>
+                  </td>
+                  <td >
+                      <span *ngIf="actualData.length>0;then percentageContentOne else percentageContentTwo"></span>
+                      <ng-template #percentageContentOne>
+                          {{progress(indi.target_value,actualJson.length)}}
+                      </ng-template>
+                      <ng-template #percentageContentTwo>
+                        0%(No progress)
+                      </ng-template>
+                  </td>
+              </tr>
+                </tbody>
+              </table>
+              <div class="actual-data" style="padding:20px;display:none;">
+                <h3 class="actual-data-header">Collected data of {{indicator['name']}} indicator</h3>
+                <table class="table table-hover table-bordered" id="data-table" style="width: 100%;">
+                  <thead>
+                    <tr >
+                      <th style="text-transform: capitalize;" *ngFor="let c of columnName">{{c}}</th>
+                    </tr>
+                  </thead>
+                  <tbody class="displayer">
+                    <tr *ngFor="let data of json;">
+                      <td *ngFor="let co of columnName;">{{data[co]}}</td>
+                    </tr>
+                  </tbody>
+                  <tbody >
+                    <tr class="total" style="display:none;background-color: burlywood;">
+                      <td *ngFor="let c of columnName" id="{{c}}"></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+      </div>
+      
+</div>

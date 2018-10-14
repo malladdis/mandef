@@ -1,6 +1,7 @@
 import {ProgrammesService} from '../service/programmes.service';
 import {Component, OnInit} from '@angular/core';
 import {ProgramCategoryService} from '../service/program-category.service';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 
 @Component({
@@ -11,17 +12,19 @@ import {ProgramCategoryService} from '../service/program-category.service';
 export class ProgrammesComponent implements OnInit {
   program: Array<any> = [];
   categories: Array<any> = [];
-
-  constructor(private programHttp: ProgrammesService, private programCategoryHttp: ProgramCategoryService) {
+  searchForm:FormGroup;
+  selected:boolean=false;
+  programId:number;
+  project:Array<any>=[];
+  constructor(private programHttp: ProgrammesService,private builder:FormBuilder) {
   }
 
   ngOnInit() {
 
-    this.programCategoryHttp.index()
-      .subscribe(data => {
-        this.categories = data['data'];
-
-      });
+    this.searchForm=this.builder.group({
+      program:[]
+    })
+    
     this.programHttp.index()
       .subscribe(data => {
         this.program = data['data'];
@@ -40,7 +43,18 @@ export class ProgrammesComponent implements OnInit {
     return date.getDate() + '/' + date.getMonth() + '/' + date.getFullYear();
   }
 
-  print() {
+ 
+
+  programSelected(id){
+    this.selected=true;
+    this.programId=id;
+  }
+
+  showReport(){
+    console.log(this.programId)
+  }
+
+ /*  print() {
     let popupWinindow;
     let innerContents = document.getElementById('printable-div').innerHTML;
     let css = '';
@@ -79,5 +93,5 @@ export class ProgrammesComponent implements OnInit {
       //triggering the function
       downloadLink.click();
     }
-  }
+  } */
 }

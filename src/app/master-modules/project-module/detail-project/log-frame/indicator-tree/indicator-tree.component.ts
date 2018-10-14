@@ -22,12 +22,6 @@ export class IndicatorTreeComponent implements OnInit {
     editDialogConf.data={
       'indicator_id':indicator.id
     };
-    editDialogConf.position={
-      'top':'0',
-      'right':'0'
-    }
-    editDialogConf.height='100%';
-    editDialogConf.width="40%";
     this.matDialog.open(EditIndicatorDialogComponent,editDialogConf);
   }
 

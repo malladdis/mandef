@@ -13,7 +13,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { CustomFormsService } from './custom-forms.service';
 import { FormDesignComponent } from './form-design/form-design.component';
 import { FormSectionsService } from './form-sections.service';
-import { DraggableComponent } from './draggable/draggable.component';
 import { EscapeHtmlPipe } from './pipes/keepHtmlSafe.pipe';
 import { FormColumnsService } from './services/form-columns.service';
 import { GeneratedFormService } from './services/generated-form.service';
@@ -27,6 +26,11 @@ import { ChipsTagComponent } from './chips-tag/chips-tag.component';
 import { FileUploaderComponent } from './file-uploader/file-uploader.component';
 import { FormDataFileService } from './services/form-data-file.service';
 import { CustomformErrorComponent } from './customform-error/customform-error.component';
+import { SharedUsersComponent } from './shared-users/shared-users.component';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+import { ConfirmService } from './services/confirm.service';
+import { LocationDialogComponent } from './location-dialog/location-dialog.component';
+import { AgmCoreModule } from '@agm/core';
 
 const formsRoute:Routes=[
   {
@@ -58,13 +62,17 @@ const formsRoute:Routes=[
     MaterialModule,
     ReactiveFormsModule,
     HttpClientModule,
-    RouterModule.forChild(formsRoute)
+    AgmCoreModule,
+    RouterModule.forChild(formsRoute),
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyC_n7J4QTEgv89AWttZDKYf7ALt41MLYrQ'
+    }),
   ],
-  declarations: [FormsDashboardComponent, ShowFormsComponent, DialogBodyComponent,FormDesignComponent, DraggableComponent,EscapeHtmlPipe, 
-    FormsdetailComponent, ShareDialogComponent, AddRecordsComponent, InputSanitizerPipe, ChipsTagComponent, FileUploaderComponent, CustomformErrorComponent],
-  exports:[FormsDashboardComponent, ShowFormsComponent,DialogBodyComponent,FormDesignComponent,DraggableComponent,FormsdetailComponent,
+  declarations: [FormsDashboardComponent, ShowFormsComponent, DialogBodyComponent,FormDesignComponent,EscapeHtmlPipe, 
+    FormsdetailComponent, ShareDialogComponent, AddRecordsComponent, InputSanitizerPipe, ChipsTagComponent, FileUploaderComponent, CustomformErrorComponent, SharedUsersComponent, ConfirmDialogComponent, LocationDialogComponent],
+  exports:[FormsDashboardComponent, ShowFormsComponent,DialogBodyComponent,FormDesignComponent,FormsdetailComponent,
     ShareDialogComponent,AddRecordsComponent,FileUploaderComponent],
-  providers:[CustomFormsService,FormSectionsService,FormColumnsService,GeneratedFormService,FormsDataService,ProjectService,FormDataFileService],
-  entryComponents:[DialogBodyComponent,FormDesignComponent,ShareDialogComponent,FileUploaderComponent,CustomformErrorComponent]
+  providers:[CustomFormsService,FormSectionsService,FormColumnsService,GeneratedFormService,FormsDataService,ProjectService,FormDataFileService,ConfirmService],
+  entryComponents:[DialogBodyComponent,FormDesignComponent,ShareDialogComponent,FileUploaderComponent,CustomformErrorComponent,SharedUsersComponent,ConfirmDialogComponent,LocationDialogComponent]
 })
 export class CustomFormModule { }

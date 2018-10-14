@@ -1,65 +1,49 @@
 <div>
-  <mat-toolbar style="background-color: white;">
-    <span style="text-align:left;">Add actual value</span>
+  <mat-toolbar color="primary">
+    <h4>{{indicators.name}}</h4>
     <span class="spacer"></span>
     <button mat-button mat-dialog-close class="close-button" style="float: right">
       <mat-icon> close</mat-icon>
     </button>
   </mat-toolbar>
+  <mat-dialog-content>
+    <div [formGroup]="dataEntryForm">
+      <mat-toolbar fxLayout="row" fxLayoutGap="50px" style="padding: 50px;">
+          <span class="spacer"></span>
+          <mat-form-field style="width:70%;">
+              <mat-select formControlName="fields"  placeholder="Calculation method" formControlName="calculatioMethod">
+                <mat-option *ngFor="let calculation of calculaitonMethod" [value]="calculation.name" (onSelectionChange)="calculationMethodSelected(calculation.name)">{{calculation.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
 
-  <mat-dialog-content  style="overflow-y: hidden;height:100%">
-    <div fxFlex fxLayout="row">
-      <div fxFlex="50">
-       <span> Disaggregated by : {{disaggregationMethod}}</span>
+        <mat-form-field style="width:70%;" >
+          <mat-select placeholder="Select fields to be calculated" multiple formControlName="fields">
+            <mat-option *ngFor="let co of columnName;" (onSelectionChange)="fieldSelected(co)">{{co}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" (click)="calculate()">Calculate</button>
+      </mat-toolbar>
+      <table class="table table-hover table-bordered" id="data-table" style="width: 100%;">
+        <thead>
+          <tr >
+            <th style="text-transform: capitalize;" *ngFor="let c of columnName">{{c}}</th>
+          </tr>
+        </thead>
+        <tbody class="displayer">
+          <tr *ngFor="let data of json;">
+            <td *ngFor="let co of columnName;">{{data[co]}}</td>
+          </tr>
+        </tbody>
+        <tbody >
+          <tr class="total" style="display:none;background-color: burlywood;">
+            <td *ngFor="let c of columnName" id="{{c}}"></td>
+          </tr>
+        </tbody>
+      </table>
+      <div fxLayout="column" layoutAlign="center" class="disaggregations">
+         
       </div>
-      <div fxFlex="20">
-      </div>
-      <div fxFlex="30">
-        <button mat-raised-button color="primary" (click)="calculate()" [disabled]="!isDataSent">Calculate</button>
-      </div>
-    </div>
-    <div fxFlex fxLayout="row" style="margin-top:20px;">
-      <div *ngIf="isDataSent;then contentOne;else contentTwo"> </div>
-      <ng-template #contentOne>
-          <div fxFlex fxLayout="column">
-              <div *ngIf="value.length>0; then first else second"></div>
-              <ng-template #first>
-                  <table class="table">
-                      <tr>
-                        <th>Category</th>
-                        <th>Value</th>
-                      </tr>
-                      <tbody *ngFor="let c of category;">
-                        <tr  *ngFor="let data of valueData;">
-                          <td>{{c}}</td>
-                          <td><input type="text" [value]="data[c]"></td>
-                        </tr>
-                      </tbody>
-                    </table>
-              </ng-template>
-              <ng-template #second>
-                <table class="table">
-                  <tr>
-                    <th>Category</th>
-                    <th>Value</th>
-                  </tr>
-                  <tbody *ngFor="let c of category;">
-                    <tr>
-                      <td>{{c}}</td>
-                      <td><input type="text"></td>
-                    </tr>
-                  </tbody>
-                </table>
-              </ng-template>
-            <div *ngIf="isCalculated">
-              <h4>Grand Total(Sum):  {{grandTotal}}</h4>
-            </div>
-            <button mat-raised-button color="primary" (click)="saveDataEntry()" [disabled]="!isCalculated">Save</button>
-          </div>
-          </ng-template>
-      <ng-template #contentTwo>
-        <p style="color:darkgreen;font-size:18px;">Data is not sent yet ):</p>
-      </ng-template>
-      </div>
+    </div>  
   </mat-dialog-content>
 </div>

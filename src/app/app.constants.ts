@@ -308,6 +308,14 @@ const createFormsData = {
   destroy: createUrl('/form_datas')
 };
 
+const createSharedForm = {
+  index: createUrl('/shared_forms'),
+  show: createUrl('/shared_forms'),
+  store: createUrl('/shared_forms'),
+  update: createUrl('/shared_forms'),
+  destroy: createUrl('/shared_forms')
+};
+
 const currencies = {
   index: createUrl('/currencies'),
   show: createUrl('/currencies'),
@@ -451,6 +459,13 @@ const createDataEntryDisaggregation = {
   destroy: createUrl('/data_entry_disaggregation')
 };
 
+const createIndicatorFields = {
+  index: createUrl('/indicator_form_fields'),
+  show: createUrl('/indicator_form_fields'),
+  store: createUrl('/indicator_form_fields'),
+  update: createUrl('/indicator_form_fields'),
+  destroy: createUrl('/indicator_form_fields')
+};
 const files = {
   index: createUrl('/files'),
   show: createUrl('/files'),
@@ -545,7 +560,9 @@ export const apiRoutes = {
   monthly_expenditures: monthly_expenditures,
   files: files,
   milestones: milestones,
-  milestone_actual_values: milestone_actual_values
+  milestone_actual_values: milestone_actual_values,
+  sharedForm: createSharedForm,
+  indicatorFields: createIndicatorFields
 };
 
 

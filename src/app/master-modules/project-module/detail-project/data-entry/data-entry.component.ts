@@ -1,13 +1,10 @@
-import {FrequenciesService} from './services/frequencies.service';
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {Frequency} from '../../../../models/frequency';
-import {th} from 'fontawesome';
-import {DataEntryService} from './services/data-entry.service';
-import {DataEntryIndicator} from '../../../../models/dataEntryIndicator';
 import {IndicatorService} from '../log-frame/indicator-tree/services/indicator.service';
-import {PeriodsService} from './services/periods.service';
-import {HttpClient} from '@angular/common/http';
+import { MeasuringUnitService } from './services/measuring-unit.service';
+import { DatatypeService } from './services/datatype.service';
+import { MatDialog, MatDialogConfig } from '@angular/material';
+import { DataEntryDialogComponent } from './data-entry-dialog/data-entry-dialog.component';
 
 @Component({
   selector: 'app-data-entry',
@@ -16,11 +13,11 @@ import {HttpClient} from '@angular/common/http';
 })
 export class DataEntryComponent implements OnInit {
   projectId: any;
-  frequencies: Array<Frequency> = [];
-  frequenciesWithIndicator: Array<any> = [];
-
-  constructor(private route: ActivatedRoute, private frequencyHttp: FrequenciesService, private dataEntryHttp: DataEntryService,
-              private indicatorHttp: IndicatorService, private periodsHttp: PeriodsService, private http: HttpClient) {
+ indicators:Array<any>=[];
+ measuringUnit:Array<any>=[];
+ indicatorType:Array<any>=[];
+  constructor(private route: ActivatedRoute,private indicatorHttp: IndicatorService,private measuringHttp:MeasuringUnitService,
+              private dataTypeHttp:DatatypeService,private dialog:MatDialog) {
   }
 
   ngOnInit() {
@@ -29,37 +26,46 @@ export class DataEntryComponent implements OnInit {
       console.log(this.projectId);
     });
 
-      this.frequencyHttp.index()
-      .subscribe(data=>{
-        this.frequencies = data['data'];
-        this.changeFrequency(this.frequencies[0].id); //automatically finding frequencies when this component is initialized
-      });
-
-
-  }
-
-  changeFrequency(id) {
-    this.frequenciesWithIndicator.splice(0, this.frequenciesWithIndicator.length);
-    this.frequencyHttp.show(id)
+    this.indicatorHttp.index()
     .subscribe(data=>{
-      this.frequenciesWithIndicator=data['data'];
-      console.log(this.frequenciesWithIndicator);
-    });
+      this.indicators=data['data'];
+    })
+    this.measuringHttp.index()
+    .subscribe(data=>{
+      this.measuringUnit=data['data'];
+    })
+    this.dataTypeHttp.index()
+    .subscribe(data=>{
+      this.indicatorType=data['data'];
+    })
     
   }
 
-  getQuarter(d, f) {
-    var date = new Date(d);
-    var month = date.getMonth() + 1;
-    if (month < 4) {
-      return 'Q1 ' + date.getFullYear();
-    } else if (month > 3 && month < 7) {
-      return 'Q2 ' + date.getFullYear();
-    } else if (month > 6 && month < 10) {
-      return 'Q3 ' + date.getFullYear();
-    } else if (month > 9) {
-      return 'Q4 ' + date.getFullYear();
-    }
+  getYear(year){
+    var date=new Date(year);
+    return date.getFullYear();
   }
 
+  unit(id){
+    let units= this.measuringUnit.filter(item=>{
+      return item.id=id;
+    });
+    return units[0]['name'];
+  }
+  type(id){
+    let types=this.indicatorType.filter(item=>{
+      return item.id=id;
+    });
+    return types[0]['name'];
+  }
+
+  showDialog(indicator){
+    const dialogConf=new MatDialogConfig();
+    dialogConf.data={
+      'indicator':indicator
+    }
+    dialogConf.width="70%"
+    dialogConf.height="90%"
+    this.dialog.open(DataEntryDialogComponent,dialogConf);
+  }
 }

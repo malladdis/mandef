@@ -19,6 +19,7 @@ import { IndicatorFormService } from '../services/indicator-form.service';
 import {
     IndicatorDisaggregationService
 } from '../../../data-entry/services/indicator-disaggregation.service';
+import { IndicatorFormFieldsService } from '../services/indicator-form-fields.service';
 
 @Component({
   selector: 'app-edit-indicator-dialog',
@@ -56,12 +57,13 @@ export class EditIndicatorDialogComponent implements OnInit {
 
   private disaggregationId:number;
    calculationMethodId:number;
-
+   selectedField:Array<string>=[];
+   count:number=0;
+   updateForm:boolean=false;
   constructor(@Inject(MAT_DIALOG_DATA) public data: string,private dialogRef:MatDialogRef<EditIndicatorDialogComponent>,
               private indicatorHttp:IndicatorService,private builder:FormBuilder,private projectServie:ProjectService,private formHttp:CustomFormsService,
-              private customFormHttp:CustomFormsService,private disaggregationHttp:DisaggreagtionService,private calculationHttp:CalculationMethodService,
-              private formFieldsHttp:FormColumnsService,private indicatorCalculationMethodHttp:IndicatorCalculationMethodService,private indicatorFormHttp:IndicatorFormService,
-              private indicatorDisaggregationHttp:IndicatorDisaggregationService) { }
+              private customFormHttp:CustomFormsService,private calculationHttp:CalculationMethodService,private indicatorFieldsHttp:IndicatorFormFieldsService,
+              private formFieldsHttp:FormColumnsService,private indicatorFormHttp:IndicatorFormService) { }
 
   ngOnInit() {
     this.editForm=this.builder.group({
@@ -73,12 +75,9 @@ export class EditIndicatorDialogComponent implements OnInit {
       measuringUnit:[''],
       frequency:[''],
       source:[''],
-      disaggregation:[],
       customForm:[''],
-      customFormcalculationMethod:[''],
-      customFormValueField:[''],
-      indicatorCalcualtionMethod:[''],
-      calculationMethod:['']
+      calculationMethod:[],
+      fields:[]
     })
 
     //checking if this indicator is connected with Custom forms
@@ -86,10 +85,14 @@ export class EditIndicatorDialogComponent implements OnInit {
     .subscribe(data=>{
       if(data['data'].length>0){
           this.indicatorFormData=data['data'];
-          this.formHttp.show(this.indicatorFormData[0]['form_id'])
+          if(this.indicatorFormData.length>0){
+            this.isConnected=true;
+            this.formHttp.show(this.indicatorFormData[0]['form_id'])
           .subscribe(data=>{
             this.customForm=data['data'][0];
           })
+          }
+          
       }
     })
     //end of checking if this indicator is connected with Custom forms
@@ -99,37 +102,9 @@ export class EditIndicatorDialogComponent implements OnInit {
     .subscribe(data=>{
       
       this.indicator=data['data'][0];
-      console.log(this.indicator);
       this.selectedDataType=this.indicator['type'];
       this.selectedMeasuringUnit=this.indicator['unit'];
       this.selectedFrequency=this.indicator['frequency'];
-
-      //checking if calculation method is set for this indicator
-      if(this.indicator['calculation_method']!=null){
-        this.indicatorCalculationMethodIsset=true;
-        this.editForm.get('indicatorCalcualtionMethod').setValue(this.indicator['calculation_method']['calculation_method_id']);
-        this.calculationHttp.show(this.indicator['calculation_method']['calculation_method_id'])
-        .subscribe(data=>{
-          this.selectedindicatorCalculationMethod=data['data'];
-        })
-      }
-      //end of checking calcualtion method of this indicator
-
-      //checking if disaggregation is set for this indicator
-      if(this.indicator['disaggregations']!=null){
-        this.indicatorDisaggregationIsSet=true;
-        this.editForm.get('disaggregation').setValue(this.indicator['disaggregations']['disaggregation_method_id']);
-        this.isChecked=true;
-        this.disaggregationHttp.show(this.indicator['disaggregations']['disaggregation_method_id'])
-        .subscribe(data=>{
-          this.selectedIndicatorDisaggregations=data['data'];
-        });
-       } 
-       //end of checking disaggregation of this indicator
-
-
-      
-
     }); 
     //end of indicator details editing
 
@@ -160,13 +135,6 @@ export class EditIndicatorDialogComponent implements OnInit {
 
   }
 
-  typeSelected(type){
-
-  }
-
-  customFormDissagregationMethod(fields){
-    console.log(fields);
-  }
 
   showCustoForms(event){
     this.isCustomFormChecked=true;
@@ -177,99 +145,73 @@ export class EditIndicatorDialogComponent implements OnInit {
      });
      //end of finding custom forms
 
-     //checking if this indicator is connected with custom forms
-     this.indicatorFormHttp.show(this.data['indicator_id'])
-     .subscribe(data=>{
-       if(data['data'].length>0){
-         this.isConnected=true;
-        this.editForm.get('customForm').setValue(data['data'][0]['form_id']);
-       }
-     });
-     //end of checking if this indicator is connected with custom forms
+    
 
   }
 
   customFormSelected(form){
-    this.columnName.splice(0,this.columnName.length);
-    this.customFormName=form.title;
-   this.formFieldsHttp.show(form.id)
-   .subscribe(data=>{
-    this.myColumn=data['data'];
-    this.columnName= this.myColumn[0].columns.split(',');
+    for(let i=0;this.columnName.length;i++){
+      this.columnName.splice(i,this.columnName.length);
+    }
+   this.columnName= form.columns['columns'].split(',');
+  }
 
-   })
+  fieldsSelected(name){
+   this.selectedField.push(name);
   }
 
   save(){
     this.loading=true;
-       if(this.indicatorCalculationMethodIsset){
-        this.updateIndicatorDisaggregationMethod();
-       }else{
-         this.storeIndicatorCalculationMethod();
-       }
-
-       if(this.indicatorDisaggregationIsSet){
-         this.updateIndicatorDisaggregationMethod();
-       }else{
-         this.storeIndicatorDisaggregationMethod();
-       }
-       
-       if(this.isCustomFormChecked){
-         if(this.indicatorFormData.length>0){
-           this.updateIndicatorForm();
-         }else if(!this.isConnected&&this.customForm.length>0){
-           this.storeIndicatorForm();
-         }else{
-           this.storeIndicatorForm();
-         }
-       }
-  }
-
-  storeIndicatorCalculationMethod(){
-    this.indicatorCalculationMethodHttp.store(this.data['indicator_id'],this.editForm.get('indicatorCalcualtionMethod').value)
-    .subscribe(data=>{
-      console.log(data);
-    })
-  }
-  updateIndicatorCalculationMethod(){
-    this.indicatorCalculationMethodHttp.update(this.data['indicator_id'],this.editForm.get('indicatorCalcualtionMethod').value)
-    .subscribe(data=>{
-      console.log(data);
-    })  
-  }
-
-  storeIndicatorDisaggregationMethod(){
-    this.indicatorDisaggregationHttp.store(this.data['indicator_id'],this.editForm.get('disaggregation').value)
-    .subscribe(data=>{
-      console.log(data);
-    })
-  }
-  updateIndicatorDisaggregationMethod(){
-    this.indicatorDisaggregationHttp.update(this.data['indicator_id'],this.editForm.get('disaggregation').value)
-    .subscribe(data=>{
-      console.log(data);
-    })
-  }
-
-  storeIndicatorForm(){
-    this.indicatorFormHttp.store(this.data['indicator_id'],this.editForm.get('customForm').value)
+        if(this.updateForm){
+          this.indicatorFormHttp.update(this.data['indicator_id'],this.editForm.get('customForm').value,this.editForm.get('calculationMethod').value)
         .subscribe(data=>{
-          if(data['data']){
+          setTimeout(() => {
             this.dialogRef.close();
-          }
-        });
-  }
-
-  updateIndicatorForm(){
-    this.indicatorFormHttp.update(this.data['indicator_id'],this.editForm.get('customForm').value)
+            this.loading=false;
+          }, 1000);
+         /*  for(let i=0;i<this.selectedField.length;i++){
+            this.indicatorFieldsHttp.update(data['data']['id'],this.selectedField[i])
+            .subscribe(data=>{
+             if(data){
+               this.count++;
+             }
+             if(this.count==this.selectedField.length){
+              setTimeout(() => {
+                this.dialogRef.close();
+                this.loading=false;
+                this.loading=false;
+              }, 1000);
+            }
+          })
+          
+          } */
+        }); 
+        }else{
+          this.indicatorFormHttp.store(this.data['indicator_id'],this.editForm.get('customForm').value,this.editForm.get('calculationMethod').value)
         .subscribe(data=>{
-          if(data['data']){
-            this.dialogRef.close();
+          for(let i=0;i<this.selectedField.length;i++){
+            this.indicatorFieldsHttp.store(data['data']['id'],this.selectedField[i])
+            .subscribe(data=>{
+             if(data){
+               this.count++;
+             }
+             if(this.count==this.selectedField.length){
+              setTimeout(() => {
+                this.dialogRef.close();
+                this.loading=false;
+                this.loading=false;
+              }, 1000);
+            }
+          })
+          
           }
-        });
-  }
-  closeDialog(){
-    this.dialogRef.close();
-  }
+        }); 
+        }
 
+      }
+
+      edit(){
+        this.isConnected=false;
+        this.updateForm=true;
+      }
 }

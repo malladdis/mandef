@@ -3,27 +3,43 @@
       <mat-toolbar>
           <h1 class="mat-headline center-align">List of indicators</h1>
         <span class="example-fill-remaining-space "></span>
-        <button mat-button routerLinkActive="mat-accent" *ngFor="let f of frequencies" (click)="changeFrequency(f.id)">
-          {{f.name}}
-      </button>
       </mat-toolbar>
+      <table class="table" >
+        <colgroup>
+        <col>
+        <col>
+        <col span="2" style="background-color:#E3E9D7;width: 8%;">
+        <col  style="background-color:burlywood;">
+        <col style="background-color:darkseagreen;">
+        <col style="background-color:lightslategray;width:10%;">
+        <col>
+        </colgroup>
+          <tr>
+            <th rowspan="2">Id</th>
+            <th rowspan="2">Indicators</th>
+            <th colspan="2">Baseline</th>
+            <th rowspan="2">Type</th>
+            <th rowspan="2">Measuring unit</th>
+            <th rowspan="2" style="color:white;">Target Value</th>
+            <th rowspan="2">Data entry</th>
+          </tr>
+          <tr>
+            <th >Date</th>
+            <th >Value</th>
+          </tr>
+          <tbody>
+        <tr *ngFor="let indi of indicators">
+            <td>{{indi.id}}</td>
+            <td>{{indi.name}}</td>
+            <td>{{getYear(indi.created_at)}}</td>
+            <td>{{indi.baseline_value}}</td>
+            <td>{{type(indi.type_id)}}</td>
+            <td>{{unit(indi.measuring_unit_id)}}</td>
+            <td style="color:white">{{indi.target_value}}</td>
+            <td><button mat-button (click)="showDialog(indi)"><mat-icon>cloud_upload</mat-icon></button></td>
+        </tr>
+          </tbody>
+        </table>
       
-      <div *ngFor="let frindicator of frequenciesWithIndicator">
-          <div [ngSwitch]="frindicator.name">
-              <div *ngSwitchCase="'Monthly'">
-                <app-monthly [indicator]="frindicator.indicator"></app-monthly>
-              </div>
-             <div *ngSwitchCase="'Biannual'">
-                <app-biannual-table [indicator]="frindicator.indicator" ></app-biannual-table>
-             </div>
-             <div *ngSwitchCase="'Quarterly'">
-                <app-quarter-table></app-quarter-table>
-             </div>
-             <div *ngSwitchCase="'Annual'">
-                <app-annual-table></app-annual-table>
-             </div>
-          </div>
-        </div>
-
     </div>
 </div>
