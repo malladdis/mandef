@@ -10,7 +10,8 @@ export const appRoutes: Routes = [{
     {path: 'pages', loadChildren: '../pages/pages.module#PagesModule'},
     {path: 'editor', loadChildren: '../editor/editor.module#EditorModule'},
     {path: 'custom-forms', loadChildren: '../custom-form/custom-form.module#CustomFormModule'},
-    {path: 'reports', loadChildren: '../reports/reports.module#ReportsModule'}
+    {path: 'reports', loadChildren: '../reports/reports.module#ReportsModule'},
+    {path:'surveys',loadChildren:'../survey/survey.module#SurveyModule'}
 
   ]
 }];

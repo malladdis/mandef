@@ -18,11 +18,7 @@ export class FormsDashboardComponent implements OnInit {
 
   openDialog() {
     const matDialogConf = new MatDialogConfig();
-    matDialogConf.position = {
-      'top': '0',
-      'right': '0'
-    };
-    matDialogConf.height = '100%';
+    matDialogConf.height = '50%';
     matDialogConf.width = '30%';
     this.dialog.open(DialogBodyComponent, matDialogConf);
   }

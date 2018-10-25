@@ -1,12 +1,12 @@
 <div fxFlex="100%">
-  <mat-toolbar><h2 mat-dialog-title>{{title}}</h2></mat-toolbar>
+  <mat-toolbar><h2 mat-dialog-title>Confirmation message</h2></mat-toolbar>
   <mat-dialog-content>
     <div fxLayout="column" fxLayoutAlign="center">
-      <h3 class="text-success">{{message}}</h3>
+      <h3 class="text-success">Are you sure you want to delete ?</h3>
     </div>
   </mat-dialog-content>
   <mat-dialog-actions>
-    <button mat-raised-button color="accent" (click)="close()">{{btnCancelText}}</button>
-    <button mat-raised-button color="primary" (click)="remove()">{{btnOkText}}</button>
+    <button mat-raised-button color="accent" (click)="close()">Cancel</button>
+    <button mat-raised-button color="primary" (click)="remove()">Yes</button>
   </mat-dialog-actions>
 </div>

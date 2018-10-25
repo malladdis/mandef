@@ -1,0 +1,6 @@
+<div fxLayout="column" style="margin-left: 25px;margin-top: 10px;" fxLayoutGap="10px">
+   <span style="font-size: 18px;color: #5c6bc0;">{{questionTitle}}</span>
+  <div fxLayoutGap="15px" fxLayout="column">
+    <mat-checkbox *ngFor="let item of data">{{item.value}}</mat-checkbox>
+  </div>
+</div>

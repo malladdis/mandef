@@ -1,0 +1,8 @@
+<div fxLayout="column" style="margin-left: 25px;margin-top: 10px;" fxLayoutGap="10px">
+  <span style="font-size: 18px;color: #5c6bc0;">{{questionTitle}}</span>
+  <mat-form-field style="width: 15%;">
+    <mat-select placeholder="Select">
+      <mat-option *ngFor="let item of data" [value]="item.value">{{item.value}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>

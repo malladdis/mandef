@@ -459,19 +459,35 @@ const createDataEntryDisaggregation = {
   destroy: createUrl('/data_entry_disaggregation')
 };
 
-const createIndicatorFields={
+const createIndicatorFields = {
   index: createUrl('/indicator_form_fields'),
   show: createUrl('/indicator_form_fields'),
   store: createUrl('/indicator_form_fields'),
   update: createUrl('/indicator_form_fields'),
   destroy: createUrl('/indicator_form_fields')
-}
+};
 const files = {
   index: createUrl('/files'),
   show: createUrl('/files'),
   store: createUrl('/files'),
   update: createUrl('/files'),
   destroy: createUrl('/files')
+};
+
+const CreatesurveyCategory = {
+  index: createUrl('/survey_category'),
+  show: createUrl('/survey_category'),
+  store: createUrl('/survey_category'),
+  update: createUrl('/survey_category'),
+  destroy: createUrl('/survey_category')
+};
+
+const createSurvey = {
+  index: createUrl('/surveys'),
+  show: createUrl('/surveys'),
+  store: createUrl('/surveys'),
+  update: createUrl('/surveys'),
+  destroy: createUrl('/surveys')
 };
 
 const userRoutes = {
@@ -550,8 +566,10 @@ export const apiRoutes = {
   monthly_expenditures: monthly_expenditures,
   files: files,
   milestones: milestones,
-  sharedForm:createSharedForm,
-  indicatorFields:createIndicatorFields
+  sharedForm: createSharedForm,
+  indicatorFields: createIndicatorFields,
+  surveyCategory: CreatesurveyCategory,
+  survyes: createSurvey
 };
 
 

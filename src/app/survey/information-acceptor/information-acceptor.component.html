@@ -1,0 +1,38 @@
+<!-- multiple choice, single choice and drop down -->
+<div fxLayout="column" fxLayoutGap="20px"  fxFlex="100%" *ngIf="type==='Multiple choice' || type==='Single choice' || type==='Drop down'">
+  <mat-form-field style="width: 100%;" *ngFor="let i of inputNumber">
+    <input type="text" (blur)="inputValue(i,$event.target.value)"  matInput placeholder="{{placeholder}}">
+  </mat-form-field>
+  <div fxLayoutAlign="end">
+    <span style="cursor: pointer;" (click)="addMore()"><mat-icon >add</mat-icon></span>
+  </div>
+  <div fxFlexAlign="end" fxLayoutGap="20px">
+    <button mat-raised-button color="accent" >Cancel</button>
+    <button mat-raised-button color="primary"(click)="saveQuestion()">Save</button>
+  </div>
+</div>
+<!-- end of multiple choice, single choice and drop down -->
+
+<!--- single textbox -->
+  <div fxLayout="column" fxLayoutGap="20px"  fxFlex="100%" *ngIf="type==='Single Textbox'">
+    <mat-form-field style="width: 100%;">
+      <input type="text" (blur)="inputValue(0,$event.target.value)"  matInput placeholder="say something about your questions">
+    </mat-form-field>
+    <div fxFlexAlign="end" fxLayoutGap="20px">
+      <button mat-raised-button color="accent" >Cancel</button>
+      <button mat-raised-button color="primary"(click)="saveQuestion()">Save</button>
+    </div>
+  </div>
+<!--- end of single textbox -->
+
+<!-- contact form started -->
+<div fxLayout="column" fxLayoutGap="20px"  fxFlex="100%" *ngIf="type==='Comment box'">
+  <mat-form-field style="width: 100%;">
+    <input type="text" (blur)="commentValue(0,$event.target.value)"  matInput placeholder="say something about your comment">
+  </mat-form-field>
+  <div fxFlexAlign="end" fxLayoutGap="20px">
+    <button mat-raised-button color="accent" >Cancel</button>
+    <button mat-raised-button color="primary"(click)="saveQuestion()">Save</button>
+  </div>
+</div>
+<!-- end of contact form -->

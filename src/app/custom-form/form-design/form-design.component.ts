@@ -14,9 +14,9 @@ import {ElementRef} from '@angular/core';
 import {BrowserDomAdapter} from '@angular/platform-browser/src/browser/browser_adapter';
 import $ from 'jquery';
 import {Forms} from '../../models/forms';
-import { CustomformErrorComponent } from '../customform-error/customform-error.component';
-import { MatDialogConfig } from '@angular/material';
-import { MatDialog } from '@angular/material';
+import {CustomformErrorComponent} from '../customform-error/customform-error.component';
+import {MatDialogConfig} from '@angular/material';
+import {MatDialog} from '@angular/material';
 
 @Component({
   selector: 'app-form-design',
@@ -28,17 +28,17 @@ export class FormDesignComponent implements OnInit, OnDestroy, AfterViewInit {
   title: string;
   id: number;
   mesage: string = '<p class="fa fa-font"><h3>Text</h3></p>';
-  
+
   sub: any;
   sections: Array<FormSections> = [];
   columnName: Array<any> = [];
   generatedHtml: string;
   status: boolean = false;
   forms: Array<Forms> = [];
-  loading:boolean=false;
+  loading: boolean = false;
 
   constructor(private route: ActivatedRoute, private http: CustomFormsService, private sectionsHttp: FormSectionsService, private element: ElementRef,
-              private formColumnApi: FormColumnsService, private generatedFormApi: GeneratedFormService, private router: Router,private dialog:MatDialog) {
+              private formColumnApi: FormColumnsService, private generatedFormApi: GeneratedFormService, private router: Router, private dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -64,8 +64,8 @@ export class FormDesignComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngAfterViewInit() {
     //jquery starts here
-    $(document).ready(()=> {
-      
+    $(document).ready(() => {
+
       $(document).find('#dragCopy').css('border', '1px solid gray');//start adding border for dragcopy element after document loaded
 
       //handling hover effect for each elements
@@ -90,7 +90,7 @@ export class FormDesignComponent implements OnInit, OnDestroy, AfterViewInit {
 
         e.originalEvent.dataTransfer.setData('Text', $(this).attr('data'));
       });
-      
+
       $(document).on('click', 'div>label.editable', function () {
         var $lbl = $(this), o = $lbl.text(),
           $txt = $('<input style="width:70%;padding:10px;" type="text" class="editable-label-text" value="' + o + '" />').css('font-size', '20px').css('padding', '10px');
@@ -135,7 +135,7 @@ export class FormDesignComponent implements OnInit, OnDestroy, AfterViewInit {
               $lbl.text(no);
               $(this).parent().find('input').attr('formControlName', no.replace(/ /g, ''));
               $(this).parent().find('input').attr('placeholder', no);
-              $(this).parent().find('input').attr('name',no);
+              $(this).parent().find('input').attr('name', no);
               $(document).find('#hiden-file-label').text(no);
               $txt.replaceWith($lbl);
             }
@@ -144,10 +144,7 @@ export class FormDesignComponent implements OnInit, OnDestroy, AfterViewInit {
       //end of handling custom inputs
 
 
-
-
-
-   //message drager startes here
+      //message drager startes here
       $('#message-drager').bind('dragstart', function (e) {
         e.originalEvent.dataTransfer.effectAllowed = 'copy';
 
@@ -156,7 +153,7 @@ export class FormDesignComponent implements OnInit, OnDestroy, AfterViewInit {
 
 
       $(document).on('click', 'div>label.message-editable', function () {
-        var $lbl = $(this), o = $lbl.text(),
+        let $lbl = $(this), o = $lbl.text(),
           $txt = $('<textarea type="text" rows="20" cols="40" class="editable-label-text" value="' + o + '" ></textarea>').css('font-size', '17px');
         $lbl
           .replaceWith($txt);
@@ -167,133 +164,133 @@ export class FormDesignComponent implements OnInit, OnDestroy, AfterViewInit {
         })
           .keydown(function (evt) {
             if (evt.keyCode == 13) {
-              var no = $(this).val();
+              let no = $(this).val();
               $lbl.text(no);
               $txt.replaceWith($lbl);
             }
           });
       });
-     //message drager ends here
+      //message drager ends here
 
       //link started here
-        $('#link-drager').bind('dragstart', function (e) {
-          e.originalEvent.dataTransfer.effectAllowed = 'copy';
+      $('#link-drager').bind('dragstart', function (e) {
+        e.originalEvent.dataTransfer.effectAllowed = 'copy';
 
-          e.originalEvent.dataTransfer.setData('Text', $(this).attr('data'));
-        });
-        $(document).on('click', 'div>label.link-editable', function () {
-          var $lbl = $(this), o = $lbl.text(),
-            $txt = $('<input style="width:70%;padding:10px;" type="text"  class="editable-label-text" value="' + o + '">').css('font-size', '17px');
-          $lbl
-            .replaceWith($txt);
-          $txt.focus();
+        e.originalEvent.dataTransfer.setData('Text', $(this).attr('data'));
+      });
+      $(document).on('click', 'div>label.link-editable', function () {
+        var $lbl = $(this), o = $lbl.text(),
+          $txt = $('<input style="width:70%;padding:10px;" type="text"  class="editable-label-text" value="' + o + '">').css('font-size', '17px');
+        $lbl
+          .replaceWith($txt);
+        $txt.focus();
 
-          $txt.blur(function () {
-            $txt.replaceWith($lbl);
-          })
-            .keydown(function (evt) {
-              if (evt.keyCode == 13) {
-                let no = $(this).val();
-                let anchor=$('<a style="font-size:17px;" (click)="navigateLink('+no+')" target=_blank>'+no+'</a>');
-                $lbl.text(no);
-                $txt.replaceWith(anchor);
-              }
-            });
-        });
+        $txt.blur(function () {
+          $txt.replaceWith($lbl);
+        })
+          .keydown(function (evt) {
+            if (evt.keyCode == 13) {
+              let no = $(this).val();
+              let anchor = $('<a style="font-size:17px;" (click)="navigateLink(' + no + ')" target=_blank>' + no + '</a>');
+              $lbl.text(no);
+              $txt.replaceWith(anchor);
+            }
+          });
+      });
 
       //end of link address
 
-    //drop down menu stared here
-        $('#dropDown-drager').bind('dragstart', function (e) {
-          e.originalEvent.dataTransfer.effectAllowed = 'copy';
-          e.originalEvent.dataTransfer.setData('Text', $(this).attr('data'));
-        });
-        $(document).on('click', '#addDropDownOption', function () {
-
-          let $lbl = $(this), o = $lbl.text(),
-            $txt = $('<input style="width:70%;padding:10px;" type="text"  class="editable-label-text" value="' + o + '" ></textarea>').css('font-size', '17px');
-          $lbl
-            .replaceWith($txt);
-          $txt.focus();
-
-          $txt.blur(function () {
-            $txt.replaceWith($lbl);
-          })
-            .keydown(function (evt) {
-              if (evt.keyCode == 13) {
-                var no = $(this).val();
-                $(document).find('#dropDown').append('<option>' + no + '</option>');
-                $txt.replaceWith($lbl);
-              }
-            });
-        });
-
-        $(document).on('click', '#select-label', function () {
-          var $lbl = $(this), o = $lbl.text(),
-            $txt = $('<input style="width:70%;padding:10px;" class="editable-label-text" value="' + o + '" ></textarea>').css('font-size', '17px');
-          $lbl
-            .replaceWith($txt);
-          $txt.focus();
-
-          $txt.blur(function () {
-            $txt.replaceWith($lbl);
-          })
-            .keydown(function (evt) {
-              if (evt.keyCode == 13) {
-                var no = $(this).val();
-                $(this).parent().find('#dropDown').append($('<option>', {
-                  value: 1,
-                  text: 'select ' + no
-                })).attr('name', no).attr('formControlName', no.replace(/ /g, ''));
-                $lbl.text(no);
-                $txt.replaceWith($lbl);
-              }
-            });
-        });
-
-        $(document).on('mouseenter', '#dropHolder', function () {
-          $(this).css('border', '1px solid gray');
-          $(this).find('p').css('display', 'block');
-        });
-
-        $(document).on('mouseleave', '#dropHolder', function () {
-          $(this).css('border', 'none');
-          $(this).find('#dropDown-editor').css('display', 'none');
-        });
-        $(document).on('click', '#dropHolder>p>span.remove', function () {
-          $(this).parent().parent().remove();
-        });
-    //end of drop down menu
-
-  //handling textarea started here
-  $('#textarea-drager').bind('dragstart', function (e) {
-
-    e.originalEvent.dataTransfer.effectAllowed = 'copy';
-    e.originalEvent.dataTransfer.setData('Text', $(this).attr('data'));
-
-  });
-  $(document).on('click', '#holder>div>label#textarea-label', function () {
-    let $lbl = $(this), o = $lbl.text(),
-      $txt = $('<input style="width:70%;padding:10px;" type="text"  class="editable-label-text" value="' + o + '" />').css('font-size', '17px');
-    $lbl
-      .replaceWith($txt);
-    $txt.focus();
-
-    $txt.blur(function () {
-      $txt.replaceWith($lbl);
-    })
-      .keydown(function (evt) {
-        if (evt.keyCode == 13) {
-          let no = $(this).val();
-          $lbl.text(no);
-          $(this).parent().find('textarea').attr('formControlName', no.replace(/ /g, ''));
-          $(this).parent().find('textarea').attr('name',no);
-          $(this).parent().find('textarea').attr('placeholder',no)
-          $txt.replaceWith($lbl);
-        }
+      //drop down menu stared here
+      $('#dropDown-drager').bind('dragstart', function (e) {
+        e.originalEvent.dataTransfer.effectAllowed = 'copy';
+        e.originalEvent.dataTransfer.setData('Text', $(this).attr('data'));
       });
-  });
-  //end of handling textarea ends here
+      $(document).on('click', '#addDropDownOption', function () {
+
+        let $lbl = $(this), o = $lbl.text(),
+          $txt = $('<input style="width:70%;padding:10px;" type="text"  class="editable-label-text" value="' + o + '" ></textarea>').css('font-size', '17px');
+        $lbl
+          .replaceWith($txt);
+        $txt.focus();
+
+        $txt.blur(function () {
+          $txt.replaceWith($lbl);
+        })
+          .keydown(function (evt) {
+            if (evt.keyCode == 13) {
+              var no = $(this).val();
+              $(document).find('#dropDown').append('<option>' + no + '</option>');
+              $txt.replaceWith($lbl);
+            }
+          });
+      });
+
+      $(document).on('click', '#select-label', function () {
+        var $lbl = $(this), o = $lbl.text(),
+          $txt = $('<input style="width:70%;padding:10px;" class="editable-label-text" value="' + o + '" ></textarea>').css('font-size', '17px');
+        $lbl
+          .replaceWith($txt);
+        $txt.focus();
+
+        $txt.blur(function () {
+          $txt.replaceWith($lbl);
+        })
+          .keydown(function (evt) {
+            if (evt.keyCode == 13) {
+              var no = $(this).val();
+              $(this).parent().find('#dropDown').append($('<option>', {
+                value: 1,
+                text: 'select ' + no
+              })).attr('name', no).attr('formControlName', no.replace(/ /g, ''));
+              $lbl.text(no);
+              $txt.replaceWith($lbl);
+            }
+          });
+      });
+
+      $(document).on('mouseenter', '#dropHolder', function () {
+        $(this).css('border', '1px solid gray');
+        $(this).find('p').css('display', 'block');
+      });
+
+      $(document).on('mouseleave', '#dropHolder', function () {
+        $(this).css('border', 'none');
+        $(this).find('#dropDown-editor').css('display', 'none');
+      });
+      $(document).on('click', '#dropHolder>p>span.remove', function () {
+        $(this).parent().parent().remove();
+      });
+      //end of drop down menu
+
+      //handling textarea started here
+      $('#textarea-drager').bind('dragstart', function (e) {
+
+        e.originalEvent.dataTransfer.effectAllowed = 'copy';
+        e.originalEvent.dataTransfer.setData('Text', $(this).attr('data'));
+
+      });
+      $(document).on('click', '#holder>div>label#textarea-label', function () {
+        let $lbl = $(this), o = $lbl.text(),
+          $txt = $('<input style="width:70%;padding:10px;" type="text"  class="editable-label-text" value="' + o + '" />').css('font-size', '17px');
+        $lbl
+          .replaceWith($txt);
+        $txt.focus();
+
+        $txt.blur(function () {
+          $txt.replaceWith($lbl);
+        })
+          .keydown(function (evt) {
+            if (evt.keyCode == 13) {
+              let no = $(this).val();
+              $lbl.text(no);
+              $(this).parent().find('textarea').attr('formControlName', no.replace(/ /g, ''));
+              $(this).parent().find('textarea').attr('name', no);
+              $(this).parent().find('textarea').attr('placeholder', no);
+              $txt.replaceWith($lbl);
+            }
+          });
+      });
+      //end of handling textarea ends here
 
 //handling file started
       $('#file-drager').bind('dragstart', function (e) {
@@ -330,8 +327,8 @@ export class FormDesignComponent implements OnInit, OnDestroy, AfterViewInit {
               let no = $(this).val();
               $lbl.text(no);
               $(this).parent().find('input').attr('formControlName', no.replace(/ /g, ''));
-              $(document).find("#dragCopy").attr('file','true');
-              $(document).find("#dragCopy").attr('file-label',no);
+              $(document).find('#dragCopy').attr('file', 'true');
+              $(document).find('#dragCopy').attr('file-label', no);
               $(document).find('#hiden-file-label').text(no);
               $txt.replaceWith($lbl);
             }
@@ -339,51 +336,50 @@ export class FormDesignComponent implements OnInit, OnDestroy, AfterViewInit {
       });
 //end of file handling
 
-  //location handling started
-  $('#location-drager').bind('dragstart', function (e) {
+      //location handling started
+      $('#location-drager').bind('dragstart', function (e) {
 
-    e.originalEvent.dataTransfer.effectAllowed = 'copy';
-    e.originalEvent.dataTransfer.setData('Text', $(this).attr('data'));
+        e.originalEvent.dataTransfer.effectAllowed = 'copy';
+        e.originalEvent.dataTransfer.setData('Text', $(this).attr('data'));
 
-  });
-
-  $(document).on('click', 'div>label.location-editable', function () {
-    var $lbl = $(this), o = $lbl.text(),
-      $txt = $('<input style="width:70%;padding:10px;" type="text"  class="editable-label-text" value="' + o + '"/>').css('font-size', '17px');
-    $lbl
-      .replaceWith($txt);
-    $txt.focus();
-
-    $txt.blur(function () {
-      $txt.replaceWith($lbl);
-    })
-      .keydown(function (evt) {
-        if (evt.keyCode == 13) {
-          var no = $(this).val();
-          $lbl.text(no);
-          $(document).find("#dragCopy").attr('location','true');
-          $(document).find("#dragCopy").attr('location-label',no);
-          $txt.replaceWith($lbl);
-        }
       });
-  });
-  //end of location handling
 
+      $(document).on('click', 'div>label.location-editable', function () {
+        var $lbl = $(this), o = $lbl.text(),
+          $txt = $('<input style="width:70%;padding:10px;" type="text"  class="editable-label-text" value="' + o + '"/>').css('font-size', '17px');
+        $lbl
+          .replaceWith($txt);
+        $txt.focus();
 
-
-    //drop starts  here
-          $('#dragCopy').bind('drop', function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-            let elementType=e.originalEvent.dataTransfer.getData('Text');
-            if(elementType.indexOf("type='file'")>0){
-              $(document).find('#dragCopy>div.dragCopy-file').remove();
+        $txt.blur(function () {
+          $txt.replaceWith($lbl);
+        })
+          .keydown(function (evt) {
+            if (evt.keyCode == 13) {
+              var no = $(this).val();
+              $lbl.text(no);
+              $(document).find('#dragCopy').attr('location', 'true');
+              $(document).find('#dragCopy').attr('location-label', no);
+              $txt.replaceWith($lbl);
             }
-            $(this).append($(e.originalEvent.dataTransfer.getData('Text')));
-            $("#dragCopy").animate({ scrollTop: $(document).find('#dragCopy').height() }, "fast");
-            return false;
-          }).bind('dragover', false);
-    //drop ends here
+          });
+      });
+      //end of location handling
+
+
+      //drop starts  here
+      $('#dragCopy').bind('drop', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        let elementType = e.originalEvent.dataTransfer.getData('Text');
+        if (elementType.indexOf('type=\'file\'') > 0) {
+          $(document).find('#dragCopy>div.dragCopy-file').remove();
+        }
+        $(this).append($(e.originalEvent.dataTransfer.getData('Text')));
+        $('#dragCopy').animate({scrollTop: $(document).find('#dragCopy').height()}, 'fast');
+        return false;
+      }).bind('dragover', false);
+      //drop ends here
 
     });//end of jquery
   }
@@ -392,10 +388,10 @@ export class FormDesignComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   save() {
-    this.loading=true;
+    this.loading = true;
     $(document).ready(() => {
       var inputNumber = $(document).find('#dragCopy').find('input[type=text]').length;
-      if(inputNumber>0){
+      if (inputNumber > 0) {
         $(document).find('#dragCopy').unwrap();
         $(document).find('#addDropDownOption').remove();
         $(document).find('#dropDown-editor').remove();
@@ -403,7 +399,7 @@ export class FormDesignComponent implements OnInit, OnDestroy, AfterViewInit {
         $(document).find('#holder').css('border', 'none');
         $(document).find('#fileHolder').css('border', 'none');
         $(document).find('#hiden-file-label').css('display', 'block');
-        
+
         //finding each input type name for our column creation of form builder
         let json = [];
         $(document).find('#dragCopy>div>div#form-group').find('input[type=text],input[type=file],select,textarea').each(function () {
@@ -424,14 +420,14 @@ export class FormDesignComponent implements OnInit, OnDestroy, AfterViewInit {
               //saving table columns after saving generated form
               this.formColumnApi.store(this.id, this.columnName.toString())
                 .subscribe(data => {
-                  this.loading=false;
+                  this.loading = false;
                   this.router.navigate(['/auth/custom-forms/form-detail', this.id]);
                 });
               //end of saving generated form
             }
 
           });
-      }else{
+      } else {
 
         $(document).find('#dragCopy').unwrap();
         $(document).find('#addDropDownOption').remove();
@@ -460,7 +456,7 @@ export class FormDesignComponent implements OnInit, OnDestroy, AfterViewInit {
               //saving table columns after saving generated form
               this.formColumnApi.store(this.id, this.columnName.toString())
                 .subscribe(data => {
-                  this.loading=false;
+                  this.loading = false;
                   this.router.navigate(['/auth/custom-forms/form-detail', this.id]);
                 });
               //end of saving generated form
@@ -474,12 +470,12 @@ export class FormDesignComponent implements OnInit, OnDestroy, AfterViewInit {
     //end of finding columns
   }
 
-  showDialogse(){
+  showDialogse() {
     console.log('Show dialog');
   }
 
-  fileSelected(event){
-    console.log("event");
+  fileSelected(event) {
+    console.log('event');
   }
 
 }

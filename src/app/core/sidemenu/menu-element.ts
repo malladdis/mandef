@@ -98,8 +98,22 @@ export const menus = [
      {
       'name': 'Survey',
       'open': false,
-      'link': '/auth/dashboard',
-      'icon': 'done',
+      'link': false,
+      'icon': 'data_usage',
+      'sub':[
+          {
+              'name':'Create new survey',
+              'icon':false,
+              'link':'/auth/surveys/new-survey',
+              'open':false
+          },
+          {
+              'name':'Show surveys',
+              'icon':false,
+              'link':'/auth/surveys/show-survey',
+              'open':false
+          }
+      ]
     },
     {
           'name': 'Data Entry',

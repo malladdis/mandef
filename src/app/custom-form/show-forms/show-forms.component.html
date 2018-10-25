@@ -7,7 +7,7 @@
         <mat-card-title [routerLink]="['/auth/custom-forms/form-detail',fm.id]">{{fm['title']}}</mat-card-title>
           <mat-card-footer>
             <mat-divider></mat-divider>
-            <div style="padding: 10px;text-align: right;">
+            <div fxLayout="row" fxLayoutGap="10px">
               <button mat-button (click)="openSharedUsersDialog(fm)"><mat-icon iconsmall>people</mat-icon> Shared Users</button>
               <button mat-button (click)="openShareDialog(fm)"><mat-icon iconsmall>share</mat-icon> Share</button>
                <button mat-button (click)="removeForm(fm,fm.id)"><mat-icon iconsmall>delete</mat-icon> Remove</button>
