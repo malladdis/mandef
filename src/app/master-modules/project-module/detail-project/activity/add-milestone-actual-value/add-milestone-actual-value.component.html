@@ -1,0 +1,29 @@
+<mat-toolbar>
+  <h1 class="mat-headline center-align">Add New Milestone</h1>
+  <span style="width: 100%;"></span>
+  <button  mat-button mat-dialog-close class="close-button" style="float: right">
+    <mat-icon > close</mat-icon>
+  </button>
+</mat-toolbar>
+<div  fxLayout="column" >
+  <div fxFlexFill>
+    <form novalidate #addActualValue="ngForm" (ngSubmit)="submit(addActualValue)">
+      <p>
+        <mat-form-field class="full-width">
+          <mat-select name="milestone_id" ngModel placeholder="select milestone">
+            <mat-option *ngFor="let milestone of data['milestones']" [value]="milestone?.id">{{milestone?.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field class="full-width">
+          <input type="number" matInput placeholder="Actual Value" name="value" ngModel>
+        </mat-form-field>
+      </p>
+      <button mat-raised-button color="primary" type="submit" mat-button class="background-primary text-floral-white" [disabled]="addActualValue.form.invalid">
+        <mat-icon iconsmall>save</mat-icon>
+        Save
+      </button>
+    </form>
+  </div>
+</div>

@@ -6,7 +6,7 @@ import {TokenService} from '../../../../../services/token.service';
 import {Location} from '@angular/common';
 import {MatDialog} from '@angular/material';
 import {AddMilestoneComponent} from '../work-plan/add-milestone/add-milestone.component';
-import {forEach} from '@angular/router/src/utils/collection';
+import {AddMilestoneActualValueComponent} from '../add-milestone-actual-value/add-milestone-actual-value.component';
 @Component({
   selector: 'app-activity-detail',
   templateUrl: './activity-detail.component.html',
@@ -17,7 +17,7 @@ export class ActivityDetailComponent implements OnInit {
   activity_id: number;
   activity: Array<Object>;
   uploadURL;
-  columns = ['No', 'Name', 'Tag', 'Date', 'User', ' '];
+  actualColumns = ['Planned Date', 'Target', 'Completion', 'Actual Value'];
   files: Array<Object>;
   plans;
   constructor(private route: ActivatedRoute,
@@ -47,13 +47,13 @@ export class ActivityDetailComponent implements OnInit {
     input.click();
   }
   downloadFile(path) {
-    // location.replace((`${API_URL_File}${path}`));
-    // location.replace();
-    // console.log(`${API_URL_File}${path}`);
     window.open(`${API_URL_File}${path}`, '_blank');
   }
   opendAddMilestoneDialog() {
     this.matdialog.open(AddMilestoneComponent, {data: {'activity_id': this.activity_id}, disableClose: true});
+  }
+  opendAddMiletorneActualValueDialog() {
+    this.matdialog.open(AddMilestoneActualValueComponent, {data: {'milestones': this.activity['milestones']}, disableClose: true});
   }
   generateDataForWorkPlan(activity) {
     const plan = {

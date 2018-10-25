@@ -490,6 +490,16 @@ const createSurvey = {
   destroy: createUrl('/surveys')
 };
 
+
+const milestone_actual_values = {
+  index: createUrl('/milestone_actual_values'),
+  show: createUrl('/milestone_actual_values'),
+  store: createUrl('/milestone_actual_values'),
+  update: createUrl('/milestone_actual_values'),
+  destroy: createUrl('/milestone_actual_values')
+};
+
+
 const userRoutes = {
   me: createAuthUrl('/me'),
   users: createAuthUrl('/users')
@@ -569,7 +579,8 @@ export const apiRoutes = {
   sharedForm: createSharedForm,
   indicatorFields: createIndicatorFields,
   surveyCategory: CreatesurveyCategory,
-  survyes: createSurvey
+  survyes: createSurvey,
+  milestone_actual_values: milestone_actual_values,
 };
 
 

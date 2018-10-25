@@ -22,43 +22,18 @@ export class ProjectComponent implements OnInit {
   }
 
   toggle(value) {
-    if (value.featured) {
-      value.featured = false;
-      const data = JSON.stringify({
-        id: value.id,
-        program_id: value.program_id,
-        project_category_id: value.project_category_id,
-        name: value.name,
-        description: value.description,
-        featured: value.featured,
-        status_id: value.status_id,
-        created_at: value.created_at,
-        updated_at: value.created_at,
-        deleted_at: value.deleted_at
-      });
-      this.projectservice.update(value.id, data).subscribe(data => {
-        console.log(data);
-      });
-      console.log(value);
-    }
-    else {
-      value.featured = true;
-      const data = JSON.stringify({
-        id: value.id,
-        program_id: value.program_id,
-        project_category_id: value.project_category_id,
-        name: value.name,
-        description: value.description,
-        featured: value.featured,
-        status_id: value.status_id,
-        created_at: value.created_at,
-        updated_at: value.created_at,
-        deleted_at: value.deleted_at
-      });
-      this.projectservice.update(value.id, JSON.stringify(value)).subscribe(data => {
-        console.log(data);
-      });
-    }
+    value.featured = !value.featured;
+    const data = JSON.stringify({
+      id: value.id,
+      program_id: value.program.id,
+      project_category_id: value.category.id,
+      name: value.name,
+      description: value.description,
+      featured: !value.featured,
+      status_id: value.status.id
+    });
+    console.log(value);
+    this.projectservice.update(value.id, JSON.stringify(data)).subscribe(res => console.log(res));
   }
 
   detail(id) {
